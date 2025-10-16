@@ -3,7 +3,6 @@
 
 Modern landing page built with Vite, React 18, and TypeScript, styled with Tailwind and powered by accessible Radix UI primitives. Clean structure, fast DX, and easy to extend.
 
-Figma reference: https://www.figma.com/design/2xiL4lHUsHDIMp5fY1DKnk/Create-Hackathon-Landing-Page
 
 ## Tech Stack
 
