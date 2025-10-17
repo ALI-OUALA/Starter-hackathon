@@ -4,7 +4,7 @@
 Welcome! This is the official website for the Starter Hackathon. It’s a simple, fast, and mobile‑friendly place to learn what the event is about and how to take part.
 
 Live Website
-- Visit: https://YOUR-LIVE-SITE-URL
+- Visit: https://starter-hackathon.vercel.app/
 
 What You’ll Find
 - Event overview: what the hackathon is, who it’s for, and why join.
