@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useId } from "react";
 
 interface ElectricBorderProps {
   children: ReactNode;
@@ -11,8 +11,9 @@ export function ElectricBorder({
   className = "",
   color = "#8b5cf6" // purple-500 by default
 }: ElectricBorderProps) {
-  // Generate unique ID for each instance
-  const filterId = `turbulent-${Math.random().toString(36).substr(2, 9)}`;
+  // Generate unique ID for each instance using useId for stability across re-renders
+  // Replacing colons to ensure valid ID for CSS selectors/URL references
+  const filterId = `turbulent-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   
   return (
     <div className={`relative ${className}`}>
