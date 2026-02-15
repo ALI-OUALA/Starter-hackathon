@@ -13,8 +13,7 @@ export function ElectricBorder({
 }: ElectricBorderProps) {
   // Generate unique ID for each instance using useId for stability across re-renders
   // Replacing colons to ensure valid ID for CSS selectors/URL references
-  const id = useId();
-  const filterId = `turbulent-${id.replace(/:/g, "")}`;
+  const filterId = `turbulent-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
   
   return (
     <div className={`relative ${className}`}>
