@@ -6,7 +6,7 @@ def run():
         page = browser.new_page()
 
         # Navigate to the home page
-        page.goto("http://localhost:3000/")
+        page.goto(os.getenv("BASE_URL", "http://localhost:3000/"))
 
         # Wait for the blob to be visible (it's in the background, so maybe just wait a bit)
         page.wait_for_selector(".blur-3xl", state="visible")
