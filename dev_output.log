@@ -1,0 +1,10 @@
+
+> Create Hackathon Landing Page@0.1.0 dev
+> vite
+
+
+  VITE v6.3.5  ready in 234 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+9:28:35 PM [vite] (client) hmr update /src/components/AnimatedBlob.tsx
