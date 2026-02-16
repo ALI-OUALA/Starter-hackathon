@@ -9,7 +9,7 @@ def run():
         page.goto("http://localhost:3000/")
 
         # Wait for the blob to be visible (it's in the background, so maybe just wait a bit)
-        page.wait_for_timeout(2000)
+        page.wait_for_selector(".blur-3xl", state="visible")
 
         # Take a screenshot of the whole page
         page.screenshot(path="verification/blob_verification.png", full_page=True)
