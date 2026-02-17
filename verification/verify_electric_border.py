@@ -15,7 +15,7 @@ def verify_electric_border():
             features_heading = page.get_by_role("heading", name="Why Join STARTER?")
             features_heading.scroll_into_view_if_needed()
             # Wait a bit for animations to settle/start
-            page.wait_for_timeout(2000)
+            page.locator(".electric-border-container").first.wait_for(state="visible")
 
             # Take screenshot of the features area
             print("Taking screenshot...")
