@@ -3,8 +3,7 @@
 > vite
 
 
-  VITE v6.3.5  ready in 234 ms
+  VITE v6.3.5  ready in 258 ms
 
   ➜  Local:   http://localhost:3000/
   ➜  Network: use --host to expose
-9:28:35 PM [vite] (client) hmr update /src/components/AnimatedBlob.tsx

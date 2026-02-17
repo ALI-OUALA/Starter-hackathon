@@ -5,6 +5,7 @@ import { About } from "./components/About";
 import { Footer } from "./components/Footer";
 import { AnimatedBlob } from "./components/AnimatedBlob";
 import { GridPattern } from "./components/GridPattern";
+import { ElectricFilterDef } from "./components/ElectricFilterDef";
 
 // Lazy load heavy components
 const LearnMore = lazy(() => import("./components/LearnMore").then(module => ({ default: module.LearnMore })));
@@ -38,6 +39,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      {/* Global SVG filter definition */}
+      <ElectricFilterDef />
+
       {/* Animated background blob */}
       <AnimatedBlob />
       
