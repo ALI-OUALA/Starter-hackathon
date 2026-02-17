@@ -4,7 +4,7 @@ export const ELECTRIC_FILTER_ID = "shared-electric-filter";
 
 export const ElectricFilterDef = memo(function ElectricFilterDef() {
   return (
-    <svg className="absolute w-0 h-0" style={{ position: "fixed", pointerEvents: "none" }}>
+    <svg className="w-0 h-0" style={{ position: "fixed", pointerEvents: "none" }}>
       <defs>
         <filter
           id={ELECTRIC_FILTER_ID}
