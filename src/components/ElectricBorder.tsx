@@ -1,4 +1,5 @@
-import { ReactNode, useId } from "react";
+import { ReactNode } from "react";
+import { ELECTRIC_FILTER_ID } from "./ElectricFilterDef";
 
 interface ElectricBorderProps {
   children: ReactNode;
@@ -11,57 +12,10 @@ export function ElectricBorder({
   className = "",
   color = "#8b5cf6" // purple-500 by default
 }: ElectricBorderProps) {
-  // Generate unique ID for each instance using useId for stability across re-renders
-  // Replacing colons to ensure valid ID for CSS selectors/URL references
-  const filterId = `turbulent-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  // Uses global filter defined in ElectricFilterDef (rendered in App.tsx)
   
   return (
     <div className={`relative ${className}`}>
-      <svg className="absolute w-0 h-0">
-        <defs>
-          <filter 
-            id={filterId} 
-            colorInterpolationFilters="sRGB" 
-            x="-20%" 
-            y="-20%" 
-            width="140%" 
-            height="140%"
-          >
-            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise1" seed="1" />
-            <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
-              <animate attributeName="dy" values="700; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
-            </feOffset>
-
-            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise2" seed="1" />
-            <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
-              <animate attributeName="dy" values="0; -700" dur="6s" repeatCount="indefinite" calcMode="linear" />
-            </feOffset>
-
-            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise3" seed="2" />
-            <feOffset in="noise3" dx="0" dy="0" result="offsetNoise3">
-              <animate attributeName="dx" values="490; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
-            </feOffset>
-
-            <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="10" result="noise4" seed="2" />
-            <feOffset in="noise4" dx="0" dy="0" result="offsetNoise4">
-              <animate attributeName="dx" values="0; -490" dur="6s" repeatCount="indefinite" calcMode="linear" />
-            </feOffset>
-
-            <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
-            <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
-            <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
-
-            <feDisplacementMap 
-              in="SourceGraphic" 
-              in2="combinedNoise" 
-              scale="30" 
-              xChannelSelector="R" 
-              yChannelSelector="B" 
-            />
-          </filter>
-        </defs>
-      </svg>
-
       <div 
         className="electric-border-container relative p-0.5 rounded-2xl"
         style={{
@@ -79,7 +33,7 @@ export function ElectricBorder({
               className="electric-main-border w-full h-full rounded-2xl border-2 -mt-1 -ml-1"
               style={{
                 borderColor: color,
-                filter: `url(#${filterId})`,
+                filter: `url(#${ELECTRIC_FILTER_ID})`,
               }}
             />
           </div>
