@@ -80,7 +80,8 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <ElectricBorder color="#8b5cf6">
+            {/* Main wrapper uses default variant */}
+            <ElectricBorder>
               <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-8 md:p-12 rounded-2xl">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {/* Personal Information */}
@@ -93,7 +94,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="firstName" className="text-purple-200">First Name *</Label>
-                        <ElectricBorder color="#8b5cf6">
+                        <ElectricBorder variant="minimal">
                           <Input
                             id="firstName"
                             required
@@ -107,7 +108,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
 
                       <div className="space-y-2">
                         <Label htmlFor="lastName" className="text-purple-200">Last Name *</Label>
-                        <ElectricBorder color="#8b5cf6">
+                        <ElectricBorder color="#8b5cf6" variant="minimal">
                           <Input
                             id="lastName"
                             required
@@ -125,7 +126,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                         <Mail className="w-4 h-4" />
                         Email Address *
                       </Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Input
                           id="email"
                           type="email"
@@ -148,7 +149,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
 
                     <div className="space-y-2">
                       <Label htmlFor="institution" className="text-purple-200">School/University or Company *</Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Input
                           id="institution"
                           required
@@ -165,7 +166,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                         <Code className="w-4 h-4" />
                         Experience Level *
                       </Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Select value={formData.experience} onValueChange={(value) => handleChange("experience", value)}>
                           <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
                             <SelectValue placeholder="Select your experience level" />
@@ -190,7 +191,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
 
                     <div className="space-y-2">
                       <Label htmlFor="track" className="text-purple-200">Preferred Track *</Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Select value={formData.track} onValueChange={(value) => handleChange("track", value)}>
                           <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
                             <SelectValue placeholder="Choose a track" />
@@ -212,7 +213,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                         <Users className="w-4 h-4" />
                         Team Preference *
                       </Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Select value={formData.teamSize} onValueChange={(value) => handleChange("teamSize", value)}>
                           <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
                             <SelectValue placeholder="Select team preference" />
@@ -228,7 +229,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
 
                     <div className="space-y-2">
                       <Label htmlFor="why" className="text-purple-200">Why do you want to join STARTER? *</Label>
-                      <ElectricBorder color="#8b5cf6">
+                      <ElectricBorder color="#8b5cf6" variant="minimal">
                         <Textarea
                           id="why"
                           required

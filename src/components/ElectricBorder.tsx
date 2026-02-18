@@ -5,12 +5,14 @@ interface ElectricBorderProps {
   children: ReactNode;
   className?: string;
   color?: string;
+  variant?: "default" | "minimal";
 }
 
 export function ElectricBorder({ 
   children, 
   className = "",
-  color = "#8b5cf6" // purple-500 by default
+  color = "#8b5cf6", // purple-500 by default
+  variant = "default"
 }: ElectricBorderProps) {
   // Uses global filter defined in ElectricFilterDef (rendered in App.tsx)
   
@@ -54,33 +56,37 @@ export function ElectricBorder({
             }}
           />
 
-          {/* Overlay effects */}
-          <div 
-            className="absolute inset-0 rounded-2xl opacity-100 mix-blend-overlay pointer-events-none"
-            style={{
-              transform: 'scale(1.1)',
-              filter: 'blur(16px)',
-              background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
-            }}
-          />
-          <div 
-            className="absolute inset-0 rounded-2xl opacity-50 mix-blend-overlay pointer-events-none"
-            style={{
-              transform: 'scale(1.1)',
-              filter: 'blur(16px)',
-              background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
-            }}
-          />
+          {/* Overlay effects - only for default variant */}
+          {variant === "default" && (
+            <>
+              <div
+                className="absolute inset-0 rounded-2xl opacity-100 mix-blend-overlay pointer-events-none"
+                style={{
+                  transform: 'scale(1.1)',
+                  filter: 'blur(16px)',
+                  background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-2xl opacity-50 mix-blend-overlay pointer-events-none"
+                style={{
+                  transform: 'scale(1.1)',
+                  filter: 'blur(16px)',
+                  background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
+                }}
+              />
 
-          {/* Background glow */}
-          <div 
-            className="absolute inset-0 rounded-2xl -z-10 opacity-30 pointer-events-none"
-            style={{
-              filter: 'blur(32px)',
-              transform: 'scale(1.1)',
-              background: `linear-gradient(-30deg, ${color}, transparent, ${color}cc)`,
-            }}
-          />
+              {/* Background glow */}
+              <div
+                className="absolute inset-0 rounded-2xl -z-10 opacity-30 pointer-events-none"
+                style={{
+                  filter: 'blur(32px)',
+                  transform: 'scale(1.1)',
+                  background: `linear-gradient(-30deg, ${color}, transparent, ${color}cc)`,
+                }}
+              />
+            </>
+          )}
         </div>
 
         {/* Content wrapper */}
