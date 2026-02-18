@@ -81,7 +81,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             {/* Main wrapper uses default variant */}
-            <ElectricBorder color="#8b5cf6">
+            <ElectricBorder>
               <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-8 md:p-12 rounded-2xl">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   {/* Personal Information */}
