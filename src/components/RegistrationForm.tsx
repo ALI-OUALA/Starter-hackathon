@@ -94,7 +94,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="firstName" className="text-purple-200">First Name *</Label>
-                        <ElectricBorder color="#8b5cf6" variant="minimal">
+                        <ElectricBorder variant="minimal">
                           <Input
                             id="firstName"
                             required
