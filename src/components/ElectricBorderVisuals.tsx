@@ -25,7 +25,7 @@ export const ElectricBorderVisuals = memo(function ElectricBorderVisuals({
           className="electric-main-border w-full h-full rounded-2xl border-2 -mt-1 -ml-1"
           style={{
             borderColor: color,
-            filter: `url(#${ELECTRIC_FILTER_ID})`,
+            filter: variant === "default" ? `url(#${ELECTRIC_FILTER_ID})` : "none",
           }}
         />
       </div>
