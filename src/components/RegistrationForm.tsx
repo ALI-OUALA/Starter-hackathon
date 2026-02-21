@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useCallback, memo, ReactNode } from "react";
 import { ArrowLeft, User, Mail, School, Code, Briefcase, Users, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -11,6 +11,42 @@ import { ElectricBorder } from "./ElectricBorder";
 interface RegistrationFormProps {
   onBack: () => void;
 }
+
+const emailLabel = (
+  <span className="flex items-center gap-2">
+    <Mail className="w-4 h-4" />
+    Email Address *
+  </span>
+);
+
+// ⚡ Bolt Optimization: Memoized input wrapper to prevent re-rendering all fields on every keystroke.
+interface TextInputFieldProps {
+  field: string;
+  label: string | ReactNode;
+  value: string;
+  onChange: (field: string, value: string) => void;
+  placeholder?: string;
+  type?: string;
+  required?: boolean;
+  color?: string;
+}
+
+const TextInputField = memo(({ field, label, value, onChange, placeholder, type = "text", required, color }: TextInputFieldProps) => (
+  <div className="space-y-2">
+    <Label htmlFor={field} className="text-purple-200">{label}</Label>
+    <ElectricBorder variant="minimal" color={color}>
+      <Input
+        id={field}
+        type={type}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(field, e.target.value)}
+        className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
+        placeholder={placeholder}
+      />
+    </ElectricBorder>
+  </div>
+));
 
 export function RegistrationForm({ onBack }: RegistrationFormProps) {
   const [formData, setFormData] = useState({
@@ -31,9 +67,11 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
     alert("Registration submitted! We'll be in touch soon.");
   };
 
-  const handleChange = (field: string, value: string) => {
+  // ⚡ Bolt Optimization: useCallback ensures this function reference is stable,
+  // allowing child components to skip re-renders.
+  const handleChange = useCallback((field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -92,52 +130,36 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName" className="text-purple-200">First Name *</Label>
-                        <ElectricBorder variant="minimal">
-                          <Input
-                            id="firstName"
-                            required
-                            value={formData.firstName}
-                            onChange={(e) => handleChange("firstName", e.target.value)}
-                            className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
-                            placeholder="John"
-                          />
-                        </ElectricBorder>
-                      </div>
+                      <TextInputField
+                        field="firstName"
+                        label="First Name *"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
+                        placeholder="John"
+                      />
 
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName" className="text-purple-200">Last Name *</Label>
-                        <ElectricBorder color="#8b5cf6" variant="minimal">
-                          <Input
-                            id="lastName"
-                            required
-                            value={formData.lastName}
-                            onChange={(e) => handleChange("lastName", e.target.value)}
-                            className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
-                            placeholder="Doe"
-                          />
-                        </ElectricBorder>
-                      </div>
+                      <TextInputField
+                        field="lastName"
+                        label="Last Name *"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                        placeholder="Doe"
+                        color="#8b5cf6"
+                      />
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-purple-200 flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Email Address *
-                      </Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Input
-                          id="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => handleChange("email", e.target.value)}
-                          className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
-                          placeholder="john.doe@example.com"
-                        />
-                      </ElectricBorder>
-                    </div>
+                    <TextInputField
+                      field="email"
+                      label={emailLabel}
+                      value={formData.email}
+                      onChange={handleChange}
+                      type="email"
+                      required
+                      placeholder="john.doe@example.com"
+                      color="#8b5cf6"
+                    />
                   </div>
 
                   {/* Academic/Professional Info */}
@@ -147,19 +169,15 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                       <h2 className="text-xl font-bold">Background</h2>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="institution" className="text-purple-200">School/University or Company *</Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Input
-                          id="institution"
-                          required
-                          value={formData.institution}
-                          onChange={(e) => handleChange("institution", e.target.value)}
-                          className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
-                          placeholder="Your institution"
-                        />
-                      </ElectricBorder>
-                    </div>
+                    <TextInputField
+                      field="institution"
+                      label="School/University or Company *"
+                      value={formData.institution}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your institution"
+                      color="#8b5cf6"
+                    />
 
                     <div className="space-y-2">
                       <Label htmlFor="experience" className="text-purple-200 flex items-center gap-2">
