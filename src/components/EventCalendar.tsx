@@ -277,7 +277,8 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
                     transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
                     whileHover={{ scale: 1.02, x: 10 }}
                   >
-                    <ElectricBorder color={day.color}>
+                    {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}
+                    <ElectricBorder color={day.color} variant="minimal">
                       <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl">
                         <div className="flex items-start gap-6">
                           {/* Icon */}
