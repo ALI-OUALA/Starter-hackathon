@@ -19,6 +19,42 @@ const emailLabel = (
   </span>
 );
 
+const experienceLabel = (
+  <span className="flex items-center gap-2">
+    <Code className="w-4 h-4" />
+    Experience Level *
+  </span>
+);
+
+const teamLabel = (
+  <span className="flex items-center gap-2">
+    <Users className="w-4 h-4" />
+    Team Preference *
+  </span>
+);
+
+const EXPERIENCE_OPTIONS = [
+  { value: "beginner", label: "Beginner (0-1 years)" },
+  { value: "intermediate", label: "Intermediate (1-3 years)" },
+  { value: "advanced", label: "Advanced (3-5 years)" },
+  { value: "expert", label: "Expert (5+ years)" },
+];
+
+const TRACK_OPTIONS = [
+  { value: "ai-ml", label: "AI & Machine Learning" },
+  { value: "web3", label: "Web3 & Blockchain" },
+  { value: "climate", label: "Climate Tech" },
+  { value: "health", label: "HealthTech" },
+  { value: "fintech", label: "FinTech" },
+  { value: "open", label: "Open Innovation" },
+];
+
+const TEAM_SIZE_OPTIONS = [
+  { value: "solo", label: "Solo (Just me)" },
+  { value: "has-team", label: "I have a team" },
+  { value: "looking", label: "Looking for teammates" },
+];
+
 // ⚡ Bolt Optimization: Memoized input wrapper to prevent re-rendering all fields on every keystroke.
 interface TextInputFieldProps {
   field: string;
@@ -42,6 +78,64 @@ const TextInputField = memo(({ field, label, value, onChange, placeholder, type 
         value={value}
         onChange={(e) => onChange(field, e.target.value)}
         className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl"
+        placeholder={placeholder}
+      />
+    </ElectricBorder>
+  </div>
+));
+
+// ⚡ Bolt Optimization: Memoized select wrapper to prevent unnecessary re-renders.
+interface SelectFieldProps {
+  field: string;
+  label: ReactNode;
+  value: string;
+  onChange: (field: string, value: string) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+  color?: string;
+}
+
+const SelectField = memo(({ field, label, value, onChange, options, placeholder, color }: SelectFieldProps) => (
+  <div className="space-y-2">
+    <Label htmlFor={field} className="text-purple-200">{label}</Label>
+    <ElectricBorder color={color || "#8b5cf6"} variant="minimal">
+      <Select value={value} onValueChange={(val) => onChange(field, val)}>
+        <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent className="bg-purple-950 border-purple-500/30">
+          {options.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </ElectricBorder>
+  </div>
+));
+
+// ⚡ Bolt Optimization: Memoized textarea wrapper.
+interface TextareaFieldProps {
+  field: string;
+  label: ReactNode;
+  value: string;
+  onChange: (field: string, value: string) => void;
+  placeholder?: string;
+  required?: boolean;
+  color?: string;
+}
+
+const TextareaField = memo(({ field, label, value, onChange, placeholder, required, color }: TextareaFieldProps) => (
+  <div className="space-y-2">
+    <Label htmlFor={field} className="text-purple-200">{label}</Label>
+    <ElectricBorder color={color || "#8b5cf6"} variant="minimal">
+      <Textarea
+        id={field}
+        required={required}
+        value={value}
+        onChange={(e) => onChange(field, e.target.value)}
+        className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl min-h-32"
         placeholder={placeholder}
       />
     </ElectricBorder>
@@ -179,25 +273,15 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                       color="#8b5cf6"
                     />
 
-                    <div className="space-y-2">
-                      <Label htmlFor="experience" className="text-purple-200 flex items-center gap-2">
-                        <Code className="w-4 h-4" />
-                        Experience Level *
-                      </Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Select value={formData.experience} onValueChange={(value) => handleChange("experience", value)}>
-                          <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
-                            <SelectValue placeholder="Select your experience level" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-purple-950 border-purple-500/30">
-                            <SelectItem value="beginner">Beginner (0-1 years)</SelectItem>
-                            <SelectItem value="intermediate">Intermediate (1-3 years)</SelectItem>
-                            <SelectItem value="advanced">Advanced (3-5 years)</SelectItem>
-                            <SelectItem value="expert">Expert (5+ years)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </ElectricBorder>
-                    </div>
+                    <SelectField
+                      field="experience"
+                      label={experienceLabel}
+                      value={formData.experience}
+                      onChange={handleChange}
+                      options={EXPERIENCE_OPTIONS}
+                      placeholder="Select your experience level"
+                      color="#8b5cf6"
+                    />
                   </div>
 
                   {/* Hackathon Preferences */}
@@ -207,57 +291,35 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
                       <h2 className="text-xl font-bold">Hackathon Details</h2>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="track" className="text-purple-200">Preferred Track *</Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Select value={formData.track} onValueChange={(value) => handleChange("track", value)}>
-                          <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
-                            <SelectValue placeholder="Choose a track" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-purple-950 border-purple-500/30">
-                            <SelectItem value="ai-ml">AI & Machine Learning</SelectItem>
-                            <SelectItem value="web3">Web3 & Blockchain</SelectItem>
-                            <SelectItem value="climate">Climate Tech</SelectItem>
-                            <SelectItem value="health">HealthTech</SelectItem>
-                            <SelectItem value="fintech">FinTech</SelectItem>
-                            <SelectItem value="open">Open Innovation</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </ElectricBorder>
-                    </div>
+                    <SelectField
+                      field="track"
+                      label="Preferred Track *"
+                      value={formData.track}
+                      onChange={handleChange}
+                      options={TRACK_OPTIONS}
+                      placeholder="Choose a track"
+                      color="#8b5cf6"
+                    />
 
-                    <div className="space-y-2">
-                      <Label htmlFor="teamSize" className="text-purple-200 flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        Team Preference *
-                      </Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Select value={formData.teamSize} onValueChange={(value) => handleChange("teamSize", value)}>
-                          <SelectTrigger className="bg-purple-950/50 border-0 text-purple-100 rounded-2xl">
-                            <SelectValue placeholder="Select team preference" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-purple-950 border-purple-500/30">
-                            <SelectItem value="solo">Solo (Just me)</SelectItem>
-                            <SelectItem value="has-team">I have a team</SelectItem>
-                            <SelectItem value="looking">Looking for teammates</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </ElectricBorder>
-                    </div>
+                    <SelectField
+                      field="teamSize"
+                      label={teamLabel}
+                      value={formData.teamSize}
+                      onChange={handleChange}
+                      options={TEAM_SIZE_OPTIONS}
+                      placeholder="Select team preference"
+                      color="#8b5cf6"
+                    />
 
-                    <div className="space-y-2">
-                      <Label htmlFor="why" className="text-purple-200">Why do you want to join STARTER? *</Label>
-                      <ElectricBorder color="#8b5cf6" variant="minimal">
-                        <Textarea
-                          id="why"
-                          required
-                          value={formData.why}
-                          onChange={(e) => handleChange("why", e.target.value)}
-                          className="bg-purple-950/50 border-0 text-purple-100 placeholder:text-purple-400/50 rounded-2xl min-h-32"
-                          placeholder="Tell us what excites you about this hackathon..."
-                        />
-                      </ElectricBorder>
-                    </div>
+                    <TextareaField
+                      field="why"
+                      label="Why do you want to join STARTER? *"
+                      value={formData.why}
+                      onChange={handleChange}
+                      placeholder="Tell us what excites you about this hackathon..."
+                      required
+                      color="#8b5cf6"
+                    />
                   </div>
 
                   {/* Submit Button */}
