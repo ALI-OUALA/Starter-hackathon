@@ -25,3 +25,7 @@
 ## 2025-05-27 - SVG Filter Optimization
 **Learning:** High `numOctaves` (e.g., 10) in SVG filters like `feTurbulence` causes significant GPU/CPU load, especially when animated. Deduplication of identical noise generators also saves processing.
 **Action:** Use lower `numOctaves` (2-3) for visual effects unless fine detail is critical. Reuse noise outputs for multiple displacement maps where possible.
+
+## 2025-05-28 - Static Data Extraction
+**Learning:** Large static data arrays (e.g., schedules, FAQs) defined inside component render functions are re-allocated on every render, increasing garbage collection pressure.
+**Action:** Move static data definitions outside the component (to module scope) or use `useMemo` (if dependent on props) to ensure reference stability and reduce memory churn.

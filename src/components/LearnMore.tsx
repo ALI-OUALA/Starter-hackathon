@@ -93,44 +93,44 @@ function HeroSection() {
   );
 }
 
+const schedule = [
+  {
+    day: "Day 1 - Friday",
+    date: "November 15, 2025",
+    events: [
+      { time: "6:00 PM", title: "Registration & Check-in", icon: Users },
+      { time: "7:00 PM", title: "Opening Ceremony", icon: Rocket },
+      { time: "8:00 PM", title: "Team Formation", icon: Users },
+      { time: "9:00 PM", title: "Hacking Begins!", icon: Code },
+    ]
+  },
+  {
+    day: "Day 2 - Saturday",
+    date: "November 16, 2025",
+    events: [
+      { time: "9:00 AM", title: "Breakfast & Networking", icon: Users },
+      { time: "11:00 AM", title: "Workshop: AI Integration", icon: Lightbulb },
+      { time: "2:00 PM", title: "Workshop: Design Thinking", icon: Lightbulb },
+      { time: "6:00 PM", title: "Mentor Office Hours", icon: Users },
+      { time: "8:00 PM", title: "Dinner & Entertainment", icon: Users },
+    ]
+  },
+  {
+    day: "Day 3 - Sunday",
+    date: "November 17, 2025",
+    events: [
+      { time: "9:00 AM", title: "Final Push", icon: Zap },
+      { time: "12:00 PM", title: "Hacking Ends", icon: Clock },
+      { time: "1:00 PM", title: "Project Presentations", icon: Rocket },
+      { time: "4:00 PM", title: "Judging & Deliberation", icon: Award },
+      { time: "5:00 PM", title: "Closing Ceremony & Awards", icon: Trophy },
+    ]
+  }
+];
+
 function ScheduleSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const schedule = [
-    {
-      day: "Day 1 - Friday",
-      date: "November 15, 2025",
-      events: [
-        { time: "6:00 PM", title: "Registration & Check-in", icon: Users },
-        { time: "7:00 PM", title: "Opening Ceremony", icon: Rocket },
-        { time: "8:00 PM", title: "Team Formation", icon: Users },
-        { time: "9:00 PM", title: "Hacking Begins!", icon: Code },
-      ]
-    },
-    {
-      day: "Day 2 - Saturday",
-      date: "November 16, 2025",
-      events: [
-        { time: "9:00 AM", title: "Breakfast & Networking", icon: Users },
-        { time: "11:00 AM", title: "Workshop: AI Integration", icon: Lightbulb },
-        { time: "2:00 PM", title: "Workshop: Design Thinking", icon: Lightbulb },
-        { time: "6:00 PM", title: "Mentor Office Hours", icon: Users },
-        { time: "8:00 PM", title: "Dinner & Entertainment", icon: Users },
-      ]
-    },
-    {
-      day: "Day 3 - Sunday",
-      date: "November 17, 2025",
-      events: [
-        { time: "9:00 AM", title: "Final Push", icon: Zap },
-        { time: "12:00 PM", title: "Hacking Ends", icon: Clock },
-        { time: "1:00 PM", title: "Project Presentations", icon: Rocket },
-        { time: "4:00 PM", title: "Judging & Deliberation", icon: Award },
-        { time: "5:00 PM", title: "Closing Ceremony & Awards", icon: Trophy },
-      ]
-    }
-  ];
 
   return (
     <section className="py-24 px-4" ref={ref}>
@@ -186,40 +186,40 @@ function ScheduleSection() {
   );
 }
 
+const prizes = [
+  {
+    place: "1st Place",
+    amount: "$20,000",
+    description: "Grand Prize + Mentorship + Cloud Credits",
+    color: "#f59e0b",
+    icon: Trophy
+  },
+  {
+    place: "2nd Place",
+    amount: "$15,000",
+    description: "Runner-up Prize + Cloud Credits",
+    color: "#a78bfa",
+    icon: Award
+  },
+  {
+    place: "3rd Place",
+    amount: "$10,000",
+    description: "Third Prize + Swag Package",
+    color: "#06b6d4",
+    icon: Award
+  },
+  {
+    place: "Best Design",
+    amount: "$5,000",
+    description: "Design Tools Suite + Training",
+    color: "#ec4899",
+    icon: Lightbulb
+  }
+];
+
 function PrizesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const prizes = [
-    {
-      place: "1st Place",
-      amount: "$20,000",
-      description: "Grand Prize + Mentorship + Cloud Credits",
-      color: "#f59e0b",
-      icon: Trophy
-    },
-    {
-      place: "2nd Place",
-      amount: "$15,000",
-      description: "Runner-up Prize + Cloud Credits",
-      color: "#a78bfa",
-      icon: Award
-    },
-    {
-      place: "3rd Place",
-      amount: "$10,000",
-      description: "Third Prize + Swag Package",
-      color: "#06b6d4",
-      icon: Award
-    },
-    {
-      place: "Best Design",
-      amount: "$5,000",
-      description: "Design Tools Suite + Training",
-      color: "#ec4899",
-      icon: Lightbulb
-    }
-  ];
 
   return (
     <section className="py-24 px-4 relative" ref={ref}>
@@ -274,42 +274,42 @@ function PrizesSection() {
   );
 }
 
+const tracks = [
+  {
+    title: "AI & Machine Learning",
+    description: "Build intelligent applications powered by AI and ML technologies",
+    color: "#8b5cf6"
+  },
+  {
+    title: "Web3 & Blockchain",
+    description: "Create decentralized applications and smart contracts",
+    color: "#ec4899"
+  },
+  {
+    title: "Climate Tech",
+    description: "Develop solutions for environmental sustainability",
+    color: "#10b981"
+  },
+  {
+    title: "HealthTech",
+    description: "Innovate in healthcare and wellness technology",
+    color: "#f59e0b"
+  },
+  {
+    title: "FinTech",
+    description: "Build the future of financial services",
+    color: "#06b6d4"
+  },
+  {
+    title: "Open Innovation",
+    description: "Any creative project that doesn't fit other categories",
+    color: "#a78bfa"
+  }
+];
+
 function TracksSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const tracks = [
-    {
-      title: "AI & Machine Learning",
-      description: "Build intelligent applications powered by AI and ML technologies",
-      color: "#8b5cf6"
-    },
-    {
-      title: "Web3 & Blockchain",
-      description: "Create decentralized applications and smart contracts",
-      color: "#ec4899"
-    },
-    {
-      title: "Climate Tech",
-      description: "Develop solutions for environmental sustainability",
-      color: "#10b981"
-    },
-    {
-      title: "HealthTech",
-      description: "Innovate in healthcare and wellness technology",
-      color: "#f59e0b"
-    },
-    {
-      title: "FinTech",
-      description: "Build the future of financial services",
-      color: "#06b6d4"
-    },
-    {
-      title: "Open Innovation",
-      description: "Any creative project that doesn't fit other categories",
-      color: "#a78bfa"
-    }
-  ];
 
   return (
     <section className="py-24 px-4" ref={ref}>
@@ -353,36 +353,36 @@ function TracksSection() {
   );
 }
 
+const faqs = [
+  {
+    question: "Who can participate?",
+    answer: "STARTER is open to everyone! Whether you're a student, professional, or hobbyist, if you're passionate about building and innovation, you're welcome to join."
+  },
+  {
+    question: "Do I need a team?",
+    answer: "You can participate solo or in teams of up to 4 people. Don't have a team? No problem! We'll help you find teammates during our team formation session."
+  },
+  {
+    question: "What should I bring?",
+    answer: "Bring your laptop, chargers, any hardware you plan to use, and your creativity! We'll provide meals, snacks, drinks, and workspace."
+  },
+  {
+    question: "Is it really 72 hours straight?",
+    answer: "While hacking runs for 72 hours, you're not expected to code non-stop! We have designated rest areas and encourage you to take breaks, sleep, and recharge."
+  },
+  {
+    question: "What if I'm a beginner?",
+    answer: "Perfect! STARTER welcomes all skill levels. We'll have workshops, mentors, and resources to help you learn and build something amazing."
+  },
+  {
+    question: "How much does it cost?",
+    answer: "Absolutely FREE! We cover food, workspace, swag, and provide access to all workshops and mentorship sessions at no cost."
+  }
+];
+
 function FAQSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const faqs = [
-    {
-      question: "Who can participate?",
-      answer: "STARTER is open to everyone! Whether you're a student, professional, or hobbyist, if you're passionate about building and innovation, you're welcome to join."
-    },
-    {
-      question: "Do I need a team?",
-      answer: "You can participate solo or in teams of up to 4 people. Don't have a team? No problem! We'll help you find teammates during our team formation session."
-    },
-    {
-      question: "What should I bring?",
-      answer: "Bring your laptop, chargers, any hardware you plan to use, and your creativity! We'll provide meals, snacks, drinks, and workspace."
-    },
-    {
-      question: "Is it really 72 hours straight?",
-      answer: "While hacking runs for 72 hours, you're not expected to code non-stop! We have designated rest areas and encourage you to take breaks, sleep, and recharge."
-    },
-    {
-      question: "What if I'm a beginner?",
-      answer: "Perfect! STARTER welcomes all skill levels. We'll have workshops, mentors, and resources to help you learn and build something amazing."
-    },
-    {
-      question: "How much does it cost?",
-      answer: "Absolutely FREE! We cover food, workspace, swag, and provide access to all workshops and mentorship sessions at no cost."
-    }
-  ];
 
   return (
     <section className="py-24 px-4" ref={ref}>

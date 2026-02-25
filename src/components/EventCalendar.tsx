@@ -19,6 +19,178 @@ import {
 import { Button } from "./ui/button";
 import { ElectricBorder } from "./ElectricBorder";
 
+// ⚡ Bolt Optimization: Moved schedule array outside component to avoid recreation on every render
+const schedule = [
+  {
+    day: "Friday - Day 1",
+    date: "November 15, 2025",
+    color: "#8b5cf6",
+    events: [
+      {
+        time: "6:00 PM - 7:00 PM",
+        title: "Registration & Check-in",
+        description: "Get your badge, meet the team, and settle in",
+        icon: Users,
+        location: "Main Hall"
+      },
+      {
+        time: "7:00 PM - 8:00 PM",
+        title: "Opening Ceremony",
+        description: "Welcome speech, keynote, and event kickoff",
+        icon: Rocket,
+        location: "Auditorium"
+      },
+      {
+        time: "8:00 PM - 9:00 PM",
+        title: "Team Formation & Networking",
+        description: "Find your teammates and start brainstorming",
+        icon: Users,
+        location: "Main Hall"
+      },
+      {
+        time: "9:00 PM",
+        title: "Hacking Begins! 🚀",
+        description: "Start building your project",
+        icon: Code,
+        location: "All Spaces"
+      },
+      {
+        time: "11:00 PM",
+        title: "Late Night Snacks",
+        description: "Pizza and energy drinks",
+        icon: Coffee,
+        location: "Cafeteria"
+      },
+    ]
+  },
+  {
+    day: "Saturday - Day 2",
+    date: "November 16, 2025",
+    color: "#ec4899",
+    events: [
+      {
+        time: "8:00 AM - 9:00 AM",
+        title: "Breakfast",
+        description: "Fuel up for the day ahead",
+        icon: Utensils,
+        location: "Cafeteria"
+      },
+      {
+        time: "10:00 AM - 11:00 AM",
+        title: "Workshop: AI & Machine Learning",
+        description: "Learn how to integrate AI into your project",
+        icon: Lightbulb,
+        location: "Workshop Room A"
+      },
+      {
+        time: "11:00 AM - 12:00 PM",
+        title: "Workshop: UI/UX Design Principles",
+        description: "Create beautiful and intuitive interfaces",
+        icon: Lightbulb,
+        location: "Workshop Room B"
+      },
+      {
+        time: "12:00 PM - 1:00 PM",
+        title: "Lunch",
+        description: "Catered meal for all participants",
+        icon: Utensils,
+        location: "Cafeteria"
+      },
+      {
+        time: "2:00 PM - 3:00 PM",
+        title: "Workshop: Pitching Your Idea",
+        description: "Learn to present your project effectively",
+        icon: Lightbulb,
+        location: "Workshop Room A"
+      },
+      {
+        time: "4:00 PM - 6:00 PM",
+        title: "Mentor Office Hours",
+        description: "Get personalized guidance from industry experts",
+        icon: Users,
+        location: "Mentor Area"
+      },
+      {
+        time: "6:00 PM - 7:00 PM",
+        title: "Dinner",
+        description: "Evening meal and networking",
+        icon: Utensils,
+        location: "Cafeteria"
+      },
+      {
+        time: "8:00 PM - 9:00 PM",
+        title: "Mini Games & Entertainment",
+        description: "Take a break and have some fun",
+        icon: Zap,
+        location: "Main Hall"
+      },
+    ]
+  },
+  {
+    day: "Sunday - Day 3",
+    date: "November 17, 2025",
+    color: "#06b6d4",
+    events: [
+      {
+        time: "8:00 AM - 9:00 AM",
+        title: "Breakfast",
+        description: "Last day fuel",
+        icon: Utensils,
+        location: "Cafeteria"
+      },
+      {
+        time: "9:00 AM - 12:00 PM",
+        title: "Final Push",
+        description: "Polish your project and prepare presentation",
+        icon: Zap,
+        location: "All Spaces"
+      },
+      {
+        time: "12:00 PM",
+        title: "Hacking Ends - Submission Deadline",
+        description: "All projects must be submitted",
+        icon: Clock,
+        location: "Online Submission"
+      },
+      {
+        time: "12:00 PM - 1:00 PM",
+        title: "Lunch Break",
+        description: "Relax before presentations",
+        icon: Utensils,
+        location: "Cafeteria"
+      },
+      {
+        time: "1:00 PM - 3:30 PM",
+        title: "Project Presentations",
+        description: "Each team presents their project (3 min each)",
+        icon: Rocket,
+        location: "Auditorium"
+      },
+      {
+        time: "3:30 PM - 4:30 PM",
+        title: "Judging & Deliberation",
+        description: "Judges evaluate and discuss projects",
+        icon: Award,
+        location: "Private Room"
+      },
+      {
+        time: "4:30 PM - 5:30 PM",
+        title: "Closing Ceremony & Awards",
+        description: "Winners announced, prizes distributed",
+        icon: Trophy,
+        location: "Auditorium"
+      },
+      {
+        time: "5:30 PM - 6:00 PM",
+        title: "Wrap-up & Networking",
+        description: "Say goodbye and exchange contacts",
+        icon: Users,
+        location: "Main Hall"
+      },
+    ]
+  }
+];
+
 interface EventCalendarProps {
   onBack: () => void;
   onRegisterClick: () => void;
@@ -27,177 +199,6 @@ interface EventCalendarProps {
 export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
-
-  const schedule = [
-    {
-      day: "Friday - Day 1",
-      date: "November 15, 2025",
-      color: "#8b5cf6",
-      events: [
-        { 
-          time: "6:00 PM - 7:00 PM", 
-          title: "Registration & Check-in", 
-          description: "Get your badge, meet the team, and settle in",
-          icon: Users,
-          location: "Main Hall"
-        },
-        { 
-          time: "7:00 PM - 8:00 PM", 
-          title: "Opening Ceremony", 
-          description: "Welcome speech, keynote, and event kickoff",
-          icon: Rocket,
-          location: "Auditorium"
-        },
-        { 
-          time: "8:00 PM - 9:00 PM", 
-          title: "Team Formation & Networking", 
-          description: "Find your teammates and start brainstorming",
-          icon: Users,
-          location: "Main Hall"
-        },
-        { 
-          time: "9:00 PM", 
-          title: "Hacking Begins! 🚀", 
-          description: "Start building your project",
-          icon: Code,
-          location: "All Spaces"
-        },
-        { 
-          time: "11:00 PM", 
-          title: "Late Night Snacks", 
-          description: "Pizza and energy drinks",
-          icon: Coffee,
-          location: "Cafeteria"
-        },
-      ]
-    },
-    {
-      day: "Saturday - Day 2",
-      date: "November 16, 2025",
-      color: "#ec4899",
-      events: [
-        { 
-          time: "8:00 AM - 9:00 AM", 
-          title: "Breakfast", 
-          description: "Fuel up for the day ahead",
-          icon: Utensils,
-          location: "Cafeteria"
-        },
-        { 
-          time: "10:00 AM - 11:00 AM", 
-          title: "Workshop: AI & Machine Learning", 
-          description: "Learn how to integrate AI into your project",
-          icon: Lightbulb,
-          location: "Workshop Room A"
-        },
-        { 
-          time: "11:00 AM - 12:00 PM", 
-          title: "Workshop: UI/UX Design Principles", 
-          description: "Create beautiful and intuitive interfaces",
-          icon: Lightbulb,
-          location: "Workshop Room B"
-        },
-        { 
-          time: "12:00 PM - 1:00 PM", 
-          title: "Lunch", 
-          description: "Catered meal for all participants",
-          icon: Utensils,
-          location: "Cafeteria"
-        },
-        { 
-          time: "2:00 PM - 3:00 PM", 
-          title: "Workshop: Pitching Your Idea", 
-          description: "Learn to present your project effectively",
-          icon: Lightbulb,
-          location: "Workshop Room A"
-        },
-        { 
-          time: "4:00 PM - 6:00 PM", 
-          title: "Mentor Office Hours", 
-          description: "Get personalized guidance from industry experts",
-          icon: Users,
-          location: "Mentor Area"
-        },
-        { 
-          time: "6:00 PM - 7:00 PM", 
-          title: "Dinner", 
-          description: "Evening meal and networking",
-          icon: Utensils,
-          location: "Cafeteria"
-        },
-        { 
-          time: "8:00 PM - 9:00 PM", 
-          title: "Mini Games & Entertainment", 
-          description: "Take a break and have some fun",
-          icon: Zap,
-          location: "Main Hall"
-        },
-      ]
-    },
-    {
-      day: "Sunday - Day 3",
-      date: "November 17, 2025",
-      color: "#06b6d4",
-      events: [
-        { 
-          time: "8:00 AM - 9:00 AM", 
-          title: "Breakfast", 
-          description: "Last day fuel",
-          icon: Utensils,
-          location: "Cafeteria"
-        },
-        { 
-          time: "9:00 AM - 12:00 PM", 
-          title: "Final Push", 
-          description: "Polish your project and prepare presentation",
-          icon: Zap,
-          location: "All Spaces"
-        },
-        { 
-          time: "12:00 PM", 
-          title: "Hacking Ends - Submission Deadline", 
-          description: "All projects must be submitted",
-          icon: Clock,
-          location: "Online Submission"
-        },
-        { 
-          time: "12:00 PM - 1:00 PM", 
-          title: "Lunch Break", 
-          description: "Relax before presentations",
-          icon: Utensils,
-          location: "Cafeteria"
-        },
-        { 
-          time: "1:00 PM - 3:30 PM", 
-          title: "Project Presentations", 
-          description: "Each team presents their project (3 min each)",
-          icon: Rocket,
-          location: "Auditorium"
-        },
-        { 
-          time: "3:30 PM - 4:30 PM", 
-          title: "Judging & Deliberation", 
-          description: "Judges evaluate and discuss projects",
-          icon: Award,
-          location: "Private Room"
-        },
-        { 
-          time: "4:30 PM - 5:30 PM", 
-          title: "Closing Ceremony & Awards", 
-          description: "Winners announced, prizes distributed",
-          icon: Trophy,
-          location: "Auditorium"
-        },
-        { 
-          time: "5:30 PM - 6:00 PM", 
-          title: "Wrap-up & Networking", 
-          description: "Say goodbye and exchange contacts",
-          icon: Users,
-          location: "Main Hall"
-        },
-      ]
-    }
-  ];
 
   return (
     <div className="min-h-screen">
