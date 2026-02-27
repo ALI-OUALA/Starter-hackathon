@@ -63,7 +63,7 @@ export function About({ onCalendarClick }: AboutProps) {
       action: handleLocationOpen,
       actionLabel: "Open the venue in Google Maps",
     },
-  ], [handleCalendarOpen, handleLocationOpen]);
+  ], [handleCalendarOpen]);
 
   return (
     <section className="py-32 px-4 relative overflow-hidden" ref={ref}>
