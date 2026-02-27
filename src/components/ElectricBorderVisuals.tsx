@@ -30,25 +30,27 @@ export const ElectricBorderVisuals = memo(function ElectricBorderVisuals({
         />
       </div>
 
-      {/* Glow layers */}
-      <div
-        className="absolute inset-0 border-2 rounded-2xl pointer-events-none"
-        style={{
-          borderColor: `${color}99`,
-          filter: 'blur(1px)',
-        }}
-      />
-      <div
-        className="absolute inset-0 border-2 rounded-2xl pointer-events-none"
-        style={{
-          borderColor: color,
-          filter: 'blur(4px)',
-        }}
-      />
-
-      {/* Overlay effects - only for default variant */}
+      {/* ⚡ Bolt Optimization: Grouped all expensive visual effects under default check.
+          This prevents rendering ~60+ blurred layers on pages using 'minimal' variant (lists/forms). */}
       {variant === "default" && (
         <>
+          {/* Glow layers */}
+          <div
+            className="absolute inset-0 border-2 rounded-2xl pointer-events-none"
+            style={{
+              borderColor: `${color}99`,
+              filter: 'blur(1px)',
+            }}
+          />
+          <div
+            className="absolute inset-0 border-2 rounded-2xl pointer-events-none"
+            style={{
+              borderColor: color,
+              filter: 'blur(4px)',
+            }}
+          />
+
+          {/* Overlay effects */}
           <div
             className="absolute inset-0 rounded-2xl opacity-100 mix-blend-overlay pointer-events-none"
             style={{
