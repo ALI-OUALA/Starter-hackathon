@@ -1,12 +1,19 @@
 import { motion } from "motion/react";
 import { useInView } from "motion/react";
-import { useCallback, useRef, type KeyboardEvent } from "react";
+import { useCallback, useMemo, useRef, type KeyboardEvent } from "react";
 import { Calendar, MapPin, Clock, Award, Users, Target } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
 interface AboutProps {
   onCalendarClick: () => void;
 }
+
+// ⚡ Bolt Optimization: Moved static stats array outside component to prevent recreation on every render
+const stats = [
+  { icon: Users, number: "500+", label: "Participants" },
+  { icon: Award, number: "$50K", label: "In Prizes" },
+  { icon: Target, number: "20+", label: "Mentors" },
+];
 
 export function About({ onCalendarClick }: AboutProps) {
   const ref = useRef(null);
@@ -32,7 +39,9 @@ export function About({ onCalendarClick }: AboutProps) {
     }
   };
 
-  const details = [
+  // ⚡ Bolt Optimization: Memoized details array to prevent re-allocation on every render.
+  // It only needs to be recreated if the action handlers change.
+  const details = useMemo(() => [
     {
       icon: Calendar,
       label: "Date",
@@ -54,13 +63,7 @@ export function About({ onCalendarClick }: AboutProps) {
       action: handleLocationOpen,
       actionLabel: "Open the venue in Google Maps",
     },
-  ];
-
-  const stats = [
-    { icon: Users, number: "500+", label: "Participants" },
-    { icon: Award, number: "$50K", label: "In Prizes" },
-    { icon: Target, number: "20+", label: "Mentors" },
-  ];
+  ], [handleCalendarOpen, handleLocationOpen]);
 
   return (
     <section className="py-32 px-4 relative overflow-hidden" ref={ref}>
