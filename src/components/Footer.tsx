@@ -1,14 +1,15 @@
 import { motion } from "motion/react";
 import { Github, Twitter, Linkedin, Mail, Heart } from "lucide-react";
 
-export function Footer() {
-  const socialLinks = [
-    { icon: Twitter, href: "https://x.com/starterhackathon", label: "Twitter" },
-    { icon: Github, href: "https://github.com/starter-hackathon/landing-page", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/starter-hackathon", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:hello@starter.com", label: "Email" },
-  ];
+// ⚡ Bolt Optimization: Moved static array outside component to prevent recreation on every render
+const socialLinks = [
+  { icon: Twitter, href: "https://x.com/starterhackathon", label: "Twitter" },
+  { icon: Github, href: "https://github.com/starter-hackathon/landing-page", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/starter-hackathon", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:hello@starter.com", label: "Email" },
+];
 
+export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
       {/* Decorative top border */}
