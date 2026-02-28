@@ -66,7 +66,7 @@ export const AnimatedBlob = memo(function AnimatedBlob() {
           />
         </motion.div>
       </div>
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-br from-purple-800/20 via-purple-600/10 to-blue-500/20 rounded-full blur-3xl" style={{ willChange: "transform" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-gradient-to-br from-purple-800/20 via-purple-600/10 to-blue-500/20 rounded-full blur-3xl" style={{ transform: "translateZ(0)" }} />
     </div>
   );
 });
