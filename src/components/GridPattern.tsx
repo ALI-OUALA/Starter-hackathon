@@ -1,4 +1,8 @@
-export function GridPattern() {
+import { memo } from "react";
+
+// ⚡ Bolt Optimization:
+// Memoized to prevent re-rendering when App state (like views) changes.
+export const GridPattern = memo(function GridPattern() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
       <div className="absolute inset-0" 
@@ -14,4 +18,4 @@ export function GridPattern() {
       <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background" />
     </div>
   );
-}
+});
