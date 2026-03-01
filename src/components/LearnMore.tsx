@@ -159,7 +159,7 @@ function ScheduleSection() {
               transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
-              <ElectricBorder color={dayIndex === 0 ? "#8b5cf6" : dayIndex === 1 ? "#ec4899" : "#06b6d4"} variant="minimal">
+              <ElectricBorder color={["#8b5cf6", "#ec4899", "#06b6d4"][dayIndex]} variant="minimal">
                 <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl h-full">
                   <h3 className="text-2xl font-bold text-purple-100 mb-2">{day.day}</h3>
                   <p className="text-purple-400 text-sm mb-6">{day.date}</p>
