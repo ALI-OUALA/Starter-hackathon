@@ -158,7 +158,8 @@ function ScheduleSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
             >
-              <ElectricBorder color={dayIndex === 0 ? "#8b5cf6" : dayIndex === 1 ? "#ec4899" : "#06b6d4"}>
+              {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
+              <ElectricBorder color={dayIndex === 0 ? "#8b5cf6" : dayIndex === 1 ? "#ec4899" : "#06b6d4"} variant="minimal">
                 <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl h-full">
                   <h3 className="text-2xl font-bold text-purple-100 mb-2">{day.day}</h3>
                   <p className="text-purple-400 text-sm mb-6">{day.date}</p>
@@ -254,7 +255,8 @@ function PrizesSection() {
               whileHover={{ scale: 1.05, y: -5 }}
               className="group"
             >
-              <ElectricBorder color={prize.color}>
+              {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
+              <ElectricBorder color={prize.color} variant="minimal">
                 <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl text-center h-full">
                   <div className="w-16 h-16 mx-auto mb-4 bg-purple-600/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <prize.icon className="w-8 h-8 text-purple-300" />
