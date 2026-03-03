@@ -87,6 +87,7 @@ export function Features() {
               className="group relative"
               style={{ perspective: "1000px" }}
             >
+              {/* ⚡ Bolt Optimization: Use 'minimal' variant in mapped lists to prevent rendering expensive SVG filters and mix-blend modes multiple times */}
               <ElectricBorder 
                 color={
                   index === 0 ? "#8b5cf6" : 
@@ -94,6 +95,7 @@ export function Features() {
                   index === 2 ? "#f59e0b" : 
                   "#06b6d4"
                 }
+                variant="minimal"
               >
                 {/* Card */}
                 <div className="relative h-full bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-8 rounded-2xl">

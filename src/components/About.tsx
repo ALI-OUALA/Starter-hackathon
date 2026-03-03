@@ -178,7 +178,8 @@ export function About({ onCalendarClick }: AboutProps) {
                     : `${detail.label}: ${detail.value}`
                 }
               >
-                <ElectricBorder color="#8b5cf6">
+                {/* ⚡ Bolt Optimization: Use 'minimal' variant in mapped lists to prevent rendering expensive SVG filters and mix-blend modes multiple times */}
+                <ElectricBorder color="#8b5cf6" variant="minimal">
                   {/* Main card */}
                   <div className="relative flex items-center gap-6 bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-8 rounded-2xl overflow-hidden">
                     {/* Decorative background shape */}
@@ -227,7 +228,7 @@ export function About({ onCalendarClick }: AboutProps) {
               animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
-              <ElectricBorder color="#ec4899">
+              <ElectricBorder color="#ec4899" variant="minimal">
                 <div className="relative p-8 bg-gradient-to-br from-pink-900/30 to-purple-900/30 backdrop-blur-xl rounded-2xl overflow-hidden">
                   <div className="absolute top-0 right-0 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl" />
                   <p className="text-purple-200 relative z-10 leading-relaxed">
