@@ -194,7 +194,6 @@ function RegistrationInnerForm() {
             onChange={handleChange}
             required
             placeholder="Doe"
-            color="#8b5cf6"
           />
         </div>
 
