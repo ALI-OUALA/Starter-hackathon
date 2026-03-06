@@ -33,3 +33,7 @@
 ## 2025-05-29 - Layout Thrashing with Continuous Filters
 **Learning:** Animating non-transform CSS properties (like `borderRadius`) on a large element with an expensive filter (`blur-3xl`) causes severe layout and paint thrashing on every frame, killing framerate.
 **Action:** Replace morphing shape animations (`borderRadius`) with GPU-accelerated transforms (`scaleX`, `scaleY`, `rotate`) combined with a fixed border radius, and add `will-change: transform`.
+
+## 2025-05-30 - Form State Colocation
+**Learning:** Placing rapidly changing state (like `formData` updated on every keystroke) at the top level of a page component causes all static siblings—including heavy animated elements (`motion.div`) and complex wrappers (`ElectricBorder`)—to re-render unnecessarily.
+**Action:** Move form state down into a dedicated inner component (e.g., `RegistrationInnerForm`). This isolates the re-renders to the form fields themselves, preventing full-page VDOM diffing on every keystroke.
