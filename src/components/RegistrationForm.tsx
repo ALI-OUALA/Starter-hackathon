@@ -142,7 +142,10 @@ const TextareaField = memo(({ field, label, value, onChange, placeholder, requir
   </div>
 ));
 
-export function RegistrationForm({ onBack }: RegistrationFormProps) {
+// ⚡ Bolt Optimization: Moved form state down into its own component.
+// This prevents the parent RegistrationForm (which contains heavy animated headers
+// and ElectricBorder wrappers) from re-rendering on every keystroke.
+function RegistrationInnerForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -161,12 +164,136 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
     alert("Registration submitted! We'll be in touch soon.");
   };
 
-  // ⚡ Bolt Optimization: useCallback ensures this function reference is stable,
-  // allowing child components to skip re-renders.
   const handleChange = useCallback((field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   }, []);
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Personal Information */}
+      <div className="space-y-6">
+        <div className="flex items-center gap-2 text-purple-300 mb-4">
+          <User className="w-5 h-5" />
+          <h2 className="text-xl font-bold">Personal Information</h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <TextInputField
+            field="firstName"
+            label="First Name *"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+            placeholder="John"
+          />
+
+          <TextInputField
+            field="lastName"
+            label="Last Name *"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+            placeholder="Doe"
+          />
+        </div>
+
+        <TextInputField
+          field="email"
+          label={emailLabel}
+          value={formData.email}
+          onChange={handleChange}
+          type="email"
+          required
+          placeholder="john.doe@example.com"
+          color="#8b5cf6"
+        />
+      </div>
+
+      {/* Academic/Professional Info */}
+      <div className="space-y-6 pt-6 border-t border-purple-500/20">
+        <div className="flex items-center gap-2 text-purple-300 mb-4">
+          <School className="w-5 h-5" />
+          <h2 className="text-xl font-bold">Background</h2>
+        </div>
+
+        <TextInputField
+          field="institution"
+          label="School/University or Company *"
+          value={formData.institution}
+          onChange={handleChange}
+          required
+          placeholder="Your institution"
+          color="#8b5cf6"
+        />
+
+        <SelectField
+          field="experience"
+          label={experienceLabel}
+          value={formData.experience}
+          onChange={handleChange}
+          options={EXPERIENCE_OPTIONS}
+          placeholder="Select your experience level"
+          color="#8b5cf6"
+        />
+      </div>
+
+      {/* Hackathon Preferences */}
+      <div className="space-y-6 pt-6 border-t border-purple-500/20">
+        <div className="flex items-center gap-2 text-purple-300 mb-4">
+          <Briefcase className="w-5 h-5" />
+          <h2 className="text-xl font-bold">Hackathon Details</h2>
+        </div>
+
+        <SelectField
+          field="track"
+          label="Preferred Track *"
+          value={formData.track}
+          onChange={handleChange}
+          options={TRACK_OPTIONS}
+          placeholder="Choose a track"
+          color="#8b5cf6"
+        />
+
+        <SelectField
+          field="teamSize"
+          label={teamLabel}
+          value={formData.teamSize}
+          onChange={handleChange}
+          options={TEAM_SIZE_OPTIONS}
+          placeholder="Select team preference"
+          color="#8b5cf6"
+        />
+
+        <TextareaField
+          field="why"
+          label="Why do you want to join STARTER? *"
+          value={formData.why}
+          onChange={handleChange}
+          placeholder="Tell us what excites you about this hackathon..."
+          required
+          color="#8b5cf6"
+        />
+      </div>
+
+      {/* Submit Button */}
+      <div className="pt-6">
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-6 text-lg shadow-lg shadow-purple-500/50"
+        >
+          Submit Registration
+          <Send className="ml-2 w-5 h-5" />
+        </Button>
+        <p className="text-center text-sm text-purple-400/60 mt-4">
+          By submitting, you agree to our terms and conditions
+        </p>
+      </div>
+    </form>
+  );
+}
+
+export function RegistrationForm({ onBack }: RegistrationFormProps) {
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -215,128 +342,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
             {/* Main wrapper uses default variant */}
             <ElectricBorder>
               <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-8 md:p-12 rounded-2xl">
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Personal Information */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-2 text-purple-300 mb-4">
-                      <User className="w-5 h-5" />
-                      <h2 className="text-xl font-bold">Personal Information</h2>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <TextInputField
-                        field="firstName"
-                        label="First Name *"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        required
-                        placeholder="John"
-                      />
-
-                      <TextInputField
-                        field="lastName"
-                        label="Last Name *"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        required
-                        placeholder="Doe"
-                        color="#8b5cf6"
-                      />
-                    </div>
-
-                    <TextInputField
-                      field="email"
-                      label={emailLabel}
-                      value={formData.email}
-                      onChange={handleChange}
-                      type="email"
-                      required
-                      placeholder="john.doe@example.com"
-                      color="#8b5cf6"
-                    />
-                  </div>
-
-                  {/* Academic/Professional Info */}
-                  <div className="space-y-6 pt-6 border-t border-purple-500/20">
-                    <div className="flex items-center gap-2 text-purple-300 mb-4">
-                      <School className="w-5 h-5" />
-                      <h2 className="text-xl font-bold">Background</h2>
-                    </div>
-
-                    <TextInputField
-                      field="institution"
-                      label="School/University or Company *"
-                      value={formData.institution}
-                      onChange={handleChange}
-                      required
-                      placeholder="Your institution"
-                      color="#8b5cf6"
-                    />
-
-                    <SelectField
-                      field="experience"
-                      label={experienceLabel}
-                      value={formData.experience}
-                      onChange={handleChange}
-                      options={EXPERIENCE_OPTIONS}
-                      placeholder="Select your experience level"
-                      color="#8b5cf6"
-                    />
-                  </div>
-
-                  {/* Hackathon Preferences */}
-                  <div className="space-y-6 pt-6 border-t border-purple-500/20">
-                    <div className="flex items-center gap-2 text-purple-300 mb-4">
-                      <Briefcase className="w-5 h-5" />
-                      <h2 className="text-xl font-bold">Hackathon Details</h2>
-                    </div>
-
-                    <SelectField
-                      field="track"
-                      label="Preferred Track *"
-                      value={formData.track}
-                      onChange={handleChange}
-                      options={TRACK_OPTIONS}
-                      placeholder="Choose a track"
-                      color="#8b5cf6"
-                    />
-
-                    <SelectField
-                      field="teamSize"
-                      label={teamLabel}
-                      value={formData.teamSize}
-                      onChange={handleChange}
-                      options={TEAM_SIZE_OPTIONS}
-                      placeholder="Select team preference"
-                      color="#8b5cf6"
-                    />
-
-                    <TextareaField
-                      field="why"
-                      label="Why do you want to join STARTER? *"
-                      value={formData.why}
-                      onChange={handleChange}
-                      placeholder="Tell us what excites you about this hackathon..."
-                      required
-                      color="#8b5cf6"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="pt-6">
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white py-6 text-lg shadow-lg shadow-purple-500/50"
-                    >
-                      Submit Registration
-                      <Send className="ml-2 w-5 h-5" />
-                    </Button>
-                    <p className="text-center text-sm text-purple-400/60 mt-4">
-                      By submitting, you agree to our terms and conditions
-                    </p>
-                  </div>
-                </form>
+                <RegistrationInnerForm />
               </div>
             </ElectricBorder>
           </motion.div>
