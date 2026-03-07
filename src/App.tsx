@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 import { Hero } from "./components/Hero";
 import { Features } from "./components/Features";
 import { About } from "./components/About";
@@ -16,6 +16,23 @@ type ViewType = "home" | "learn-more" | "calendar" | "register";
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewType>("home");
+
+  // ⚡ Bolt Optimization: Eagerly prefetch lazy-loaded routes during idle time.
+  // This eliminates network latency when users click "Register" or "Learn More",
+  // making navigation instant and preventing the Suspense fallback spinner.
+  useEffect(() => {
+    const prefetchRoutes = () => {
+      import("./components/LearnMore");
+      import("./components/EventCalendar");
+      import("./components/RegistrationForm");
+    };
+
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(prefetchRoutes);
+    } else {
+      setTimeout(prefetchRoutes, 2000);
+    }
+  }, []);
 
   const handleRegisterClick = () => {
     setCurrentView("register");
