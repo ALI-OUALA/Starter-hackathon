@@ -41,3 +41,7 @@
 ## 2025-05-31 - Lazy Loading Navigation Waterfall
 **Learning:** Using `React.lazy` for route components improves initial load time but introduces a noticeable latency (and Suspense spinner) when the user first navigates to them, disrupting the SPA experience.
 **Action:** Implement intent-based or idle-time prefetching (`import(...)`) for lazy-loaded routes so the chunks are already in the browser cache before the user clicks.
+
+## 2025-06-01 - Layout Thrashing with Continuous Transforms on Blurred Elements
+**Learning:** Animating transform properties (`y`, `rotate`) on a large element with an expensive CSS filter (`backdrop-blur-xl`) continuously forces the browser to repaint the blur on the main thread if the element is not explicitly promoted to its own composite layer, leading to jittery scrolling and high GPU/CPU usage.
+**Action:** Explicitly add `style={{ willChange: "transform" }}` to elements with continuous layout or transform animations, especially those with heavy CSS filters like `backdrop-blur`, to ensure the browser composites these elements on the GPU and prevents main-thread paint thrashing.
