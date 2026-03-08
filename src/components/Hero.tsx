@@ -11,6 +11,10 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
       {/* Floating decorative elements */}
+      {/* ⚡ Bolt Optimization:
+          Added `willChange: "transform"` to continuously animated elements (especially those with heavy
+          CSS filters like backdrop-blur). This forces the browser to composite these elements on the GPU,
+          preventing main-thread paint thrashing and ensuring smooth 60fps animations. */}
       <motion.div
         animate={{
           y: [0, -20, 0],
@@ -21,6 +25,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
+        style={{ willChange: "transform" }}
         className="absolute top-1/4 left-10 w-20 h-20 border-2 border-purple-500/30 rounded-2xl rotate-12"
       />
       <motion.div
@@ -33,6 +38,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
+        style={{ willChange: "transform" }}
         className="absolute bottom-1/4 right-10 w-24 h-24 border-2 border-pink-500/30 rounded-full"
       />
 
@@ -131,6 +137,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
+                style={{ willChange: "transform" }}
                 className="absolute top-0 right-0 w-80 h-96 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-purple-500/30 p-8 shadow-2xl"
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -163,6 +170,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
+                style={{ willChange: "transform" }}
                 className="absolute bottom-0 left-0 w-64 h-80 bg-gradient-to-br from-pink-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-pink-500/30 p-6 shadow-2xl"
               >
                 <div className="w-10 h-10 bg-pink-500/30 rounded-lg flex items-center justify-center mb-4">
