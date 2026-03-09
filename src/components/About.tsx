@@ -167,7 +167,7 @@ export function About({ onCalendarClick }: AboutProps) {
                   transition: { duration: 0.2 }
                 }}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
-                style={{ perspective: "1000px" }}
+                style={{ perspective: "1000px", willChange: "transform" }}
                 onClick={detail.action}
                 onKeyDown={(event) => handleKeyActivate(event, detail.action)}
                 role={detail.action ? "button" : undefined}
@@ -189,6 +189,7 @@ export function About({ onCalendarClick }: AboutProps) {
                     <motion.div 
                       whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                       transition={{ duration: 0.5 }}
+                      style={{ willChange: "transform" }}
                       className="relative w-16 h-16 bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/30 group-hover:border-purple-400/60 group-hover:shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
                     >
                       <detail.icon className="w-7 h-7 text-purple-300 group-hover:text-purple-200 transition-colors relative z-10" />
@@ -211,6 +212,7 @@ export function About({ onCalendarClick }: AboutProps) {
                       <motion.div 
                         className="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                         whileHover={{ x: 5 }}
+                        style={{ willChange: "transform" }}
                       >
                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -85,7 +85,7 @@ export function Features() {
                 transition: { duration: 0.2 }
               }}
               className="group relative"
-              style={{ perspective: "1000px" }}
+              style={{ perspective: "1000px", willChange: "transform" }}
             >
               {/* ⚡ Bolt Optimization: Use 'minimal' variant in mapped lists to prevent rendering expensive SVG filters and mix-blend modes multiple times */}
               <ElectricBorder 
@@ -104,6 +104,7 @@ export function Features() {
                     <motion.div 
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
+                      style={{ willChange: "transform" }}
                       className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center flex-shrink-0 border ${feature.borderColor} group-hover:shadow-lg transition-all duration-300`}
                     >
                       <feature.icon className="w-8 h-8 text-purple-300 group-hover:text-purple-200 transition-colors" />
