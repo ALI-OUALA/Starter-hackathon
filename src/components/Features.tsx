@@ -85,7 +85,7 @@ export function Features() {
                 transition: { duration: 0.2 }
               }}
               className="group relative"
-              style={{ perspective: "1000px", willChange: "transform" }}
+              style={{ willChange: "transform" }}
             >
               {/* ⚡ Bolt Optimization: Use 'minimal' variant in mapped lists to prevent rendering expensive SVG filters and mix-blend modes multiple times */}
               <ElectricBorder 
