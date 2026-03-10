@@ -277,6 +277,7 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
                     animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                     transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
                     whileHover={{ scale: 1.02, x: 10 }}
+                    style={{ willChange: "transform" }}
                   >
                     {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}
                     <ElectricBorder color={day.color} variant="minimal">

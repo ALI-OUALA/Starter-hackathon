@@ -45,3 +45,7 @@
 ## 2025-06-01 - Layout Thrashing with Continuous Transforms on Blurred Elements
 **Learning:** Animating transform properties (`y`, `rotate`) on a large element with an expensive CSS filter (`backdrop-blur-xl`) continuously forces the browser to repaint the blur on the main thread if the element is not explicitly promoted to its own composite layer, leading to jittery scrolling and high GPU/CPU usage.
 **Action:** Explicitly add `style={{ willChange: "transform" }}` to elements with continuous layout or transform animations, especially those with heavy CSS filters like `backdrop-blur`, to ensure the browser composites these elements on the GPU and prevents main-thread paint thrashing.
+
+## 2025-06-02 - Layout Thrashing with Hover Transforms on Blurred Elements
+**Learning:** Similar to continuous animations, interaction-based animations (like Framer Motion's `whileHover`) on elements with heavy CSS filters (such as `backdrop-blur-xl` or those rendered within an `ElectricBorder`) also cause main-thread paint thrashing during the interaction. The browser must recalculate and repaint the blur effect on every frame of the hover transition.
+**Action:** Always explicitly add `style={{ willChange: "transform" }}` to interactive elements (e.g., cards, lists, icons) that use `whileHover` or `whileTap` to animate transform properties when they also contain or are layered with expensive CSS effects like blurs.
