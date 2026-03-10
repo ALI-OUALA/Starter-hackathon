@@ -85,7 +85,8 @@ export function Features() {
                 transition: { duration: 0.2 }
               }}
               className="group relative"
-              style={{ perspective: "1000px" }}
+              /* ⚡ Bolt Optimization: Explicitly set willChange: "transform" on elements with hover animations wrapping heavy CSS filters (backdrop-blur) to force GPU compositing and prevent main-thread repaints */
+              style={{ perspective: "1000px", willChange: "transform" }}
             >
               {/* ⚡ Bolt Optimization: Use 'minimal' variant in mapped lists to prevent rendering expensive SVG filters and mix-blend modes multiple times */}
               <ElectricBorder 

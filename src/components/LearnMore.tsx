@@ -254,6 +254,8 @@ function PrizesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.05, y: -5 }}
               className="group"
+              /* ⚡ Bolt Optimization: Added willChange: "transform" to element with hover animation containing heavy CSS filters (backdrop-blur) to force GPU compositing and prevent main-thread repaints */
+              style={{ willChange: "transform" }}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
               <ElectricBorder color={prize.color} variant="minimal">
