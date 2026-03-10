@@ -167,7 +167,7 @@ export function About({ onCalendarClick }: AboutProps) {
                   transition: { duration: 0.2 }
                 }}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
-                style={{ perspective: "1000px", willChange: "transform" }}
+                style={{ willChange: "transform" }}
                 onClick={detail.action}
                 onKeyDown={(event) => handleKeyActivate(event, detail.action)}
                 role={detail.action ? "button" : undefined}
