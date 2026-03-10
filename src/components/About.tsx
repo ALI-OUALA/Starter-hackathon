@@ -167,7 +167,6 @@ export function About({ onCalendarClick }: AboutProps) {
                   transition: { duration: 0.2 }
                 }}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
-                /* ⚡ Bolt Optimization: Added willChange: "transform" to element with hover animation containing heavy CSS filters (backdrop-blur) to force GPU compositing and prevent main-thread repaints */
                 style={{ perspective: "1000px", willChange: "transform" }}
                 onClick={detail.action}
                 onKeyDown={(event) => handleKeyActivate(event, detail.action)}
