@@ -47,6 +47,11 @@ export function Footer() {
             <h4 className="text-purple-200 font-bold mb-4">Connect With Us</h4>
             <div className="flex gap-3 mb-6">
               {socialLinks.map((link) => (
+                // ⚡ Bolt Optimization:
+                // Added `style={{ willChange: "transform" }}` to elements with interactive
+                // transform animations (whileHover/whileTap) that also use expensive CSS filters
+                // like `backdrop-blur`. This ensures the browser composites the element on the
+                // GPU, preventing main-thread paint thrashing during interactions.
                 <motion.a
                   key={link.label}
                   href={link.href}
@@ -55,6 +60,7 @@ export function Footer() {
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
+                  style={{ willChange: "transform" }}
                   className="w-11 h-11 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 border border-purple-500/20 hover:border-purple-400/40 transition-all group"
                 >
                   <link.icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
