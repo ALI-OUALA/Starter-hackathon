@@ -440,7 +440,7 @@ function CTASection({ onRegisterClick }: { onRegisterClick: () => void }) {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{ willChange: "transform" }}
+          style={{ willChange: "transform, opacity" }}
         >
           <ElectricBorder color="#8b5cf6">
             <div className="bg-gradient-to-br from-purple-900/60 to-purple-800/40 backdrop-blur-xl p-12 rounded-2xl text-center">
