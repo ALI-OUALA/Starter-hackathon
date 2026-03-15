@@ -49,3 +49,7 @@
 ## 2025-06-02 - Layout Thrashing with Hover Transforms on Blurred Elements
 **Learning:** Similar to continuous animations, interaction-based animations (like Framer Motion's `whileHover`) on elements with heavy CSS filters (such as `backdrop-blur-xl` or those rendered within an `ElectricBorder`) also cause main-thread paint thrashing during the interaction. The browser must recalculate and repaint the blur effect on every frame of the hover transition.
 **Action:** Always explicitly add `style={{ willChange: "transform" }}` to interactive elements (e.g., cards, lists, icons) that use `whileHover` or `whileTap` to animate transform properties when they also contain or are layered with expensive CSS effects like blurs.
+
+## 2025-06-03 - Page-Level Layout Re-render Isolation with useInView
+**Learning:** Using `useInView` at the top level of a large page component (like `EventCalendar`) causes the entire page—including headers, hero sections, and footers—to unnecessarily re-render when the user scrolls to the target section. This forces VDOM diffing for elements that have already animated in and have no dynamic state changes.
+**Action:** Extract scroll-triggered sections into their own dedicated sub-components (e.g., `ScheduleTimeline`) and move the `useInView` hook inside them. This isolates the re-render solely to the section that needs to animate on scroll.

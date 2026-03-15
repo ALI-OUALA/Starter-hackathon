@@ -196,10 +196,88 @@ interface EventCalendarProps {
   onRegisterClick: () => void;
 }
 
-export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
+function ScheduleTimeline() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
+  return (
+    <section className="py-12 px-4" ref={ref}>
+      <div className="max-w-7xl mx-auto space-y-16">
+        {schedule.map((day, dayIndex) => (
+          <motion.div
+            key={day.day}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
+          >
+            {/* Day Header */}
+            <div className="mb-8">
+              <h2 className="text-4xl font-black text-purple-100 mb-2">{day.day}</h2>
+              <div className="flex items-center gap-2 text-purple-400">
+                <Calendar className="w-4 h-4" />
+                <span>{day.date}</span>
+              </div>
+            </div>
+
+            {/* Events Timeline */}
+            <div className="space-y-6">
+              {day.events.map((event, eventIndex) => (
+                <motion.div
+                  key={eventIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  style={{ willChange: "transform" }}
+                >
+                  {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}
+                  <ElectricBorder color={day.color} variant="minimal">
+                    <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl">
+                      <div className="flex items-start gap-6">
+                        {/* Icon */}
+                        <div
+                          className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 border"
+                          style={{
+                            backgroundColor: `${day.color}20`,
+                            borderColor: `${day.color}40`
+                          }}
+                        >
+                          <event.icon className="w-7 h-7 text-purple-300" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between gap-4 mb-2">
+                            <div>
+                              <div className="flex items-center gap-3 mb-2">
+                                <Clock className="w-4 h-4 text-purple-400" />
+                                <span className="text-purple-400 font-semibold">{event.time}</span>
+                              </div>
+                              <h3 className="text-xl font-bold text-purple-100">
+                                {event.title}
+                              </h3>
+                            </div>
+                          </div>
+                          <p className="text-purple-300/70 mb-3">{event.description}</p>
+                          <div className="flex items-center gap-2 text-sm text-purple-400/60">
+                            <MapPin className="w-3 h-3" />
+                            <span>{event.location}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ElectricBorder>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -249,80 +327,8 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
         </div>
       </section>
 
-      {/* Schedule */}
-      <section className="py-12 px-4" ref={ref}>
-        <div className="max-w-7xl mx-auto space-y-16">
-          {schedule.map((day, dayIndex) => (
-            <motion.div
-              key={day.day}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
-            >
-              {/* Day Header */}
-              <div className="mb-8">
-                <h2 className="text-4xl font-black text-purple-100 mb-2">{day.day}</h2>
-                <div className="flex items-center gap-2 text-purple-400">
-                  <Calendar className="w-4 h-4" />
-                  <span>{day.date}</span>
-                </div>
-              </div>
-
-              {/* Events Timeline */}
-              <div className="space-y-6">
-                {day.events.map((event, eventIndex) => (
-                  <motion.div
-                    key={eventIndex}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
-                    whileHover={{ scale: 1.02, x: 10 }}
-                    style={{ willChange: "transform" }}
-                  >
-                    {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}
-                    <ElectricBorder color={day.color} variant="minimal">
-                      <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl">
-                        <div className="flex items-start gap-6">
-                          {/* Icon */}
-                          <div 
-                            className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 border"
-                            style={{ 
-                              backgroundColor: `${day.color}20`,
-                              borderColor: `${day.color}40`
-                            }}
-                          >
-                            <event.icon className="w-7 h-7 text-purple-300" />
-                          </div>
-
-                          {/* Content */}
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between gap-4 mb-2">
-                              <div>
-                                <div className="flex items-center gap-3 mb-2">
-                                  <Clock className="w-4 h-4 text-purple-400" />
-                                  <span className="text-purple-400 font-semibold">{event.time}</span>
-                                </div>
-                                <h3 className="text-xl font-bold text-purple-100">
-                                  {event.title}
-                                </h3>
-                              </div>
-                            </div>
-                            <p className="text-purple-300/70 mb-3">{event.description}</p>
-                            <div className="flex items-center gap-2 text-sm text-purple-400/60">
-                              <MapPin className="w-3 h-3" />
-                              <span>{event.location}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ElectricBorder>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* ⚡ Bolt Optimization: Extracted schedule timeline to isolate re-renders on scroll */}
+      <ScheduleTimeline />
 
       {/* CTA */}
       <section className="py-16 px-4">
