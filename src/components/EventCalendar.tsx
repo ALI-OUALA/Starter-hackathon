@@ -223,7 +223,7 @@ function ScheduleTimeline() {
             <div className="space-y-6">
               {day.events.map((event, eventIndex) => (
                 <motion.div
-                  key={eventIndex}
+                  key={event.title}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
