@@ -53,3 +53,7 @@
 ## 2025-06-03 - Page-Level Layout Re-render Isolation with useInView
 **Learning:** Using `useInView` at the top level of a large page component (like `EventCalendar`) causes the entire page—including headers, hero sections, and footers—to unnecessarily re-render when the user scrolls to the target section. This forces VDOM diffing for elements that have already animated in and have no dynamic state changes.
 **Action:** Extract scroll-triggered sections into their own dedicated sub-components (e.g., `ScheduleTimeline`) and move the `useInView` hook inside them. This isolates the re-render solely to the section that needs to animate on scroll.
+
+## 2025-06-04 - React Re-Renders Triggered by useInView Hook
+**Learning:** Using the `useInView` hook from `motion/react` combined with a `useRef` to manually trigger scroll animations (`animate={isInView ? { ... } : { ... }}`) forces a React state update whenever the intersection observer fires. This causes unnecessary component re-renders.
+**Action:** When implementing scroll-triggered animations with Framer Motion, strongly prefer using the built-in `whileInView` and `viewport={{ once: true }}` props directly on `motion` elements. This defers the intersection observation and animation triggering entirely to Framer Motion's internal optimizations without triggering React component state updates or re-renders.
