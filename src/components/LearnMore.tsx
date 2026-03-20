@@ -146,14 +146,32 @@ function ScheduleSection() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <motion.div
+          // ⚡ Bolt Performance Optimization:
+          // Replaced individual whileInView observers on each schedule item with a single parent observer.
+          // Using staggerChildren prevents excessive DOM measurements and React re-renders
+          // that occur when tracking many independent elements entering the viewport.
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+          className="grid md:grid-cols-3 gap-8"
+        >
           {schedule.map((day, dayIndex) => (
             <motion.div
               key={day.day}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
               <ElectricBorder color={["#8b5cf6", "#ec4899", "#06b6d4"][dayIndex]} variant="minimal">
@@ -178,7 +196,7 @@ function ScheduleSection() {
               </ElectricBorder>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -240,14 +258,32 @@ function PrizesSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          // ⚡ Bolt Performance Optimization:
+          // Replaced individual whileInView observers on each prize card with a single parent observer.
+          // Using staggerChildren prevents excessive DOM measurements and React re-renders
+          // that occur when tracking many independent elements entering the viewport.
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {prizes.map((prize, index) => (
             <motion.div
               key={prize.place}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              variants={{
+                hidden: { opacity: 0, scale: 0.9 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+              }}
               whileHover={{ scale: 1.05, y: -5 }}
               style={{ willChange: "transform" }}
               className="group"
@@ -267,7 +303,7 @@ function PrizesSection() {
               </ElectricBorder>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -329,14 +365,32 @@ function TracksSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          // ⚡ Bolt Performance Optimization:
+          // Replaced individual whileInView observers on each track card with a single parent observer.
+          // Using staggerChildren prevents excessive DOM measurements and React re-renders
+          // that occur when tracking many independent elements entering the viewport.
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {tracks.map((track, index) => (
             <motion.div
               key={track.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
               whileHover={{ scale: 1.03 }}
               style={{ willChange: "transform" }}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
@@ -346,7 +400,7 @@ function TracksSection() {
               <p className="text-purple-300/70">{track.description}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -395,14 +449,32 @@ function FAQSection() {
           </h2>
         </motion.div>
 
-        <div className="space-y-4">
+        <motion.div
+          // ⚡ Bolt Performance Optimization:
+          // Replaced individual whileInView observers on each FAQ card with a single parent observer.
+          // Using staggerChildren prevents excessive DOM measurements and React re-renders
+          // that occur when tracking many independent elements entering the viewport.
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1
+              }
+            }
+          }}
+          className="space-y-4"
+        >
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
               <div className="flex items-start gap-4">
@@ -414,7 +486,7 @@ function FAQSection() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
