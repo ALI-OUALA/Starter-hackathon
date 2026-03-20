@@ -1,6 +1,4 @@
 import { motion } from "motion/react";
-import { useInView } from "motion/react";
-import { useRef } from "react";
 import { 
   ArrowLeft, 
   Calendar, 
@@ -197,18 +195,30 @@ interface EventCalendarProps {
 }
 
 function ScheduleTimeline() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
-
   return (
-    <section className="py-12 px-4" ref={ref}>
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.2
+          }
+        }
+      }}
+      className="py-12 px-4"
+    >
       <div className="max-w-7xl mx-auto space-y-16">
         {schedule.map((day, dayIndex) => (
           <motion.div
             key={day.day}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: dayIndex * 0.2 }}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+            }}
           >
             {/* Day Header */}
             <div className="mb-8">
@@ -224,9 +234,10 @@ function ScheduleTimeline() {
               {day.events.map((event, eventIndex) => (
                 <motion.div
                   key={event.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.5, delay: dayIndex * 0.2 + eventIndex * 0.1 }}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: eventIndex * 0.1 } }
+                  }}
                   whileHover={{ scale: 1.02, x: 10 }}
                   style={{ willChange: "transform" }}
                 >
@@ -273,7 +284,7 @@ function ScheduleTimeline() {
           </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 

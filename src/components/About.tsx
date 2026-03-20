@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
-import { useInView } from "motion/react";
-import { useCallback, useMemo, useRef, type KeyboardEvent } from "react";
+import { useCallback, useMemo, type KeyboardEvent } from "react";
 import { Calendar, MapPin, Clock, Award, Users, Target } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
@@ -16,9 +15,6 @@ const stats = [
 ];
 
 export function About({ onCalendarClick }: AboutProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
   }, [onCalendarClick]);
@@ -66,31 +62,42 @@ export function About({ onCalendarClick }: AboutProps) {
   ], [handleCalendarOpen]);
 
   return (
-    <section className="py-32 px-4 relative overflow-hidden" ref={ref}>
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1
+          }
+        }
+      }}
+      className="py-32 px-4 relative overflow-hidden"
+    >
       {/* Diagonal background element */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-br from-purple-900/20 to-transparent transform skew-x-12 translate-x-1/4" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Text content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             <div>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+                }}
               >
                 <span className="text-purple-400 uppercase tracking-wider text-sm font-semibold">About The Event</span>
               </motion.div>
               <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+                }}
                 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-6 text-purple-100"
               >
                 Your Launchpad to{" "}
@@ -101,9 +108,10 @@ export function About({ onCalendarClick }: AboutProps) {
             </div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               STARTER is more than just a hackathon – it's a launchpad for your
@@ -113,9 +121,10 @@ export function About({ onCalendarClick }: AboutProps) {
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               With mentorship from industry leaders, workshops on the latest
@@ -125,9 +134,10 @@ export function About({ onCalendarClick }: AboutProps) {
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+              }}
               className="grid grid-cols-3 gap-4 pt-6"
             >
               {stats.map((stat, index) => (
@@ -141,25 +151,21 @@ export function About({ onCalendarClick }: AboutProps) {
                 </div>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Right side - Details cards with unique design */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             {details.map((detail, index) => (
               <motion.div
                 key={detail.label}
-                initial={{ opacity: 0, x: 30, rotateY: -10 }}
-                animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : { opacity: 0, x: 30, rotateY: -10 }}
-                transition={{ 
-                  duration: 0.7, 
-                  delay: 0.4 + index * 0.15,
-                  type: "spring",
-                  stiffness: 80
+                variants={{
+                  hidden: { opacity: 0, x: 30, rotateY: -10 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    rotateY: 0,
+                    transition: { duration: 0.7, type: "spring", stiffness: 80 }
+                  }
                 }}
                 whileHover={{ 
                   scale: 1.03,
@@ -226,9 +232,10 @@ export function About({ onCalendarClick }: AboutProps) {
 
             {/* Additional decorative card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
+              variants={{
+                hidden: { opacity: 0, scale: 0.9 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+              }}
             >
               <ElectricBorder color="#ec4899" variant="minimal">
                 <div className="relative p-8 bg-gradient-to-br from-pink-900/30 to-purple-900/30 backdrop-blur-xl rounded-2xl overflow-hidden">
@@ -239,9 +246,9 @@ export function About({ onCalendarClick }: AboutProps) {
                 </div>
               </ElectricBorder>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

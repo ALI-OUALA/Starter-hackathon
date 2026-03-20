@@ -1,6 +1,4 @@
 import { motion } from "motion/react";
-import { useInView } from "motion/react";
-import { useRef } from "react";
 import { Code, Users, Trophy, Zap, Sparkles, Rocket } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
@@ -40,19 +38,31 @@ const features = [
 ];
 
 export function Features() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-
   return (
-    <section className="py-32 px-4 relative" ref={ref}>
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.15
+          }
+        }
+      }}
+      className="py-32 px-4 relative"
+    >
       {/* Background decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
       
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+          }}
           className="text-center mb-20"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -71,13 +81,14 @@ export function Features() {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 40, rotateX: 10 }}
-              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 40, rotateX: 10 }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.15,
-                type: "spring",
-                stiffness: 100
+              variants={{
+                hidden: { opacity: 0, y: 40, rotateX: 10 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  rotateX: 0,
+                  transition: { duration: 0.7, type: "spring", stiffness: 100 }
+                }
               }}
               whileHover={{ 
                 scale: 1.02, 
@@ -133,9 +144,10 @@ export function Features() {
 
         {/* Additional info section */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.8 } }
+          }}
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-900/40 to-pink-900/40 backdrop-blur-sm rounded-2xl border border-purple-500/30">
@@ -146,6 +158,6 @@ export function Features() {
           </div>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
