@@ -292,10 +292,13 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
   return (
     <div className="min-h-screen">
       {/* Header */}
+      {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
+          paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
+        style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
