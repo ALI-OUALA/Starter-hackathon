@@ -45,11 +45,31 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
       <div className="max-w-7xl mx-auto z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Content */}
-          <div className="space-y-8">
+          {/* ⚡ Bolt Optimization:
+              Wrapped children in a single parent `<motion.div>` and used `variants` with `staggerChildren`
+              instead of applying individual `transition={{ delay: ... }}` props to each child.
+              This reduces the number of independent transition sequencers and React lifecycle updates
+              tracking the animations during initial hydration. */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  delayChildren: 0.2,
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+            className="space-y-8"
+          >
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+              }}
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-sm mb-6">
                 <Sparkles className="w-4 h-4 text-purple-400" />
@@ -58,9 +78,10 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+              }}
             >
               <h1 className="text-7xl md:text-8xl lg:text-9xl font-black mb-4 relative">
                 <span className="absolute -inset-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 blur-3xl" />
@@ -72,18 +93,20 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+              }}
               className="text-2xl md:text-3xl text-purple-100/90 leading-relaxed"
             >
               Where Innovation <span className="text-pink-400">Begins</span>
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+              }}
               className="text-lg text-purple-300/70 leading-relaxed max-w-xl"
             >
               Join developers, designers, and innovators from around the world
@@ -92,9 +115,10 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+              }}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Button
@@ -116,7 +140,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
                 Learn More
               </Button>
             </motion.div>
-          </div>
+          </motion.div>
 
           {/* Right side - Decorative cards */}
           <motion.div
