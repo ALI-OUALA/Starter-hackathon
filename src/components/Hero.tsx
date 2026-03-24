@@ -46,11 +46,12 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Content */}
           {/* ⚡ Bolt Optimization:
-              Wrapped children in a single parent `<motion.div>` and used `variants` with `staggerChildren`
-              instead of applying individual `transition={{ delay: ... }}` props to each child.
-              This reduces the number of independent transition sequencers and React lifecycle updates
-              tracking the animations during initial hydration. */}
+              Replaced individual mount animations with a single staggered parent variant.
+              This reduces the number of independent transition objects and timeouts that
+              React and Framer Motion must track, eliminating redundant DOM sequencer
+              calculations on initial hydration and render. */}
           <motion.div
+            className="space-y-8"
             initial="hidden"
             animate="visible"
             variants={{
@@ -58,12 +59,11 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
               visible: {
                 opacity: 1,
                 transition: {
-                  delayChildren: 0.2,
-                  staggerChildren: 0.1
+                  staggerChildren: 0.1,
+                  delayChildren: 0.2
                 }
               }
             }}
-            className="space-y-8"
           >
             <motion.div
               variants={{
