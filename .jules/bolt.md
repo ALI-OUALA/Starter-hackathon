@@ -61,3 +61,11 @@
 ## 2025-06-05 - Layout Thrashing with Mount Animations on Blurred Elements
 **Learning:** Similar to continuous or interaction-based animations, initial mount animations (like `opacity` or `y` translation) on elements with heavy CSS filters (such as `backdrop-blur-xl`) cause main-thread paint thrashing until the animation completes. This is particularly noticeable on large structural elements like sticky headers that slide and fade in when the component mounts.
 **Action:** Always explicitly add `style={{ willChange: "transform, opacity" }}` to elements that animate in on mount when they also contain or are layered with expensive CSS effects like blurs. This ensures the browser promotes them to a composite layer immediately, maintaining a smooth 60fps during the entrance animation.
+
+## 2025-06-06 - Framer Motion staggerChildren Overhead
+**Learning:** Replacing a standard DOM `div` with a `<motion.div>` solely to use Framer Motion's `staggerChildren` (instead of using inline math like `delay: index * 0.1` on child `motion.div`s) is an API refactoring, not a measurable performance optimization. In fact, it slightly increases React component tree overhead by introducing another complex `motion` object layer.
+**Action:** Do not "optimize" inline math delays into `staggerChildren` unless the parent wrapper is already a `motion` component or there is a proven bug with the inline delays. Focus on removing unnecessary `motion` wrappers instead.
+
+## 2025-06-07 - Object Reallocation in Mapped Arrays
+**Learning:** Defining inline object literals (like `whileHover={{ scale: 1.02 }}`) inside `.map()` arrays causes React to create a new object reference on every render for every mapped element, adding garbage collection churn and potentially breaking pure component shallow comparisons down the tree.
+**Action:** Always extract static configuration objects, variants, and inline style objects that do not depend on closure variables to module-level constants (outside the component) when they are used inside `map` operations.
