@@ -17,7 +17,9 @@ import {
 import { Button } from "./ui/button";
 import { ElectricBorder } from "./ElectricBorder";
 
-// ⚡ Bolt Optimization: Moved schedule array outside component to avoid recreation on every render
+// ⚡ Bolt Optimization: Moved static data and animation objects outside component to avoid recreation on every render
+const eventHoverState = { scale: 1.02, x: 10 };
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -238,7 +240,7 @@ function ScheduleTimeline() {
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: eventIndex * 0.1 } }
                   }}
-                  whileHover={{ scale: 1.02, x: 10 }}
+                  whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
                   {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}

@@ -205,6 +205,10 @@ function ScheduleSection() {
   );
 }
 
+// ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
+const prizeHoverState = { scale: 1.05, y: -5 };
+const trackHoverState = { scale: 1.03 };
+
 const prizes = [
   {
     place: "1st Place",
@@ -287,7 +291,7 @@ function PrizesSection() {
                 hidden: { opacity: 0, scale: 0.9 },
                 visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
               }}
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={prizeHoverState}
               style={{ willChange: "transform" }}
               className="group"
             >
@@ -394,7 +398,7 @@ function TracksSection() {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
               }}
-              whileHover={{ scale: 1.03 }}
+              whileHover={trackHoverState}
               style={{ willChange: "transform" }}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
