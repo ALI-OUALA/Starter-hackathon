@@ -37,6 +37,18 @@ const features = [
   },
 ];
 
+// ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
+const featureHoverState = {
+  scale: 1.02,
+  rotateY: 2,
+  transition: { duration: 0.2 }
+};
+
+const featureIconHoverState = {
+  rotate: 360,
+  scale: 1.1
+};
+
 export function Features() {
   return (
     <motion.section
@@ -90,11 +102,7 @@ export function Features() {
                   transition: { duration: 0.7, type: "spring", stiffness: 100 }
                 }
               }}
-              whileHover={{ 
-                scale: 1.02, 
-                rotateY: 2,
-                transition: { duration: 0.2 }
-              }}
+              whileHover={featureHoverState}
               className="group relative"
               style={{ willChange: "transform" }}
             >
@@ -113,7 +121,7 @@ export function Features() {
                   {/* Icon container */}
                   <div className="flex items-start gap-6 mb-6">
                     <motion.div 
-                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      whileHover={featureIconHoverState}
                       transition={{ duration: 0.6 }}
                       style={{ willChange: "transform" }}
                       className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center flex-shrink-0 border ${feature.borderColor} group-hover:shadow-lg transition-all duration-300`}
