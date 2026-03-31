@@ -18,7 +18,7 @@ import { Button } from "./ui/button";
 import { ElectricBorder } from "./ElectricBorder";
 
 // ⚡ Bolt Optimization: Moved static data and animation objects outside component to avoid recreation on every render
-const eventHoverState = { scale: 1.02, x: 10 };
+const eventHoverState = { scale: 1.02, x: 10 } as const;
 
 const schedule = [
   {
