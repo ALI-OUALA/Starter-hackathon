@@ -206,8 +206,8 @@ function ScheduleSection() {
 }
 
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
-const prizeHoverState = { scale: 1.05, y: -5 };
-const trackHoverState = { scale: 1.03 };
+const prizeHoverState = { scale: 1.05, y: -5 } as const;
+const trackHoverState = { scale: 1.03 } as const;
 
 const prizes = [
   {
