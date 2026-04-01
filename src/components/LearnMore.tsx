@@ -171,10 +171,7 @@ function ScheduleSection() {
           {schedule.map((day, dayIndex) => (
             <motion.div
               key={day.day}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={scheduleItemVariants}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
               <ElectricBorder color={["#8b5cf6", "#ec4899", "#06b6d4"][dayIndex]} variant="minimal">
@@ -208,6 +205,29 @@ function ScheduleSection() {
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
 const trackHoverState = { scale: 1.03 } as const;
+
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render for each mapped item,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const scheduleItemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const prizeItemVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+};
+
+const trackItemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const faqItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
 
 const prizes = [
   {
@@ -287,10 +307,7 @@ function PrizesSection() {
           {prizes.map((prize, index) => (
             <motion.div
               key={prize.place}
-              variants={{
-                hidden: { opacity: 0, scale: 0.9 },
-                visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
-              }}
+              variants={prizeItemVariants}
               whileHover={prizeHoverState}
               style={{ willChange: "transform" }}
               className="group"
@@ -394,10 +411,7 @@ function TracksSection() {
           {tracks.map((track, index) => (
             <motion.div
               key={track.title}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={trackItemVariants}
               whileHover={trackHoverState}
               style={{ willChange: "transform" }}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
@@ -478,10 +492,7 @@ function FAQSection() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={faqItemVariants}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
               <div className="flex items-start gap-4">

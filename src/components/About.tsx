@@ -14,6 +14,19 @@ const stats = [
   { icon: Target, number: "20+", label: "Mentors" },
 ];
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
+// This prevents React from creating a new object reference on every render for each mapped item,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const detailCardVariants = {
+  hidden: { opacity: 0, x: 30, rotateY: -10 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    rotateY: 0,
+    transition: { duration: 0.7, type: "spring", stiffness: 80 }
+  }
+};
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -158,15 +171,7 @@ export function About({ onCalendarClick }: AboutProps) {
             {details.map((detail, index) => (
               <motion.div
                 key={detail.label}
-                variants={{
-                  hidden: { opacity: 0, x: 30, rotateY: -10 },
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                    rotateY: 0,
-                    transition: { duration: 0.7, type: "spring", stiffness: 80 }
-                  }
-                }}
+                variants={detailCardVariants}
                 whileHover={{ 
                   scale: 1.03,
                   x: 10,
