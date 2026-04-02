@@ -25,7 +25,22 @@ const eventHoverState = { scale: 1.02, x: 10 } as const;
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
 const calendarDayVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      staggerChildren: 0.1
+    }
+  }
+} as const;
+
+// ⚡ Bolt Performance Optimization:
+// Extracted variant to avoid inline object allocation and vDOM diffing overhead inside .map() loops.
+// Replaced dynamic delay calculation (index * 0.1) with Framer Motion's parent staggerChildren.
+const eventItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
 } as const;
 
 const schedule = [
@@ -238,13 +253,10 @@ function ScheduleTimeline() {
 
             {/* Events Timeline */}
             <div className="space-y-6">
-              {day.events.map((event, eventIndex) => (
+              {day.events.map((event) => (
                 <motion.div
                   key={event.title}
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: eventIndex * 0.1 } }
-                  }}
+                  variants={eventItemVariants}
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
