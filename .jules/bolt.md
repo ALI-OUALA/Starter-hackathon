@@ -69,3 +69,6 @@
 ## 2025-06-07 - Object Reallocation in Mapped Arrays
 **Learning:** Defining inline object literals (like `whileHover={{ scale: 1.02 }}`) inside `.map()` arrays causes React to create a new object reference on every render for every mapped element, adding garbage collection churn and potentially breaking pure component shallow comparisons down the tree.
 **Action:** Always extract static configuration objects, variants, and inline style objects that do not depend on closure variables to module-level constants (outside the component) when they are used inside `map` operations.
+## 2025-06-08 - Object Reallocation with Closure Variables in Framer Motion
+**Learning:** When inline animation objects inside mapped arrays depend on the index (e.g., `delay: index * 0.1`), they cannot be extracted as simple static constants. However, recreating these objects on every render still causes garbage collection churn.
+**Action:** Use Framer Motion's `custom` prop (`custom={index}`) combined with a module-level variant function (e.g., `visible: (index) => ({ ... })`) to completely eliminate inline object allocations even when animations depend on iteration state.

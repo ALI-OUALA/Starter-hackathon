@@ -27,6 +27,20 @@ const detailCardVariants = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline hover animation objects to prevent reallocation
+const detailHoverState = {
+  scale: 1.03,
+  x: 10,
+  transition: { duration: 0.2 }
+} as const;
+
+const detailIconHoverState = {
+  rotate: [0, -10, 10, -10, 0],
+  scale: 1.1
+} as const;
+
+const detailIconTransition = { duration: 0.5 } as const;
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -172,11 +186,7 @@ export function About({ onCalendarClick }: AboutProps) {
               <motion.div
                 key={detail.label}
                 variants={detailCardVariants}
-                whileHover={{ 
-                  scale: 1.03,
-                  x: 10,
-                  transition: { duration: 0.2 }
-                }}
+                whileHover={detailHoverState}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
                 style={{ willChange: "transform" }}
                 onClick={detail.action}
@@ -198,8 +208,8 @@ export function About({ onCalendarClick }: AboutProps) {
                     
                     {/* Icon */}
                     <motion.div 
-                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
+                      whileHover={detailIconHoverState}
+                      transition={detailIconTransition}
                       style={{ willChange: "transform" }}
                       className="relative w-16 h-16 bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/30 group-hover:border-purple-400/60 group-hover:shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
                     >

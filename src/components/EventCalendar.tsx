@@ -28,6 +28,18 @@ const calendarDayVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inner mapped animation variants using the `custom` prop.
+// This eliminates the final inline object allocation inside the nested map loop while
+// still allowing index-based stagger delays.
+const eventItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (index: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, delay: index * 0.1 }
+  })
+};
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -241,10 +253,8 @@ function ScheduleTimeline() {
               {day.events.map((event, eventIndex) => (
                 <motion.div
                   key={event.title}
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: eventIndex * 0.1 } }
-                  }}
+                  custom={eventIndex}
+                  variants={eventItemVariants}
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
