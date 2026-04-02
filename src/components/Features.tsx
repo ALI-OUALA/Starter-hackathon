@@ -60,7 +60,7 @@ const featureCardVariants = {
     rotateX: 0,
     transition: { duration: 0.7, type: "spring", stiffness: 100 }
   }
-};
+} as const;
 
 export function Features() {
   return (
