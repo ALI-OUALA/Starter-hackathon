@@ -25,7 +25,7 @@ const detailCardVariants = {
     rotateY: 0,
     transition: { duration: 0.7, type: "spring", stiffness: 80 }
   }
-};
+} as const;
 
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
