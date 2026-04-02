@@ -27,6 +27,18 @@ const detailCardVariants = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
+const detailHoverState = {
+  scale: 1.03,
+  x: 10,
+  transition: { duration: 0.2 }
+} as const;
+
+const detailIconHoverState = { rotate: [0, -10, 10, -10, 0], scale: 1.1 } as const;
+const detailArrowHoverState = { x: 5 } as const;
+const detailStyle = { willChange: "transform" } as const;
+const detailIconTransition = { duration: 0.5 } as const;
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -172,13 +184,9 @@ export function About({ onCalendarClick }: AboutProps) {
               <motion.div
                 key={detail.label}
                 variants={detailCardVariants}
-                whileHover={{ 
-                  scale: 1.03,
-                  x: 10,
-                  transition: { duration: 0.2 }
-                }}
+                whileHover={detailHoverState}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
-                style={{ willChange: "transform" }}
+                style={detailStyle}
                 onClick={detail.action}
                 onKeyDown={(event) => handleKeyActivate(event, detail.action)}
                 role={detail.action ? "button" : undefined}
@@ -198,9 +206,9 @@ export function About({ onCalendarClick }: AboutProps) {
                     
                     {/* Icon */}
                     <motion.div 
-                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                      style={{ willChange: "transform" }}
+                      whileHover={detailIconHoverState}
+                      transition={detailIconTransition}
+                      style={detailStyle}
                       className="relative w-16 h-16 bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/30 group-hover:border-purple-400/60 group-hover:shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
                     >
                       <detail.icon className="w-7 h-7 text-purple-300 group-hover:text-purple-200 transition-colors relative z-10" />
@@ -222,8 +230,8 @@ export function About({ onCalendarClick }: AboutProps) {
                     {detail.action ? (
                       <motion.div 
                         className="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        whileHover={{ x: 5 }}
-                        style={{ willChange: "transform" }}
+                        whileHover={detailArrowHoverState}
+                        style={detailStyle}
                       >
                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
