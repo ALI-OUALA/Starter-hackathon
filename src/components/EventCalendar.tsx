@@ -20,6 +20,14 @@ import { ElectricBorder } from "./ElectricBorder";
 // ⚡ Bolt Optimization: Moved static data and animation objects outside component to avoid recreation on every render
 const eventHoverState = { scale: 1.02, x: 10 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
+// This prevents React from creating a new object reference on every render for each mapped item,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const calendarDayVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -217,10 +225,7 @@ function ScheduleTimeline() {
         {schedule.map((day, dayIndex) => (
           <motion.div
             key={day.day}
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-            }}
+            variants={calendarDayVariants}
           >
             {/* Day Header */}
             <div className="mb-8">

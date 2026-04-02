@@ -49,6 +49,19 @@ const featureIconHoverState = {
   scale: 1.1
 };
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
+// This prevents React from creating a new object reference on every render for each mapped item,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const featureCardVariants = {
+  hidden: { opacity: 0, y: 40, rotateX: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: { duration: 0.7, type: "spring", stiffness: 100 }
+  }
+} as const;
+
 export function Features() {
   return (
     <motion.section
@@ -93,15 +106,7 @@ export function Features() {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              variants={{
-                hidden: { opacity: 0, y: 40, rotateX: 10 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  rotateX: 0,
-                  transition: { duration: 0.7, type: "spring", stiffness: 100 }
-                }
-              }}
+              variants={featureCardVariants}
               whileHover={featureHoverState}
               className="group relative"
               style={{ willChange: "transform" }}
