@@ -27,6 +27,20 @@ const detailCardVariants = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
+const detailHoverState = {
+  scale: 1.03,
+  x: 10,
+  transition: { duration: 0.2 }
+} as const;
+
+const detailIconHoverState = {
+  rotate: [0, -10, 10, -10, 0],
+  scale: 1.1
+} as const;
+
+const detailActionHoverState = { x: 5 } as const;
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -172,11 +186,7 @@ export function About({ onCalendarClick }: AboutProps) {
               <motion.div
                 key={detail.label}
                 variants={detailCardVariants}
-                whileHover={{ 
-                  scale: 1.03,
-                  x: 10,
-                  transition: { duration: 0.2 }
-                }}
+                whileHover={detailHoverState}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
                 style={{ willChange: "transform" }}
                 onClick={detail.action}
@@ -198,7 +208,7 @@ export function About({ onCalendarClick }: AboutProps) {
                     
                     {/* Icon */}
                     <motion.div 
-                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                      whileHover={detailIconHoverState}
                       transition={{ duration: 0.5 }}
                       style={{ willChange: "transform" }}
                       className="relative w-16 h-16 bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/30 group-hover:border-purple-400/60 group-hover:shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
@@ -222,7 +232,7 @@ export function About({ onCalendarClick }: AboutProps) {
                     {detail.action ? (
                       <motion.div 
                         className="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        whileHover={{ x: 5 }}
+                        whileHover={detailActionHoverState}
                         style={{ willChange: "transform" }}
                       >
                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
