@@ -9,6 +9,10 @@ const socialLinks = [
   { icon: Mail, href: "mailto:hello@starter.com", label: "Email" },
 ];
 
+// ⚡ Bolt Optimization: Extracted inline animation variant to a module-level constant.
+// This prevents React from creating a new object reference on every render.
+const socialHoverState = { scale: 1.1, rotate: 5 } as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -58,7 +62,7 @@ export function Footer() {
                   aria-label={link.label}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={socialHoverState}
                   whileTap={{ scale: 0.95 }}
                   style={{ willChange: "transform" }}
                   className="w-11 h-11 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 border border-purple-500/20 hover:border-purple-400/40 transition-all group"
