@@ -28,15 +28,14 @@ const calendarDayVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 } as const;
 
-// ⚡ Bolt Optimization: Extracted inline animation variants for mapped items.
-// Using a function that takes the `custom` prop allows us to define dynamic delays
-// (based on index) without recreating the object literal on every single render.
+// ⚡ Bolt Optimization: Extracted inline animation variants from map loop to prevent object reallocation.
+// Used Framer Motion's `custom` pattern for dynamic delays to preserve referential equality.
 const eventItemVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: (customIndex: number) => ({
+  visible: (custom: number) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, delay: customIndex * 0.1 }
+    transition: { duration: 0.5, delay: custom * 0.1 }
   })
 } as const;
 
@@ -254,11 +253,7 @@ function ScheduleTimeline() {
                 <motion.div
                   key={event.title}
                   custom={eventIndex}
-<<<<<<< HEAD
-                  variants={eventItemVariants as any}
-=======
                   variants={eventItemVariants}
->>>>>>> f179993 (⚡ Bolt: Extracted inline event variants to module constant)
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
