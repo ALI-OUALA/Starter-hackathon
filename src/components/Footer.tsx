@@ -9,6 +9,10 @@ const socialLinks = [
   { icon: Mail, href: "mailto:hello@starter.com", label: "Email" },
 ];
 
+// ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
+const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
+const socialLinkTapState = { scale: 0.95 } as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -58,8 +62,8 @@ export function Footer() {
                   aria-label={link.label}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={socialLinkHoverState}
+                  whileTap={socialLinkTapState}
                   style={{ willChange: "transform" }}
                   className="w-11 h-11 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 border border-purple-500/20 hover:border-purple-400/40 transition-all group"
                 >
