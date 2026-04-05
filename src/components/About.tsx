@@ -33,14 +33,14 @@ const detailHoverState = {
   scale: 1.03,
   x: 10,
   transition: { duration: 0.2 }
-};
+} as const;
 
 const detailIconHoverState = {
   rotate: [0, -10, 10, -10, 0],
   scale: 1.1
-};
+} as const;
 
-const detailArrowHoverState = { x: 5 };
+const detailArrowHoverState = { x: 5 } as const;
 
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
