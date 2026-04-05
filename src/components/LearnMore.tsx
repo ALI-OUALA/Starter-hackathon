@@ -209,7 +209,7 @@ const trackHoverState = { scale: 1.03 } as const;
 // ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
 // This prevents React from creating a new object reference on every render for each mapped item,
 // reducing garbage collection churn.
-const hardwareAccelerationStyle = { willChange: "transform" } as const;
+const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render for each mapped item,
