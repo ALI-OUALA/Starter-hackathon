@@ -179,7 +179,7 @@ export function About({ onCalendarClick }: AboutProps) {
                 variants={detailCardVariants}
                 whileHover={detailCardHoverState}
                 className={`group relative ${detail.action ? "cursor-pointer" : "cursor-default"}`}
-                style={{ willChange: "transform" }}
+                style={detailStyle}
                 onClick={detail.action}
                 onKeyDown={(event) => handleKeyActivate(event, detail.action)}
                 role={detail.action ? "button" : undefined}
