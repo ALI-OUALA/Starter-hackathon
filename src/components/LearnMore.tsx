@@ -206,6 +206,11 @@ function ScheduleSection() {
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
 const trackHoverState = { scale: 1.03 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
+// This prevents React from creating a new object reference on every render for each mapped item,
+// reducing garbage collection churn.
+const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
+
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render for each mapped item,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
@@ -309,7 +314,7 @@ function PrizesSection() {
               key={prize.place}
               variants={prizeItemVariants}
               whileHover={prizeHoverState}
-              style={{ willChange: "transform" }}
+              style={hardwareAccelerationStyle}
               className="group"
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
@@ -413,7 +418,7 @@ function TracksSection() {
               key={track.title}
               variants={trackItemVariants}
               whileHover={trackHoverState}
-              style={{ willChange: "transform" }}
+              style={hardwareAccelerationStyle}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
               <div className="w-2 h-16 rounded-full mb-4" style={{ background: track.color }} />
