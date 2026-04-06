@@ -147,6 +147,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            style={{ willChange: "transform, opacity" }}
             className="relative hidden lg:block"
           >
             <div className="relative w-full h-[500px]">
