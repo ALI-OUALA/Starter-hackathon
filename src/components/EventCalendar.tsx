@@ -28,6 +28,18 @@ const calendarDayVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline event item variants to module scope.
+// Utilizing the 'custom' prop to pass the dynamic delay per index instead of recreating the
+// entire variant object inline on every render inside the .map loop.
+const eventItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (customIndex: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, delay: customIndex * 0.1 }
+  })
+};
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -241,10 +253,8 @@ function ScheduleTimeline() {
               {day.events.map((event, eventIndex) => (
                 <motion.div
                   key={event.title}
-                  variants={{
-                    hidden: { opacity: 0, x: -20 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: eventIndex * 0.1 } }
-                  }}
+                  custom={eventIndex}
+                  variants={eventItemVariants}
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
