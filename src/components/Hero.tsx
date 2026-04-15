@@ -7,6 +7,27 @@ interface HeroProps {
   onLearnMoreClick: () => void;
 }
 
+const transformAccelerationStyle = { willChange: "transform" } as const;
+
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const heroContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+} as const;
+
+const heroItemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+} as const;
+
 export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
@@ -25,7 +46,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        style={{ willChange: "transform" }}
+        style={transformAccelerationStyle}
         className="absolute top-1/4 left-10 w-20 h-20 border-2 border-purple-500/30 rounded-2xl rotate-12"
       />
       <motion.div
@@ -38,7 +59,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        style={{ willChange: "transform" }}
+        style={transformAccelerationStyle}
         className="absolute bottom-1/4 right-10 w-24 h-24 border-2 border-pink-500/30 rounded-full"
       />
 
@@ -54,22 +75,10 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             className="space-y-8"
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.2
-                }
-              }
-            }}
+            variants={heroContainerVariants}
           >
             <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={heroItemVariants}
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-sm mb-6">
                 <Sparkles className="w-4 h-4 text-purple-400" />
@@ -78,10 +87,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.div>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={heroItemVariants}
             >
               <h1 className="text-7xl md:text-8xl lg:text-9xl font-black mb-4 relative">
                 <span className="absolute -inset-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 blur-3xl" />
@@ -93,20 +99,14 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.div>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={heroItemVariants}
               className="text-2xl md:text-3xl text-purple-100/90 leading-relaxed"
             >
               Where Innovation <span className="text-pink-400">Begins</span>
             </motion.p>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={heroItemVariants}
               className="text-lg text-purple-300/70 leading-relaxed max-w-xl"
             >
               Join developers, designers, and innovators from around the world
@@ -115,10 +115,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.p>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={heroItemVariants}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Button
@@ -161,7 +158,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                style={{ willChange: "transform" }}
+                style={transformAccelerationStyle}
                 className="absolute top-0 right-0 w-80 h-96 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-purple-500/30 p-8 shadow-2xl"
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -194,7 +191,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                style={{ willChange: "transform" }}
+                style={transformAccelerationStyle}
                 className="absolute bottom-0 left-0 w-64 h-80 bg-gradient-to-br from-pink-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-pink-500/30 p-6 shadow-2xl"
               >
                 <div className="w-10 h-10 bg-pink-500/30 rounded-lg flex items-center justify-center mb-4">
