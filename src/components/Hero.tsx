@@ -2,6 +2,14 @@ import { motion } from "motion/react";
 import { Button } from "./ui/button";
 import { ArrowRight, Sparkles, Code, Zap } from "lucide-react";
 
+// ⚡ Bolt Optimization: Extracted repeated inline animation variants to a module-level constant.
+// This prevents React from creating a new object reference on every render for these static variants,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const slideInLeftVariant = {
+  hidden: { opacity: 0, x: -30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
+} as const;
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -65,24 +73,14 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
               }
             }}
           >
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
-            >
+            <motion.div variants={slideInLeftVariant}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-sm mb-6">
                 <Sparkles className="w-4 h-4 text-purple-400" />
                 <span className="text-sm text-purple-300">November 15-17, 2025</span>
               </div>
             </motion.div>
 
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
-            >
+            <motion.div variants={slideInLeftVariant}>
               <h1 className="text-7xl md:text-8xl lg:text-9xl font-black mb-4 relative">
                 <span className="absolute -inset-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 blur-3xl" />
                 <span className="relative bg-gradient-to-br from-purple-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -93,20 +91,14 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.div>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={slideInLeftVariant}
               className="text-2xl md:text-3xl text-purple-100/90 leading-relaxed"
             >
               Where Innovation <span className="text-pink-400">Begins</span>
             </motion.p>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={slideInLeftVariant}
               className="text-lg text-purple-300/70 leading-relaxed max-w-xl"
             >
               Join developers, designers, and innovators from around the world
@@ -115,10 +107,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             </motion.p>
 
             <motion.div
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
-              }}
+              variants={slideInLeftVariant}
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Button
