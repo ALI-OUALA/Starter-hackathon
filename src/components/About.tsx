@@ -27,6 +27,12 @@ const detailCardVariants = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted repeated inline animation variants to a module-level constant.
+const fadeInUpVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const detailCardHoverState = { scale: 1.03, x: 10, transition: { duration: 0.2 } } as const;
 const iconHoverState = { rotate: [0, -10, 10, -10, 0], scale: 1.1 } as const;
@@ -103,19 +109,11 @@ export function About({ onCalendarClick }: AboutProps) {
           {/* Left side - Text content */}
           <div className="space-y-8">
             <div>
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-                }}
-              >
+              <motion.div variants={fadeInUpVariant}>
                 <span className="text-purple-400 uppercase tracking-wider text-sm font-semibold">About The Event</span>
               </motion.div>
               <motion.h2
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-                }}
+                variants={fadeInUpVariant}
                 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-6 text-purple-100"
               >
                 Your Launchpad to{" "}
@@ -126,10 +124,7 @@ export function About({ onCalendarClick }: AboutProps) {
             </div>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={fadeInUpVariant}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               STARTER is more than just a hackathon – it's a launchpad for your
@@ -139,10 +134,7 @@ export function About({ onCalendarClick }: AboutProps) {
             </motion.p>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={fadeInUpVariant}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               With mentorship from industry leaders, workshops on the latest
@@ -152,10 +144,7 @@ export function About({ onCalendarClick }: AboutProps) {
 
             {/* Stats */}
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={fadeInUpVariant}
               className="grid grid-cols-3 gap-4 pt-6"
             >
               {stats.map((stat, index) => (
