@@ -69,3 +69,6 @@
 ## 2025-06-07 - Object Reallocation in Mapped Arrays
 **Learning:** Defining inline object literals (like `whileHover={{ scale: 1.02 }}`) inside `.map()` arrays causes React to create a new object reference on every render for every mapped element, adding garbage collection churn and potentially breaking pure component shallow comparisons down the tree.
 **Action:** Always extract static configuration objects, variants, and inline style objects that do not depend on closure variables to module-level constants (outside the component) when they are used inside `map` operations.
+## 2025-06-08 - React Memoization for Static Page Sections
+**Learning:** Large page components (like `LearnMore.tsx`) often contain several static sub-components (e.g., `HeroSection`, `FAQSection`) defined in the same file. When the parent component re-renders (even for unrelated state changes), all these static children re-render unnecessarily, causing significant vDOM diffing overhead.
+**Action:** Always wrap static, prop-less sub-components (or those with stable props) in `React.memo()` to prevent these cascading re-renders and improve overall page performance.
