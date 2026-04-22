@@ -34,7 +34,7 @@ const calendarDayVariants = {
 // the `.map()` loop, reducing garbage collection churn.
 const eventTimelineVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: (custom: number) => ({
+  visible: (custom: any) => ({
     opacity: 1,
     x: 0,
     transition: { duration: 0.5, delay: custom * 0.1 }
