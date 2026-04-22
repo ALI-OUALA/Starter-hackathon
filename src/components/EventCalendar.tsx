@@ -32,7 +32,7 @@ const calendarDayVariants = {
 // Used Framer Motion's `custom` pattern for dynamic delays to preserve referential equality.
 const eventItemVariants = {
   hidden: { opacity: 0, x: -20 },
-  visible: (custom: number = 0) => ({
+  visible: (custom: number) => ({
     opacity: 1,
     x: 0,
     transition: { duration: 0.5, delay: custom * 0.1 }
