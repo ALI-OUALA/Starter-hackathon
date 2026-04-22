@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { motion } from "motion/react";
 import { 
   ArrowLeft, 
@@ -73,7 +72,7 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
   );
 }
 
-const HeroSection = memo(function HeroSection() {
+function HeroSection() {
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
@@ -93,7 +92,7 @@ const HeroSection = memo(function HeroSection() {
       </div>
     </section>
   );
-});
+}
 
 const schedule = [
   {
@@ -130,7 +129,7 @@ const schedule = [
   }
 ];
 
-const ScheduleSection = memo(function ScheduleSection() {
+function ScheduleSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -201,7 +200,7 @@ const ScheduleSection = memo(function ScheduleSection() {
       </div>
     </section>
   );
-});
+}
 
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
@@ -266,7 +265,7 @@ const prizes = [
   }
 ];
 
-const PrizesSection = memo(function PrizesSection() {
+function PrizesSection() {
   return (
     <section className="py-24 px-4 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
@@ -337,7 +336,7 @@ const PrizesSection = memo(function PrizesSection() {
       </div>
     </section>
   );
-});
+}
 
 const tracks = [
   {
@@ -372,7 +371,7 @@ const tracks = [
   }
 ];
 
-const TracksSection = memo(function TracksSection() {
+function TracksSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -431,7 +430,7 @@ const TracksSection = memo(function TracksSection() {
       </div>
     </section>
   );
-});
+}
 
 const faqs = [
   {
@@ -460,7 +459,7 @@ const faqs = [
   }
 ];
 
-const FAQSection = memo(function FAQSection() {
+function FAQSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto">
@@ -514,7 +513,7 @@ const FAQSection = memo(function FAQSection() {
       </div>
     </section>
   );
-});
+}
 
 function CTASection({ onRegisterClick }: { onRegisterClick: () => void }) {
   return (
