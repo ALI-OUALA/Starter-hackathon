@@ -37,7 +37,7 @@ const eventItemVariants = {
     x: 0,
     transition: { duration: 0.5, delay: eventIndex * 0.1 }
   })
-} as const;
+};
 
 const schedule = [
   {
