@@ -253,7 +253,7 @@ function ScheduleTimeline() {
                 <motion.div
                   key={event.title}
                   custom={eventIndex}
-                  variants={eventItemVariants as any}
+                  variants={eventItemVariants}
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
