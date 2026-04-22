@@ -37,7 +37,7 @@ const eventItemVariants = {
     x: 0,
     transition: { duration: 0.5, delay: eventIndex * 0.1 }
   })
-};
+} as const;
 
 const schedule = [
   {
@@ -253,7 +253,7 @@ function ScheduleTimeline() {
                 <motion.div
                   key={event.title}
                   custom={eventIndex}
-                  variants={eventItemVariants}
+                  variants={eventItemVariants as any}
                   whileHover={eventHoverState}
                   style={{ willChange: "transform" }}
                 >
