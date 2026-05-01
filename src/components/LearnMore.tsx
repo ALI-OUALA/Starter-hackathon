@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { 
   ArrowLeft, 
@@ -72,7 +73,10 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
   );
 }
 
-function HeroSection() {
+// ⚡ Bolt Optimization:
+// Wrapped static, prop-less sub-components in React.memo() to prevent unnecessary
+// vDOM diffing and re-renders when the parent component's state changes.
+const HeroSection = memo(function HeroSection() {
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
@@ -92,7 +96,7 @@ function HeroSection() {
       </div>
     </section>
   );
-}
+});
 
 const schedule = [
   {
@@ -129,7 +133,9 @@ const schedule = [
   }
 ];
 
-function ScheduleSection() {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const ScheduleSection = memo(function ScheduleSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -200,7 +206,7 @@ function ScheduleSection() {
       </div>
     </section>
   );
-}
+});
 
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
@@ -265,7 +271,9 @@ const prizes = [
   }
 ];
 
-function PrizesSection() {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const PrizesSection = memo(function PrizesSection() {
   return (
     <section className="py-24 px-4 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
@@ -336,7 +344,7 @@ function PrizesSection() {
       </div>
     </section>
   );
-}
+});
 
 const tracks = [
   {
@@ -371,7 +379,9 @@ const tracks = [
   }
 ];
 
-function TracksSection() {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const TracksSection = memo(function TracksSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -430,7 +440,7 @@ function TracksSection() {
       </div>
     </section>
   );
-}
+});
 
 const faqs = [
   {
@@ -459,7 +469,9 @@ const faqs = [
   }
 ];
 
-function FAQSection() {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const FAQSection = memo(function FAQSection() {
   return (
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto">
@@ -513,9 +525,11 @@ function FAQSection() {
       </div>
     </section>
   );
-}
+});
 
-function CTASection({ onRegisterClick }: { onRegisterClick: () => void }) {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const CTASection = memo(function CTASection({ onRegisterClick }: { onRegisterClick: () => void }) {
   return (
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto text-center">
@@ -554,4 +568,4 @@ function CTASection({ onRegisterClick }: { onRegisterClick: () => void }) {
       </div>
     </section>
   );
-}
+});
