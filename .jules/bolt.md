@@ -69,3 +69,7 @@
 ## 2025-06-07 - Object Reallocation in Mapped Arrays
 **Learning:** Defining inline object literals (like `whileHover={{ scale: 1.02 }}`) inside `.map()` arrays causes React to create a new object reference on every render for every mapped element, adding garbage collection churn and potentially breaking pure component shallow comparisons down the tree.
 **Action:** Always extract static configuration objects, variants, and inline style objects that do not depend on closure variables to module-level constants (outside the component) when they are used inside `map` operations.
+
+## 2025-06-08 - Fixing Fatal Undefined Style Bug Passed to React
+**Learning:** An undefined reference (e.g., `style={detailStyle}` where `detailStyle` is undefined) passed to a heavily nested `motion.div` in `About.tsx` was causing a fatal `ReferenceError` exception, potentially crashing the layout or blocking rendering entirely. Replacing this with a module-scoped constant directly targets both bug fixing and performance (by preventing React reallocations on each render of the map loop).
+**Action:** Always verify that extracted or assumed style objects are actually defined in scope. When extracting styles like `{ willChange: "transform" }` for `motion` elements, make sure to define them as `const` outside the component scope to combine bug fixes with memory allocation optimizations.
