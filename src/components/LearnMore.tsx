@@ -180,7 +180,7 @@ const ScheduleSection = memo(function ScheduleSection() {
               variants={scheduleItemVariants}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
-              <ElectricBorder color={["#8b5cf6", "#ec4899", "#06b6d4"][dayIndex]} variant="minimal">
+              <ElectricBorder color={SCHEDULE_COLORS[dayIndex]} variant="minimal">
                 <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl h-full">
                   <h3 className="text-2xl font-bold text-purple-100 mb-2">{day.day}</h3>
                   <p className="text-purple-400 text-sm mb-6">{day.date}</p>
@@ -207,6 +207,9 @@ const ScheduleSection = memo(function ScheduleSection() {
     </section>
   );
 });
+
+// ⚡ Bolt Optimization: Extracted static array to prevent re-allocation on every render.
+const SCHEDULE_COLORS = ["#8b5cf6", "#ec4899", "#06b6d4"];
 
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
