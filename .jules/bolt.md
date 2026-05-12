@@ -73,3 +73,7 @@
 ## 2025-06-08 - Fixing Fatal Undefined Style Bug Passed to React
 **Learning:** An undefined reference (e.g., `style={detailStyle}` where `detailStyle` is undefined) passed to a heavily nested `motion.div` in `About.tsx` was causing a fatal `ReferenceError` exception, potentially crashing the layout or blocking rendering entirely. Replacing this with a module-scoped constant directly targets both bug fixing and performance (by preventing React reallocations on each render of the map loop).
 **Action:** Always verify that extracted or assumed style objects are actually defined in scope. When extracting styles like `{ willChange: "transform" }` for `motion` elements, make sure to define them as `const` outside the component scope to combine bug fixes with memory allocation optimizations.
+
+## 2025-06-09 - Inline Arrays in Maps
+**Learning:** Defining inline static arrays (like ["#8b5cf6", "#ec4899", "#06b6d4"]) inside .map() array iterations causes React to reallocate the array on every render cycle for each item in the map loop. This increases garbage collection pressure, even if the array itself is small. Extracting these to constants ensures reference stability and reduces memory churn.
+**Action:** Extract inline static arrays into module-scoped constants outside the component definition.
