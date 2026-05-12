@@ -75,5 +75,5 @@
 **Action:** Always verify that extracted or assumed style objects are actually defined in scope. When extracting styles like `{ willChange: "transform" }` for `motion` elements, make sure to define them as `const` outside the component scope to combine bug fixes with memory allocation optimizations.
 
 ## 2025-06-09 - Inline Arrays in Maps
-**Learning:** Defining inline static arrays (like `["#8b5cf6", "#ec4899", "#06b6d4"]`) inside `.map()` array iterations causes React to reallocate the array on every render cycle for each item in the map loop. This increases garbage collection pressure, even if the array itself is technically small, and can trigger deeper child re-renders if the array is passed as a prop without deep comparison checks.
+**Learning:** Defining inline static arrays (like ["#8b5cf6", "#ec4899", "#06b6d4"]) inside .map() array iterations causes React to reallocate the array on every render cycle for each item in the map loop. This increases garbage collection pressure, even if the array itself is small. Extracting these to constants ensures reference stability and reduces memory churn.
 **Action:** Extract inline static arrays into module-scoped constants outside the component definition.
