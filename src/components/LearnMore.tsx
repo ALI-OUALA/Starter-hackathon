@@ -180,7 +180,7 @@ const ScheduleSection = memo(function ScheduleSection() {
               variants={scheduleItemVariants}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
-              <ElectricBorder color={SCHEDULE_COLORS[dayIndex]} variant="minimal">
+              <ElectricBorder color={SCHEDULE_COLORS[dayIndex % SCHEDULE_COLORS.length]} variant="minimal">
                 <div className="bg-gradient-to-br from-purple-950/80 to-purple-900/40 backdrop-blur-xl p-6 rounded-2xl h-full">
                   <h3 className="text-2xl font-bold text-purple-100 mb-2">{day.day}</h3>
                   <p className="text-purple-400 text-sm mb-6">{day.date}</p>
