@@ -33,6 +33,19 @@ const iconHoverState = { rotate: [0, -10, 10, -10, 0], scale: 1.1 } as const;
 const arrowHoverState = { x: 5 } as const;
 const hardwareAccelerationStyle = { willChange: "transform" } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const aboutItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const aboutCardVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+} as const;
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -105,18 +118,12 @@ export function About({ onCalendarClick }: AboutProps) {
           <div className="space-y-8">
             <div>
               <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-                }}
+                variants={aboutItemVariants}
               >
                 <span className="text-purple-400 uppercase tracking-wider text-sm font-semibold">About The Event</span>
               </motion.div>
               <motion.h2
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-                }}
+                variants={aboutItemVariants}
                 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-6 text-purple-100"
               >
                 Your Launchpad to{" "}
@@ -127,10 +134,7 @@ export function About({ onCalendarClick }: AboutProps) {
             </div>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={aboutItemVariants}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               STARTER is more than just a hackathon – it's a launchpad for your
@@ -140,10 +144,7 @@ export function About({ onCalendarClick }: AboutProps) {
             </motion.p>
 
             <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={aboutItemVariants}
               className="text-lg text-purple-300/80 leading-relaxed"
             >
               With mentorship from industry leaders, workshops on the latest
@@ -153,10 +154,7 @@ export function About({ onCalendarClick }: AboutProps) {
 
             {/* Stats */}
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-              }}
+              variants={aboutItemVariants}
               className="grid grid-cols-3 gap-4 pt-6"
             >
               {stats.map((stat, index) => (
@@ -239,10 +237,7 @@ export function About({ onCalendarClick }: AboutProps) {
 
             {/* Additional decorative card */}
             <motion.div
-              variants={{
-                hidden: { opacity: 0, scale: 0.9 },
-                visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
-              }}
+              variants={aboutCardVariants}
             >
               <ElectricBorder color="#ec4899" variant="minimal">
                 <div className="relative p-8 bg-gradient-to-br from-pink-900/30 to-purple-900/30 backdrop-blur-xl rounded-2xl overflow-hidden">
