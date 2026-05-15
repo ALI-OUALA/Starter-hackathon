@@ -77,3 +77,7 @@
 ## 2025-06-09 - Inline Arrays in Maps
 **Learning:** Defining inline static arrays (like ["#8b5cf6", "#ec4899", "#06b6d4"]) inside .map() array iterations causes React to reallocate the array on every render cycle for each item in the map loop. This increases garbage collection pressure, even if the array itself is small. Extracting these to constants ensures reference stability and reduces memory churn.
 **Action:** Extract inline static arrays into module-scoped constants outside the component definition.
+
+## 2025-06-10 - Inline Motion Variants inside Components
+**Learning:** Defining `variants={{ ... }}` inline on `motion.div` elements (even outside of `.map()` loops) inside a React component causes the object reference to be recreated on every render. For static variants, this adds unnecessary garbage collection pressure and VDOM diffing overhead, especially when multiplied across many animated elements.
+**Action:** Always extract static `framer-motion` variants into module-scoped constants outside of the React component, maintaining `as const` if type inferences are needed.
