@@ -17,6 +17,14 @@ const stats = [
 // ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
 // This prevents React from creating a new object reference on every render for each mapped item,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const staggerContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+} as const;
+
 const detailCardVariants = {
   hidden: { opacity: 0, x: 30, rotateY: -10 },
   visible: {
@@ -98,15 +106,7 @@ export function About({ onCalendarClick }: AboutProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.1
-          }
-        }
-      }}
+      variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
       {/* Diagonal background element */}

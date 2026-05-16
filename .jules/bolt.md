@@ -81,3 +81,7 @@
 ## 2025-06-10 - Inline Motion Variants inside Components
 **Learning:** Defining `variants={{ ... }}` inline on `motion.div` elements (even outside of `.map()` loops) inside a React component causes the object reference to be recreated on every render. For static variants, this adds unnecessary garbage collection pressure and VDOM diffing overhead, especially when multiplied across many animated elements.
 **Action:** Always extract static `framer-motion` variants into module-scoped constants outside of the React component, maintaining `as const` if type inferences are needed.
+
+## 2025-06-11 - Static Motion Variants Extraction
+**Learning:** Defining inline `variants` objects for Framer Motion on `<motion.div>` or `<motion.section>` elements within components causes React to allocate a new object on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase (e.g., stagger containers) amplifies the problem.
+**Action:** Always extract static `variants` objects into module-level constants (e.g., `staggerContainerVariants`) outside the component to ensure referential equality across renders.

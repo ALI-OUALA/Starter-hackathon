@@ -39,6 +39,14 @@ const eventItemVariants = {
   })
 } as const;
 
+const staggerContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+} as const;
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -221,15 +229,7 @@ function ScheduleTimeline() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.2
-          }
-        }
-      }}
+      variants={staggerContainerVariants}
       className="py-12 px-4"
     >
       <div className="max-w-7xl mx-auto space-y-16">
