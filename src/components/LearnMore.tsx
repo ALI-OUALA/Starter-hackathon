@@ -21,6 +21,22 @@ interface LearnMoreProps {
   onRegisterClick: () => void;
 }
 
+const staggerVariants200 = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+} as const;
+
+const staggerVariants100 = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+} as const;
+
 export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
   return (
     <div className="min-h-screen">
@@ -163,15 +179,7 @@ const ScheduleSection = memo(function ScheduleSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2
-              }
-            }
-          }}
+          variants={staggerVariants200}
           className="grid md:grid-cols-3 gap-8"
         >
           {schedule.map((day, dayIndex) => (
@@ -309,15 +317,7 @@ const PrizesSection = memo(function PrizesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
-          }}
+          variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {prizes.map((prize, index) => (
@@ -415,15 +415,7 @@ const TracksSection = memo(function TracksSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
-          }}
+          variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {tracks.map((track, index) => (
@@ -498,15 +490,7 @@ const FAQSection = memo(function FAQSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
-          }}
+          variants={staggerVariants100}
           className="space-y-4"
         >
           {faqs.map((faq, index) => (

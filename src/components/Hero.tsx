@@ -5,6 +5,17 @@ import { ArrowRight, Sparkles, Code, Zap } from "lucide-react";
 // ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
 // This prevents React from creating a new object reference on every render for static variants,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const heroStaggerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+} as const;
+
 const heroItemVariants = {
   hidden: { opacity: 0, x: -30 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
@@ -62,16 +73,7 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
             className="space-y-8"
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.1,
-                  delayChildren: 0.2
-                }
-              }
-            }}
+            variants={heroStaggerVariants}
           >
             <motion.div
               variants={heroItemVariants}
