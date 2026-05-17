@@ -212,9 +212,9 @@ const trackHoverState = { scale: 1.03 } as const;
 const sectionHeaderVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
+} as const;
 
-const sectionViewport = { once: true, amount: 0.2 };
+const sectionViewport = { once: true, amount: 0.2 } as const;
 
 const scheduleItemVariants = {
   hidden: { opacity: 0, y: 30 },
