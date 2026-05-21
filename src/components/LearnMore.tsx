@@ -37,6 +37,14 @@ const staggerVariants100 = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted repeatedly used static inline animation variants
+// into a module-level constant to prevent React from creating new object references
+// on every render, reducing VDOM diffing overhead and GC churn.
+const fadeInUpVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
 export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
   return (
     <div className="min-h-screen">
@@ -97,9 +105,12 @@ const HeroSection = memo(function HeroSection() {
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
+          }}
         >
           <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-purple-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Everything You Need to Know
@@ -156,10 +167,10 @@ const ScheduleSection = memo(function ScheduleSection() {
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeInUpVariant}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -291,10 +302,10 @@ const PrizesSection = memo(function PrizesSection() {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeInUpVariant}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -389,10 +400,10 @@ const TracksSection = memo(function TracksSection() {
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeInUpVariant}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -471,10 +482,10 @@ const FAQSection = memo(function FAQSection() {
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={fadeInUpVariant}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black mb-4 text-purple-100">
