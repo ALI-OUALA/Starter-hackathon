@@ -85,3 +85,7 @@
 ## 2025-06-11 - Static Motion Variants Extraction
 **Learning:** Defining inline `variants` objects for Framer Motion on `<motion.div>` or `<motion.section>` elements within components causes React to allocate a new object on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase (e.g., stagger containers) amplifies the problem.
 **Action:** Always extract static `variants` objects into module-level constants (e.g., `staggerContainerVariants`) outside the component to ensure referential equality across renders.
+
+## 2025-06-12 - Static variants extraction applied outside maps
+**Learning:** Defining inline `variants` objects for Framer Motion on `<motion.div>` or `<motion.section>` elements within components causes React to allocate a new object on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase (e.g., stagger containers) amplifies the problem.
+**Action:** Always extract static `variants` objects into module-level constants (e.g., `fadeInUpVariant`) outside the component to ensure referential equality across renders, even when not inside a map.
