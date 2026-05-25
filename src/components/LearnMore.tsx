@@ -21,6 +21,11 @@ interface LearnMoreProps {
   onRegisterClick: () => void;
 }
 
+// ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
+// This ensures referential equality across renders, reducing garbage collection churn
+// and preventing unnecessary re-renders of components using this style.
+const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
+
 const staggerVariants200 = {
   hidden: { opacity: 0 },
   visible: {
@@ -160,6 +165,7 @@ const ScheduleSection = memo(function ScheduleSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -222,11 +228,6 @@ const SCHEDULE_COLORS = ["#8b5cf6", "#ec4899", "#06b6d4"];
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const prizeHoverState = { scale: 1.05, y: -5 } as const;
 const trackHoverState = { scale: 1.03 } as const;
-
-// ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
-// This prevents React from creating a new object reference on every render for each mapped item,
-// reducing garbage collection churn.
-const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render for each mapped item,
@@ -295,6 +296,7 @@ const PrizesSection = memo(function PrizesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -393,6 +395,7 @@ const TracksSection = memo(function TracksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -475,6 +478,7 @@ const FAQSection = memo(function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6 }}
+          style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-black mb-4 text-purple-100">

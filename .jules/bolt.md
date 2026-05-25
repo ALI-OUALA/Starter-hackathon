@@ -85,3 +85,6 @@
 ## 2025-06-11 - Static Motion Variants Extraction
 **Learning:** Defining inline `variants` objects for Framer Motion on `<motion.div>` or `<motion.section>` elements within components causes React to allocate a new object on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase (e.g., stagger containers) amplifies the problem.
 **Action:** Always extract static `variants` objects into module-level constants (e.g., `staggerContainerVariants`) outside the component to ensure referential equality across renders.
+## 2025-06-12 - Module Scope Const Extraction
+**Learning:** Extracting an inline object to a module-level `const` inside a React component file can cause a `ReferenceError` if the `const` is defined after the component that uses it. Although functions (components) are hoisted, `const` variables are not, and relying on runtime evaluation order within the module can be fragile or get caught by static analysis/linters.
+**Action:** Always extract module-level `const` objects (like `variants` or `style` objects) to the top of the file, immediately after the imports, to ensure they are fully initialized before any component function references them.
