@@ -22,8 +22,8 @@ interface LearnMoreProps {
 }
 
 // ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
-// This prevents React from creating a new object reference on every render for each mapped item,
-// reducing garbage collection churn.
+// This ensures referential equality across renders, reducing garbage collection churn
+// and preventing unnecessary re-renders of components using this style.
 const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 
 const staggerVariants200 = {
