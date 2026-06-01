@@ -192,6 +192,7 @@ const ScheduleSection = memo(function ScheduleSection() {
             <motion.div
               key={day.day}
               variants={scheduleItemVariants}
+              style={hardwareAccelerationStyle}
             >
               {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on multiple items */}
               <ElectricBorder color={SCHEDULE_COLORS[dayIndex % SCHEDULE_COLORS.length]} variant="minimal">
@@ -501,6 +502,7 @@ const FAQSection = memo(function FAQSection() {
             <motion.div
               key={index}
               variants={faqItemVariants}
+              style={hardwareAccelerationStyle}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
               <div className="flex items-start gap-4">
