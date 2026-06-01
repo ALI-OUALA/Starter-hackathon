@@ -503,7 +503,7 @@ const FAQSection = memo(function FAQSection() {
               key={index}
               variants={faqItemVariants}
               style={hardwareAccelerationStyle}
-              className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
+              className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-colors"
             >
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-purple-400 flex-shrink-0 mt-1" />
