@@ -88,3 +88,6 @@
 ## 2025-06-12 - Module Scope Const Extraction
 **Learning:** Extracting an inline object to a module-level `const` inside a React component file can cause a `ReferenceError` if the `const` is defined after the component that uses it. Although functions (components) are hoisted, `const` variables are not, and relying on runtime evaluation order within the module can be fragile or get caught by static analysis/linters.
 **Action:** Always extract module-level `const` objects (like `variants` or `style` objects) to the top of the file, immediately after the imports, to ensure they are fully initialized before any component function references them.
+## 2026-06-04 - Array Bounds Fallback in Static Extracting
+**Learning:** Replacing inline conditional logic (like nested ternaries) inside a `.map()` loop with a static, module-level array lookup (e.g., `FEATURE_COLORS[index]`) is an effective performance optimization to prevent memory allocation on each render. However, if the array is smaller than the mapped data, an out-of-bounds lookup returns `undefined`, which can cause functional or visual regressions.
+**Action:** When extracting mapping logic into static arrays, always ensure the array size matches the data source or include a fallback mechanism (e.g., `color={FEATURE_COLORS[index] || "#06b6d4"}`) to gracefully handle out-of-bounds indices.
