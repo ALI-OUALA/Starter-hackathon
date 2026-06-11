@@ -8,6 +8,24 @@ import { Textarea } from "./ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { ElectricBorder } from "./ElectricBorder";
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const formHeaderVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
+} as const;
+
+const formWrapperVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.4 } }
+} as const;
+
 interface RegistrationFormProps {
   onBack: () => void;
 }
@@ -300,9 +318,9 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
       {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
           paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        animate="visible"
+        variants={headerVariants}
         style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
@@ -323,9 +341,9 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial="hidden"
+            animate="visible"
+            variants={formHeaderVariants}
             className="text-center mb-12"
           >
             <h1 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -338,9 +356,9 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
 
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial="hidden"
+            animate="visible"
+            variants={formWrapperVariants}
           >
             {/* Main wrapper uses default variant */}
             <ElectricBorder>
