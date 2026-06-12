@@ -47,6 +47,24 @@ const staggerContainerVariants = {
   }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const headerMountVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const heroHeaderVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
+} as const;
+
+const ctaVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+} as const;
+
 const schedule = [
   {
     day: "Friday - Day 1",
@@ -311,9 +329,9 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
           paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        animate="visible"
+        variants={headerMountVariants}
         style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
@@ -339,9 +357,9 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial="hidden"
+            animate="visible"
+            variants={heroHeaderVariants}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
               <Calendar className="w-4 h-4 text-purple-400" />
@@ -369,9 +387,9 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
               into view. This forces GPU compositing, keeping scroll animations at a smooth 60fps.
               Impact: Eliminates jank on initial scroll-into-view. */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+            initial="hidden"
+            whileInView="visible"
+            variants={ctaVariants}
             viewport={{ once: true }}
             style={{ willChange: "transform, opacity" }}
           >
