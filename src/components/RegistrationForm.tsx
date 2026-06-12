@@ -14,17 +14,17 @@ import { ElectricBorder } from "./ElectricBorder";
 const headerVariants = {
   hidden: { opacity: 0, y: -20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-} as const;
+};
 
 const formHeaderVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
-} as const;
+};
 
 const formWrapperVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.4 } }
-} as const;
+};
 
 interface RegistrationFormProps {
   onBack: () => void;
