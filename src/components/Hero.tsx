@@ -21,6 +21,14 @@ const heroItemVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
+// This prevents React from creating a new object reference on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const heroCardsVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.4 } }
+} as const;
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -139,9 +147,9 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
           {/* Right side - Decorative cards */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial="hidden"
+            animate="visible"
+            variants={heroCardsVariants}
             style={{ willChange: "transform, opacity" }}
             className="relative hidden lg:block"
           >

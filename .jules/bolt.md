@@ -94,3 +94,7 @@
 ## 2025-06-13 - Extracting Multiple Initial Variants
 **Learning:** Defining inline `initial` and `animate` object literals in heavily nested UI structures (like header elements in forms) forces React to reallocate object references constantly. Extracting these configurations to module-scoped constants reduces memory allocation pressure and minor VDOM diff overhead, which adds up in large view transitions.
 **Action:** Always scan for and extract inline `initial` and `animate` framer-motion variants, specifically targeting wrapping structural elements like `motion.header` and `motion.div`, into module-scoped constants like `headerVariants`.
+
+## 2026-06-12 - Re-evaluating Script Artifacts before Reviews
+**Learning:** Using Python scratchpad scripts (like `optimize_variants.py`) to parse and plan code modifications inside the working directory causes the `request_code_review` tool to bundle these temporary files into the generated diff patch. This pollutes the review and prevents merging.
+**Action:** Always clean up temporary artifacts, logs, and scratchpad scripts from the repository (e.g., using `rm script.py`) immediately before calling `request_code_review`.
