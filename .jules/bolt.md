@@ -91,3 +91,6 @@
 ## 2026-06-04 - Array Bounds Fallback in Static Extracting
 **Learning:** Replacing inline conditional logic (like nested ternaries) inside a `.map()` loop with a static, module-level array lookup (e.g., `FEATURE_COLORS[index]`) is an effective performance optimization to prevent memory allocation on each render. However, if the array is smaller than the mapped data, an out-of-bounds lookup returns `undefined`, which can cause functional or visual regressions.
 **Action:** When extracting mapping logic into static arrays, always ensure the array size matches the data source or include a fallback mechanism (e.g., `color={FEATURE_COLORS[index] || "#06b6d4"}`) to gracefully handle out-of-bounds indices.
+## 2025-06-13 - Extracting Multiple Initial Variants
+**Learning:** Defining inline `initial` and `animate` object literals in heavily nested UI structures (like header elements in forms) forces React to reallocate object references constantly. Extracting these configurations to module-scoped constants reduces memory allocation pressure and minor VDOM diff overhead, which adds up in large view transitions.
+**Action:** Always scan for and extract inline `initial` and `animate` framer-motion variants, specifically targeting wrapping structural elements like `motion.header` and `motion.div`, into module-scoped constants like `headerVariants`.
