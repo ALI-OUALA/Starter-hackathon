@@ -29,22 +29,22 @@ const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
-const headerVariants = {
+const fadeInDown = {
   hidden: { opacity: 0, y: -20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 } as const;
 
-const sectionHeaderVariants = {
+const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 } as const;
 
-const ctaVariants = {
+const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 } as const;
 
-const heroHeaderVariants = {
+const fadeInUpDelayed = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
 } as const;
