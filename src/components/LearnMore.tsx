@@ -26,6 +26,29 @@ interface LearnMoreProps {
 // and preventing unnecessary re-renders of components using this style.
 const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const fadeInDown = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+} as const;
+
+const fadeInUpDelayed = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
+} as const;
+
 const staggerVariants200 = {
   hidden: { opacity: 0 },
   visible: {
@@ -49,9 +72,9 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
       {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
           paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        animate="visible"
+        variants={fadeInDown}
         style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
@@ -102,9 +125,9 @@ const HeroSection = memo(function HeroSection() {
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial="hidden"
+          animate="visible"
+          variants={heroHeaderVariants}
         >
           <h1 className="text-5xl md:text-7xl font-black mb-6 bg-gradient-to-r from-purple-300 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Everything You Need to Know
@@ -161,10 +184,10 @@ const ScheduleSection = memo(function ScheduleSection() {
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
@@ -293,10 +316,10 @@ const PrizesSection = memo(function PrizesSection() {
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
@@ -392,10 +415,10 @@ const TracksSection = memo(function TracksSection() {
     <section className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
@@ -475,10 +498,10 @@ const FAQSection = memo(function FAQSection() {
     <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6 }}
+          variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
         >
@@ -532,9 +555,9 @@ const CTASection = memo(function CTASection({ onRegisterClick }: { onRegisterCli
             into view. This forces GPU compositing, keeping scroll animations at a smooth 60fps.
             Impact: Eliminates jank on initial scroll-into-view. */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          whileInView="visible"
+          variants={ctaVariants}
           viewport={{ once: true }}
           style={{ willChange: "transform, opacity" }}
         >
