@@ -74,7 +74,7 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
       <motion.header
         initial="hidden"
         animate="visible"
-        variants={headerVariants}
+        variants={fadeInDown}
         style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
