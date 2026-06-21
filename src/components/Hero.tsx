@@ -21,6 +21,9 @@ const heroItemVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
 } as const;
 
+const rightSideCardsInitial = { opacity: 0, x: 30 } as const;
+const rightSideCardsAnimate = { opacity: 1, x: 0 } as const;
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -139,8 +142,8 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
           {/* Right side - Decorative cards */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={rightSideCardsInitial}
+            animate={rightSideCardsAnimate}
             transition={{ duration: 0.8, delay: 0.4 }}
             style={{ willChange: "transform, opacity" }}
             className="relative hidden lg:block"

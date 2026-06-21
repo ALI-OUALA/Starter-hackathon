@@ -13,6 +13,18 @@ const socialLinks = [
 const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
 const socialLinkTapState = { scale: 0.95 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const brandInitial = { opacity: 0, y: 20 } as const;
+const brandWhileInView = { opacity: 1, y: 0 } as const;
+
+const connectInitial = { opacity: 0, y: 20 } as const;
+const connectWhileInView = { opacity: 1, y: 0 } as const;
+
+const bottomInitial = { opacity: 0 } as const;
+const bottomWhileInView = { opacity: 1 } as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -23,8 +35,8 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={brandInitial}
+            whileInView={brandWhileInView}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
@@ -43,8 +55,8 @@ export function Footer() {
 
           {/* Contact & Social */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={connectInitial}
+            whileInView={connectWhileInView}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
@@ -82,8 +94,8 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={bottomInitial}
+          whileInView={bottomWhileInView}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
           className="pt-8 border-t border-purple-500/20"
