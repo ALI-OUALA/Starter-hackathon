@@ -17,6 +17,18 @@ import {
 import { Button } from "./ui/button";
 import { ElectricBorder } from "./ElectricBorder";
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const headerInitial = { opacity: 0, y: -20 } as const;
+const headerAnimate = { opacity: 1, y: 0 } as const;
+
+const heroInitial = { opacity: 0, y: 20 } as const;
+const heroAnimate = { opacity: 1, y: 0 } as const;
+
+const ctaInitial = { opacity: 0, scale: 0.9 } as const;
+const ctaWhileInView = { opacity: 1, scale: 1 } as const;
+
 // ⚡ Bolt Optimization: Moved static data and animation objects outside component to avoid recreation on every render
 const eventHoverState = { scale: 1.02, x: 10 } as const;
 
@@ -311,8 +323,8 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
           paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={headerInitial}
+        animate={headerAnimate}
         transition={{ duration: 0.6 }}
         style={{ willChange: "transform, opacity" }}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
@@ -339,8 +351,8 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={heroInitial}
+            animate={heroAnimate}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
@@ -369,8 +381,8 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
               into view. This forces GPU compositing, keeping scroll animations at a smooth 60fps.
               Impact: Eliminates jank on initial scroll-into-view. */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={ctaInitial}
+            whileInView={ctaWhileInView}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             style={{ willChange: "transform, opacity" }}
