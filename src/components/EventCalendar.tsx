@@ -24,7 +24,7 @@ const eventHoverState = { scale: 1.02, x: 10 } as const;
 // This prevents React from creating new object references on every render, especially inside mapping loops,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
 const transformHardwareAcceleration = { willChange: "transform" } as const;
-const headerHardwareAcceleration = { willChange: "transform, opacity" } as const;
+const transformOpacityHardwareAcceleration = { willChange: "transform, opacity" } as const;
 
 const headerVariants = {
   hidden: { opacity: 0, y: -20 },
