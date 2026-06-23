@@ -20,6 +20,30 @@ import { ElectricBorder } from "./ElectricBorder";
 // ⚡ Bolt Optimization: Moved static data and animation objects outside component to avoid recreation on every render
 const eventHoverState = { scale: 1.02, x: 10 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline style and animation objects to module-level constants.
+// This prevents React from creating new object references on every render, especially inside mapping loops,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const transformHardwareAcceleration = { willChange: "transform" } as const;
+const headerHardwareAcceleration = { willChange: "transform, opacity" } as const;
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const heroVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
+} as const;
+
+const ctaVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+} as const;
+
+const scheduleViewport = { once: true, amount: 0.1 } as const;
+const ctaViewport = { once: true } as const;
+
 // ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
 // This prevents React from creating a new object reference on every render for each mapped item,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
@@ -228,7 +252,7 @@ function ScheduleTimeline() {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={scheduleViewport}
       variants={staggerContainerVariants}
       className="py-12 px-4"
     >
@@ -255,7 +279,7 @@ function ScheduleTimeline() {
                   custom={eventIndex}
                   variants={eventItemVariants as any}
                   whileHover={eventHoverState}
-                  style={{ willChange: "transform" }}
+                  style={transformHardwareAcceleration}
                 >
                   {/* ⚡ Bolt Optimization: Use minimal variant for lists to avoid heavy SVG filters on 20+ items */}
                   <ElectricBorder color={day.color} variant="minimal">
@@ -311,10 +335,10 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       {/* ⚡ Bolt Optimization: Added `willChange: "transform, opacity"` to prevent main-thread
           paint thrashing when animating the heavy `backdrop-blur-xl` filter on component mount. */}
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        style={{ willChange: "transform, opacity" }}
+        initial="hidden"
+        animate="visible"
+        variants={headerVariants}
+        style={headerHardwareAcceleration}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -339,9 +363,9 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial="hidden"
+            animate="visible"
+            variants={heroVariants}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
               <Calendar className="w-4 h-4 text-purple-400" />
@@ -369,11 +393,11 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
               into view. This forces GPU compositing, keeping scroll animations at a smooth 60fps.
               Impact: Eliminates jank on initial scroll-into-view. */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            style={{ willChange: "transform, opacity" }}
+            initial="hidden"
+            whileInView="visible"
+            variants={ctaVariants}
+            viewport={ctaViewport}
+            style={headerHardwareAcceleration}
           >
             <ElectricBorder color="#8b5cf6">
               <div className="bg-gradient-to-br from-purple-900/60 to-purple-800/40 backdrop-blur-xl p-12 rounded-2xl">

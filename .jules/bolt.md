@@ -94,3 +94,7 @@
 ## 2025-06-13 - Extracting Multiple Initial Variants
 **Learning:** Defining inline `initial` and `animate` object literals in heavily nested UI structures (like header elements in forms) forces React to reallocate object references constantly. Extracting these configurations to module-scoped constants reduces memory allocation pressure and minor VDOM diff overhead, which adds up in large view transitions.
 **Action:** Always scan for and extract inline `initial` and `animate` framer-motion variants, specifically targeting wrapping structural elements like `motion.header` and `motion.div`, into module-scoped constants like `headerVariants`.
+
+## 2025-06-14 - Extracting Inline Objects in Loops
+**Learning:** In React components utilizing Framer Motion, defining inline objects like `style={{ willChange: "transform" }}` inside `.map()` loops or inline `initial`/`whileInView` animation objects on structural wrappers causes React to create a new object reference on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase amplifies the problem.
+**Action:** Always extract static `style` and animation objects into module-level constants (e.g., `transformHardwareAcceleration`, `headerVariants`) outside the component to ensure referential equality across renders, avoiding garbage collection churn and unnecessary vDOM diffing overhead.
