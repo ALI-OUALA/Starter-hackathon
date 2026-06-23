@@ -397,7 +397,7 @@ export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
             whileInView="visible"
             variants={ctaVariants}
             viewport={ctaViewport}
-            style={headerHardwareAcceleration}
+            style={transformOpacityHardwareAcceleration}
           >
             <ElectricBorder color="#8b5cf6">
               <div className="bg-gradient-to-br from-purple-900/60 to-purple-800/40 backdrop-blur-xl p-12 rounded-2xl">
