@@ -21,6 +21,57 @@ const heroItemVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variables for static layout parts.
+const decorativeCardsContainerVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay: 0.4 } }
+} as const;
+
+const floatingElement1Animation = {
+  y: [0, -20, 0],
+  rotate: [0, 5, 0],
+};
+
+const floatingElement1Transition = {
+  duration: 6,
+  repeat: Infinity,
+  ease: "easeInOut",
+} as const;
+
+const floatingElement2Animation = {
+  y: [0, 20, 0],
+  rotate: [0, -5, 0],
+};
+
+const floatingElement2Transition = {
+  duration: 7,
+  repeat: Infinity,
+  ease: "easeInOut",
+} as const;
+
+const floatingCardAnimation = {
+  y: [0, -15, 0],
+  rotate: [-2, 2, -2],
+};
+
+const floatingCardTransition = {
+  duration: 6,
+  repeat: Infinity,
+  ease: "easeInOut",
+} as const;
+
+const secondaryCardAnimation = {
+  y: [0, 15, 0],
+  rotate: [2, -2, 2],
+};
+
+const secondaryCardTransition = {
+  duration: 5,
+  repeat: Infinity,
+  ease: "easeInOut",
+} as const;
+
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -35,28 +86,14 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           CSS filters like backdrop-blur). This forces the browser to composite these elements on the GPU,
           preventing main-thread paint thrashing and ensuring smooth 60fps animations. */}
       <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={floatingElement1Animation}
+        transition={floatingElement1Transition}
         style={{ willChange: "transform" }}
         className="absolute top-1/4 left-10 w-20 h-20 border-2 border-purple-500/30 rounded-2xl rotate-12"
       />
       <motion.div
-        animate={{
-          y: [0, 20, 0],
-          rotate: [0, -5, 0],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={floatingElement2Animation}
+        transition={floatingElement2Transition}
         style={{ willChange: "transform" }}
         className="absolute bottom-1/4 right-10 w-24 h-24 border-2 border-pink-500/30 rounded-full"
       />
@@ -139,24 +176,17 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
           {/* Right side - Decorative cards */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial="hidden"
+            animate="visible"
+            variants={decorativeCardsContainerVariants}
             style={{ willChange: "transform, opacity" }}
             className="relative hidden lg:block"
           >
             <div className="relative w-full h-[500px]">
               {/* Main floating card */}
               <motion.div
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [-2, 2, -2],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={floatingCardAnimation}
+                transition={floatingCardTransition}
                 style={{ willChange: "transform" }}
                 className="absolute top-0 right-0 w-80 h-96 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-purple-500/30 p-8 shadow-2xl"
               >
@@ -181,15 +211,8 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
               {/* Secondary card */}
               <motion.div
-                animate={{
-                  y: [0, 15, 0],
-                  rotate: [2, -2, 2],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                animate={secondaryCardAnimation}
+                transition={secondaryCardTransition}
                 style={{ willChange: "transform" }}
                 className="absolute bottom-0 left-0 w-64 h-80 bg-gradient-to-br from-pink-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-pink-500/30 p-6 shadow-2xl"
               >
