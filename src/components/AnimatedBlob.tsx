@@ -1,6 +1,36 @@
 import { memo } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 
+// ⚡ Bolt Optimization: Extracted static animation objects to prevent reallocation on every render.
+const blobAnimate = {
+  x: [0, 30, 0],
+  y: [0, 30, 0],
+  scaleX: [1, 1.15, 1],
+  scaleY: [1, 0.85, 1],
+  rotate: [0, 15, 0],
+};
+
+const blobTransition = {
+  duration: 8,
+  repeat: Infinity,
+  repeatType: "reverse",
+  ease: "easeInOut",
+  scaleX: {
+    duration: 16,
+    repeat: Infinity,
+    repeatType: "reverse",
+    ease: "easeInOut",
+  },
+  scaleY: {
+    duration: 16,
+    repeat: Infinity,
+    repeatType: "reverse",
+    ease: "easeInOut",
+  },
+} as const;
+
+const transformStyle = { willChange: "transform" } as const;
+
 // ⚡ Bolt Optimization:
 // Wrapped in React.memo to prevent re-evaluating useScroll/useSpring hooks and recreating
 // continuous animations when the parent App component re-renders (e.g., changing views).
@@ -37,32 +67,9 @@ export const AnimatedBlob = memo(function AnimatedBlob() {
               Using transform properties allows 100% composite layer offloading. */}
           <motion.div
             className="w-full h-full bg-gradient-to-br from-purple-600/30 via-purple-500/20 to-pink-500/30 blur-3xl rounded-[40%]"
-            animate={{
-              x: [0, 30, 0],
-              y: [0, 30, 0],
-              scaleX: [1, 1.15, 1],
-              scaleY: [1, 0.85, 1],
-              rotate: [0, 15, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-              scaleX: {
-                duration: 16,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              },
-              scaleY: {
-                duration: 16,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              },
-            }}
-            style={{ willChange: "transform" }}
+            animate={blobAnimate}
+            transition={blobTransition}
+            style={transformStyle}
           />
         </motion.div>
       </div>

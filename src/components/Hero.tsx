@@ -21,6 +21,26 @@ const heroItemVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.8 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted static animation objects to prevent reallocation on every render.
+const floatingElement1Animate = { y: [0, -20, 0], rotate: [0, 5, 0] };
+const floatingElement1Transition = { duration: 6, repeat: Infinity, ease: "easeInOut" } as const;
+
+const floatingElement2Animate = { y: [0, 20, 0], rotate: [0, -5, 0] };
+const floatingElement2Transition = { duration: 7, repeat: Infinity, ease: "easeInOut" } as const;
+
+const rightSideInitial = { opacity: 0, x: 30 } as const;
+const rightSideAnimate = { opacity: 1, x: 0 } as const;
+const rightSideTransition = { duration: 0.8, delay: 0.4 } as const;
+
+const mainCardAnimate = { y: [0, -15, 0], rotate: [-2, 2, -2] };
+const mainCardTransition = { duration: 6, repeat: Infinity, ease: "easeInOut" } as const;
+
+const secondaryCardAnimate = { y: [0, 15, 0], rotate: [2, -2, 2] };
+const secondaryCardTransition = { duration: 5, repeat: Infinity, ease: "easeInOut" } as const;
+
+const transformStyle = { willChange: "transform" } as const;
+const transformOpacityStyle = { willChange: "transform, opacity" } as const;
+
 interface HeroProps {
   onRegisterClick: () => void;
   onLearnMoreClick: () => void;
@@ -35,29 +55,15 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
           CSS filters like backdrop-blur). This forces the browser to composite these elements on the GPU,
           preventing main-thread paint thrashing and ensuring smooth 60fps animations. */}
       <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{ willChange: "transform" }}
+        animate={floatingElement1Animate}
+        transition={floatingElement1Transition}
+        style={transformStyle}
         className="absolute top-1/4 left-10 w-20 h-20 border-2 border-purple-500/30 rounded-2xl rotate-12"
       />
       <motion.div
-        animate={{
-          y: [0, 20, 0],
-          rotate: [0, -5, 0],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{ willChange: "transform" }}
+        animate={floatingElement2Animate}
+        transition={floatingElement2Transition}
+        style={transformStyle}
         className="absolute bottom-1/4 right-10 w-24 h-24 border-2 border-pink-500/30 rounded-full"
       />
 
@@ -139,25 +145,18 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
           {/* Right side - Decorative cards */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            style={{ willChange: "transform, opacity" }}
+            initial={rightSideInitial}
+            animate={rightSideAnimate}
+            transition={rightSideTransition}
+            style={transformOpacityStyle}
             className="relative hidden lg:block"
           >
             <div className="relative w-full h-[500px]">
               {/* Main floating card */}
               <motion.div
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [-2, 2, -2],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{ willChange: "transform" }}
+                animate={mainCardAnimate}
+                transition={mainCardTransition}
+                style={transformStyle}
                 className="absolute top-0 right-0 w-80 h-96 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-purple-500/30 p-8 shadow-2xl"
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -181,16 +180,9 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
 
               {/* Secondary card */}
               <motion.div
-                animate={{
-                  y: [0, 15, 0],
-                  rotate: [2, -2, 2],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{ willChange: "transform" }}
+                animate={secondaryCardAnimate}
+                transition={secondaryCardTransition}
+                style={transformStyle}
                 className="absolute bottom-0 left-0 w-64 h-80 bg-gradient-to-br from-pink-600/20 to-purple-800/20 backdrop-blur-xl rounded-3xl border border-pink-500/30 p-6 shadow-2xl"
               >
                 <div className="w-10 h-10 bg-pink-500/30 rounded-lg flex items-center justify-center mb-4">
