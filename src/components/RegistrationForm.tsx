@@ -11,6 +11,8 @@ import { ElectricBorder } from "./ElectricBorder";
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const transformOpacityHardwareAcceleration = { willChange: "transform, opacity" } as const;
+
 const headerVariants = {
   hidden: { opacity: 0, y: -20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -321,7 +323,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
         initial="hidden"
         animate="visible"
         variants={headerVariants}
-        style={{ willChange: "transform, opacity" }}
+        style={transformOpacityHardwareAcceleration}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4">

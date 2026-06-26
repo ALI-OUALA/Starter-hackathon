@@ -75,7 +75,7 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
         initial="hidden"
         animate="visible"
         variants={fadeInDown}
-        style={{ willChange: "transform, opacity" }}
+        style={hardwareAccelerationStyle}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -559,7 +559,7 @@ const CTASection = memo(function CTASection({ onRegisterClick }: { onRegisterCli
           whileInView="visible"
           variants={ctaVariants}
           viewport={{ once: true }}
-          style={{ willChange: "transform, opacity" }}
+          style={hardwareAccelerationStyle}
         >
           <ElectricBorder color="#8b5cf6">
             <div className="bg-gradient-to-br from-purple-900/60 to-purple-800/40 backdrop-blur-xl p-12 rounded-2xl text-center">
