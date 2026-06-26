@@ -22,20 +22,20 @@ const heroItemVariants = {
 } as const;
 
 // ⚡ Bolt Optimization: Extracted static animation objects to prevent reallocation on every render.
-const floatingElement1Animate = { y: [0, -20, 0], rotate: [0, 5, 0] };
+const floatingElement1Animate = { y: [0, -20, 0], rotate: [0, 5, 0] } as const;
 const floatingElement1Transition = { duration: 6, repeat: Infinity, ease: "easeInOut" } as const;
 
-const floatingElement2Animate = { y: [0, 20, 0], rotate: [0, -5, 0] };
+const floatingElement2Animate = { y: [0, 20, 0], rotate: [0, -5, 0] } as const;
 const floatingElement2Transition = { duration: 7, repeat: Infinity, ease: "easeInOut" } as const;
 
 const rightSideInitial = { opacity: 0, x: 30 } as const;
 const rightSideAnimate = { opacity: 1, x: 0 } as const;
 const rightSideTransition = { duration: 0.8, delay: 0.4 } as const;
 
-const mainCardAnimate = { y: [0, -15, 0], rotate: [-2, 2, -2] };
+const mainCardAnimate = { y: [0, -15, 0], rotate: [-2, 2, -2] } as const;
 const mainCardTransition = { duration: 6, repeat: Infinity, ease: "easeInOut" } as const;
 
-const secondaryCardAnimate = { y: [0, 15, 0], rotate: [2, -2, 2] };
+const secondaryCardAnimate = { y: [0, 15, 0], rotate: [2, -2, 2] } as const;
 const secondaryCardTransition = { duration: 5, repeat: Infinity, ease: "easeInOut" } as const;
 
 const transformStyle = { willChange: "transform" } as const;
