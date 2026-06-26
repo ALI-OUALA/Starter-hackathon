@@ -98,3 +98,7 @@
 ## 2025-06-14 - Extracting Inline Objects in Loops
 **Learning:** In React components utilizing Framer Motion, defining inline objects like `style={{ willChange: "transform" }}` inside `.map()` loops or inline `initial`/`whileInView` animation objects on structural wrappers causes React to create a new object reference on every render. Even though these variants are static, this increases GC pressure and breaks pure component shallow comparisons. Grouping these across the codebase amplifies the problem.
 **Action:** Always extract static `style` and animation objects into module-level constants (e.g., `transformHardwareAcceleration`, `headerVariants`) outside the component to ensure referential equality across renders, avoiding garbage collection churn and unnecessary vDOM diffing overhead.
+
+## 2024-06-15 - Extracting Inline Objects in Render Methods
+**Learning:** In React components utilizing Framer Motion, defining inline objects like `animate={{ y: [0, -20, 0] }}` directly within component render functions causes React to create a new object reference on every render. For components like `Hero` or `AnimatedBlob` with continuous animations, this causes unnecessary garbage collection churn and potentially unnecessary re-renders.
+**Action:** Always extract static animation state objects (e.g., `animate`, `initial`, `transition`, `whileInView`, `whileHover`) and style objects into module-level constants to ensure referential equality across renders, avoiding garbage collection churn and unnecessary vDOM diffing overhead.
