@@ -8,7 +8,7 @@ const blobAnimate = {
   scaleX: [1, 1.15, 1],
   scaleY: [1, 0.85, 1],
   rotate: [0, 15, 0],
-};
+} as const;
 
 const blobTransition = {
   duration: 8,
