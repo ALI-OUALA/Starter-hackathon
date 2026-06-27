@@ -91,12 +91,14 @@ const featureInfoVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.8 } }
 } as const;
 
+const viewportOnceAmount = { once: true, amount: 0.2 } as const;
+
 export function Features() {
   return (
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceAmount}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative"
     >

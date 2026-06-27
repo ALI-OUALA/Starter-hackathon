@@ -12,6 +12,22 @@ const socialLinks = [
 // ⚡ Bolt Optimization: Extracted inline animation objects to prevent re-allocation on every render inside the mapped array.
 const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
 const socialLinkTapState = { scale: 0.95 } as const;
+const viewportOnce = { once: true } as const;
+
+const brandVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const contactVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } }
+};
+
+const bottomSectionVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, delay: 0.3 } }
+};
 
 export function Footer() {
   return (
@@ -23,10 +39,10 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            initial="hidden"
+            whileInView="visible"
+            variants={brandVariants}
+            viewport={viewportOnce}
           >
             <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-purple-300 to-pink-400 bg-clip-text text-transparent mb-4">
               STARTER
@@ -43,10 +59,10 @@ export function Footer() {
 
           {/* Contact & Social */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
+            initial="hidden"
+            whileInView="visible"
+            variants={contactVariants}
+            viewport={viewportOnce}
           >
             <h4 className="text-purple-200 font-bold mb-4">Connect With Us</h4>
             <div className="flex gap-3 mb-6">
@@ -82,10 +98,10 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          variants={bottomSectionVariants}
+          viewport={viewportOnce}
           className="pt-8 border-t border-purple-500/20"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
