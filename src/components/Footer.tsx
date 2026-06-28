@@ -13,6 +13,18 @@ const socialLinks = [
 const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
 const socialLinkTapState = { scale: 0.95 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline style and motion objects to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const footerItemInitial = { opacity: 0, y: 20 } as const;
+const footerItemWhileInView = { opacity: 1, y: 0 } as const;
+const footerItemTransition = { duration: 0.6 } as const;
+const footerContactTransition = { duration: 0.6, delay: 0.1 } as const;
+const footerBottomInitial = { opacity: 0 } as const;
+const footerBottomWhileInView = { opacity: 1 } as const;
+const footerBottomTransition = { duration: 0.6, delay: 0.3 } as const;
+const footerLinkStyle = { willChange: "transform" } as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -23,9 +35,9 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={footerItemInitial}
+            whileInView={footerItemWhileInView}
+            transition={footerItemTransition}
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-purple-300 to-pink-400 bg-clip-text text-transparent mb-4">
@@ -43,16 +55,16 @@ export function Footer() {
 
           {/* Contact & Social */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial={footerItemInitial}
+            whileInView={footerItemWhileInView}
+            transition={footerContactTransition}
             viewport={{ once: true }}
           >
             <h4 className="text-purple-200 font-bold mb-4">Connect With Us</h4>
             <div className="flex gap-3 mb-6">
               {socialLinks.map((link) => (
                 // ⚡ Bolt Optimization:
-                // Added `style={{ willChange: "transform" }}` to elements with interactive
+                // Added `style={footerLinkStyle}` to elements with interactive
                 // transform animations (whileHover/whileTap) that also use expensive CSS filters
                 // like `backdrop-blur`. This ensures the browser composites the element on the
                 // GPU, preventing main-thread paint thrashing during interactions.
@@ -64,7 +76,7 @@ export function Footer() {
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   whileHover={socialLinkHoverState}
                   whileTap={socialLinkTapState}
-                  style={{ willChange: "transform" }}
+                  style={footerLinkStyle}
                   className="w-11 h-11 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 border border-purple-500/20 hover:border-purple-400/40 transition-all group"
                 >
                   <link.icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
@@ -82,9 +94,9 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={footerBottomInitial}
+          whileInView={footerBottomWhileInView}
+          transition={footerBottomTransition}
           viewport={{ once: true }}
           className="pt-8 border-t border-purple-500/20"
         >
