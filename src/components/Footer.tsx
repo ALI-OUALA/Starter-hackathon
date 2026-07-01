@@ -13,6 +13,24 @@ const socialLinks = [
 const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
 const socialLinkTapState = { scale: 0.95 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
+// This prevents React from creating new object references on every render,
+// reducing garbage collection churn and unnecessary vDOM diffing overhead.
+const footerBrandVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+} as const;
+
+const footerContactVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.1 } }
+} as const;
+
+const footerBottomVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, delay: 0.3 } }
+} as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -23,9 +41,9 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial="hidden"
+            whileInView="visible"
+            variants={footerBrandVariants}
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-purple-300 to-pink-400 bg-clip-text text-transparent mb-4">
@@ -43,9 +61,9 @@ export function Footer() {
 
           {/* Contact & Social */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            initial="hidden"
+            whileInView="visible"
+            variants={footerContactVariants}
             viewport={{ once: true }}
           >
             <h4 className="text-purple-200 font-bold mb-4">Connect With Us</h4>
@@ -82,9 +100,9 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial="hidden"
+          whileInView="visible"
+          variants={footerBottomVariants}
           viewport={{ once: true }}
           className="pt-8 border-t border-purple-500/20"
         >
