@@ -13,6 +13,19 @@ const socialLinks = [
 const socialLinkHoverState = { scale: 1.1, rotate: 5 } as const;
 const socialLinkTapState = { scale: 0.95 } as const;
 
+// ⚡ Bolt Optimization: Extracted static animation and configuration objects to module-level constants.
+// This prevents React from reallocating these objects on every render cycle, reducing garbage collection churn.
+const fadeInUpInitial = { opacity: 0, y: 20 } as const;
+const fadeInUpAnimate = { opacity: 1, y: 0 } as const;
+const fadeInInitial = { opacity: 0 } as const;
+const fadeInAnimate = { opacity: 1 } as const;
+
+const brandTransition = { duration: 0.6 } as const;
+const contactTransition = { duration: 0.6, delay: 0.1 } as const;
+const bottomTransition = { duration: 0.6, delay: 0.3 } as const;
+
+const viewportOnce = { once: true } as const;
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
@@ -23,10 +36,10 @@ export function Footer() {
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           {/* Brand section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            initial={fadeInUpInitial}
+            whileInView={fadeInUpAnimate}
+            transition={brandTransition}
+            viewport={viewportOnce}
           >
             <h3 className="text-3xl font-black bg-gradient-to-r from-purple-400 via-purple-300 to-pink-400 bg-clip-text text-transparent mb-4">
               STARTER
@@ -43,10 +56,10 @@ export function Footer() {
 
           {/* Contact & Social */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
+            initial={fadeInUpInitial}
+            whileInView={fadeInUpAnimate}
+            transition={contactTransition}
+            viewport={viewportOnce}
           >
             <h4 className="text-purple-200 font-bold mb-4">Connect With Us</h4>
             <div className="flex gap-3 mb-6">
@@ -82,10 +95,10 @@ export function Footer() {
 
         {/* Bottom section */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
+          initial={fadeInInitial}
+          whileInView={fadeInAnimate}
+          transition={bottomTransition}
+          viewport={viewportOnce}
           className="pt-8 border-t border-purple-500/20"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">

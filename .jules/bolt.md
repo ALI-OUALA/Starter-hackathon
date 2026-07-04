@@ -102,3 +102,7 @@
 ## 2024-06-15 - Extracting Inline Objects in Render Methods
 **Learning:** In React components utilizing Framer Motion, defining inline objects like `animate={{ y: [0, -20, 0] }}` directly within component render functions causes React to create a new object reference on every render. For components like `Hero` or `AnimatedBlob` with continuous animations, this causes unnecessary garbage collection churn and potentially unnecessary re-renders.
 **Action:** Always extract static animation state objects (e.g., `animate`, `initial`, `transition`, `whileInView`, `whileHover`) and style objects into module-level constants to ensure referential equality across renders, avoiding garbage collection churn and unnecessary vDOM diffing overhead.
+
+## 2024-06-16 - Extracting Animation Objects in Footer Component
+**Learning:** Even in relatively simple components like a `Footer`, defining inline object literals for `framer-motion` properties (like `initial`, `whileInView`, and `transition`) inside the render loop causes React to allocate new objects on every render cycle. While the component itself might not re-render often, doing this consistently across the codebase adds up, increasing garbage collection churn and negating React's shallow equality optimizations.
+**Action:** Always extract static animation objects into module-scoped constants, taking care to extract not just the values, but also properties like `transition` and `viewport` to keep component implementations clean and allocation-free.
