@@ -40,6 +40,7 @@ const detailCardHoverState = { scale: 1.03, x: 10, transition: { duration: 0.2 }
 const iconHoverState = { rotate: [0, -10, 10, -10, 0], scale: 1.1 } as const;
 const arrowHoverState = { x: 5 } as const;
 const hardwareAccelerationStyle = { willChange: "transform" } as const;
+const iconTransition = { duration: 0.5 } as const;
 
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render,
@@ -199,8 +200,8 @@ export function About({ onCalendarClick }: AboutProps) {
                     {/* Icon */}
                     <motion.div 
                       whileHover={iconHoverState}
-                      transition={{ duration: 0.5 }}
-                      style={{ willChange: "transform" }}
+                      transition={iconTransition}
+                      style={hardwareAccelerationStyle}
                       className="relative w-16 h-16 bg-gradient-to-br from-purple-600/30 to-purple-800/30 rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/30 group-hover:border-purple-400/60 group-hover:shadow-lg group-hover:shadow-purple-500/50 transition-all duration-300"
                     >
                       <detail.icon className="w-7 h-7 text-purple-300 group-hover:text-purple-200 transition-colors relative z-10" />
@@ -223,7 +224,7 @@ export function About({ onCalendarClick }: AboutProps) {
                       <motion.div 
                         className="w-8 h-8 rounded-full bg-purple-600/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                         whileHover={arrowHoverState}
-                        style={{ willChange: "transform" }}
+                        style={hardwareAccelerationStyle}
                       >
                         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

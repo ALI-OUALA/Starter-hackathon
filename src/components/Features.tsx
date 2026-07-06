@@ -57,6 +57,8 @@ const featureIconHoverState = {
   scale: 1.1
 };
 
+const featureIconTransition = { duration: 0.6 } as const;
+
 // ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
 // This prevents React from creating a new object reference on every render for each mapped item,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
@@ -140,7 +142,7 @@ export function Features() {
                   <div className="flex items-start gap-6 mb-6">
                     <motion.div 
                       whileHover={featureIconHoverState}
-                      transition={{ duration: 0.6 }}
+                      transition={featureIconTransition}
                       style={transformHardwareAcceleration}
                       className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center flex-shrink-0 border ${feature.borderColor} group-hover:shadow-lg transition-all duration-300`}
                     >
