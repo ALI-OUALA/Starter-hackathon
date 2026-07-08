@@ -25,6 +25,7 @@ const contactTransition = { duration: 0.6, delay: 0.1 } as const;
 const bottomTransition = { duration: 0.6, delay: 0.3 } as const;
 
 const viewportOnce = { once: true } as const;
+const transformHardwareAcceleration = { willChange: "transform" } as const;
 
 export function Footer() {
   return (
@@ -77,7 +78,7 @@ export function Footer() {
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   whileHover={socialLinkHoverState}
                   whileTap={socialLinkTapState}
-                  style={{ willChange: "transform" }}
+                  style={transformHardwareAcceleration}
                   className="w-11 h-11 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 border border-purple-500/20 hover:border-purple-400/40 transition-all group"
                 >
                   <link.icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
