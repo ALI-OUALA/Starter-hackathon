@@ -54,6 +54,8 @@ const aboutCardVariants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 } as const;
+const viewportConfigOnce = { once: true, amount: 0.2 } as const;
+
 
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
@@ -106,7 +108,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportConfigOnce}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
