@@ -7,6 +7,10 @@ import { ElectricBorder } from "./ElectricBorder";
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
 const transformHardwareAcceleration = { willChange: "transform" } as const;
 
+// ⚡ Bolt Optimization: Extracted inline viewport object to a module-level constant.
+// This prevents React from creating a new object reference on every render.
+const VIEWPORT_ONCE_AMOUNT = { once: true, amount: 0.2 } as const;
+
 // ⚡ Bolt Optimization: Extracted inline array to a module-level constant.
 const FEATURE_COLORS = ["#8b5cf6", "#ec4899", "#f59e0b", "#06b6d4"];
 
@@ -98,7 +102,7 @@ export function Features() {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={VIEWPORT_ONCE_AMOUNT}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative"
     >
