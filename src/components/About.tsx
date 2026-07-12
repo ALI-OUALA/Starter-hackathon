@@ -7,6 +7,10 @@ interface AboutProps {
   onCalendarClick: () => void;
 }
 
+// ⚡ Bolt Optimization: Extracted inline viewport object to a module-level constant.
+// This prevents React from creating a new object reference on every render.
+const VIEWPORT_ONCE_AMOUNT = { once: true, amount: 0.2 } as const;
+
 // ⚡ Bolt Optimization: Moved static stats array outside component to prevent recreation on every render
 const stats = [
   { icon: Users, number: "500+", label: "Participants" },
@@ -106,7 +110,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={VIEWPORT_ONCE_AMOUNT}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
