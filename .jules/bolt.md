@@ -106,3 +106,6 @@
 ## 2024-06-16 - Extracting Animation Objects in Footer Component
 **Learning:** Even in relatively simple components like a `Footer`, defining inline object literals for `framer-motion` properties (like `initial`, `whileInView`, and `transition`) inside the render loop causes React to allocate new objects on every render cycle. While the component itself might not re-render often, doing this consistently across the codebase adds up, increasing garbage collection churn and negating React's shallow equality optimizations.
 **Action:** Always extract static animation objects into module-scoped constants, taking care to extract not just the values, but also properties like `transition` and `viewport` to keep component implementations clean and allocation-free.
+## 2025-06-17 - React Component Memoization Without Props
+**Learning:** Wrapping static, prop-less layout sub-components (such as `ScheduleTimeline` extracted from `EventCalendar`) in `React.memo()` successfully prevents unnecessary React VDOM diffing and re-rendering when the parent state changes (such as the main `currentView` in `App.tsx` or any internal state that might be added to the parent later).
+**Action:** Always identify and wrap large, static, prop-less sub-components defined within page-level files with `React.memo()` to isolate render cycles.
