@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { 
   ArrowLeft, 
@@ -247,7 +248,9 @@ interface EventCalendarProps {
   onRegisterClick: () => void;
 }
 
-function ScheduleTimeline() {
+// ⚡ Bolt Optimization:
+// Wrapped static layout section in React.memo() to prevent unnecessary re-renders.
+const ScheduleTimeline = memo(function ScheduleTimeline() {
   return (
     <motion.section
       initial="hidden"
@@ -326,7 +329,7 @@ function ScheduleTimeline() {
       </div>
     </motion.section>
   );
-}
+});
 
 export function EventCalendar({ onBack, onRegisterClick }: EventCalendarProps) {
   return (
