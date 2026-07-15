@@ -55,6 +55,11 @@ const aboutCardVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 } as const;
 
+// ⚡ Bolt Optimization: Extracted inline viewport configuration object to a module-level constant.
+// This prevents React from creating a new object reference on every render,
+// reducing garbage collection churn.
+const viewportOnceAmount = { once: true, amount: 0.2 } as const;
+
 export function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
@@ -106,7 +111,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceAmount}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
