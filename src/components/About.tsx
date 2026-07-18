@@ -7,6 +7,7 @@ interface AboutProps {
   onCalendarClick: () => void;
 }
 
+const viewportConfig = { once: true, amount: 0.2 } as const;
 // ⚡ Bolt Optimization: Moved static stats array outside component to prevent recreation on every render
 const stats = [
   { icon: Users, number: "500+", label: "Participants" },
@@ -106,7 +107,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportConfig}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
