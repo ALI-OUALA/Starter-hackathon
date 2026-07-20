@@ -3,6 +3,10 @@ import { useCallback, useMemo, type KeyboardEvent } from "react";
 import { Calendar, MapPin, Clock, Award, Users, Target } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
+// ⚡ Bolt Optimization: Extracted inline viewport configurations to module-level constants
+// to prevent reallocation on every render and reduce garbage collection churn.
+const viewportConfig = { once: true, amount: 0.2 } as const;
+
 interface AboutProps {
   onCalendarClick: () => void;
 }
@@ -106,7 +110,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportConfig}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
