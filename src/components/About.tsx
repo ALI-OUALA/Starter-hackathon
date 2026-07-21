@@ -17,6 +17,10 @@ const stats = [
 // ⚡ Bolt Optimization: Extracted inline animation variants to a module-level constant.
 // This prevents React from creating a new object reference on every render for each mapped item,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
+// ⚡ Bolt Optimization: Extracted inline viewport objects to module-level constants.
+// This prevents object reallocation on every render.
+const defaultViewport = { once: true, amount: 0.2 } as const;
+
 const staggerContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -106,7 +110,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={defaultViewport}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
