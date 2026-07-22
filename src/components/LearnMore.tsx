@@ -44,6 +44,9 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 } as const;
 
+const viewportOnceAmount = { once: true, amount: 0.2 } as const;
+const viewportOnce = { once: true } as const;
+
 const fadeInUpDelayed = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } }
@@ -75,7 +78,7 @@ export function LearnMore({ onBack, onRegisterClick }: LearnMoreProps) {
         initial="hidden"
         animate="visible"
         variants={fadeInDown}
-        style={{ willChange: "transform, opacity" }}
+        style={hardwareAccelerationStyle}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -186,7 +189,7 @@ const ScheduleSection = memo(function ScheduleSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -207,7 +210,7 @@ const ScheduleSection = memo(function ScheduleSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={staggerVariants200}
           className="grid md:grid-cols-3 gap-8"
         >
@@ -318,7 +321,7 @@ const PrizesSection = memo(function PrizesSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -342,7 +345,7 @@ const PrizesSection = memo(function PrizesSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
@@ -417,7 +420,7 @@ const TracksSection = memo(function TracksSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -441,7 +444,7 @@ const TracksSection = memo(function TracksSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
@@ -453,7 +456,7 @@ const TracksSection = memo(function TracksSection() {
               style={hardwareAccelerationStyle}
               className="bg-gradient-to-br from-purple-950/50 to-purple-900/30 backdrop-blur-xl p-6 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all"
             >
-              <div className="w-2 h-16 rounded-full mb-4" style={{ background: track.color }} />
+              <div className="w-2 h-16 rounded-full mb-4" style={{ background: track.color }} /* dynamic style, no extraction needed */ />
               <h3 className="text-xl font-bold text-purple-100 mb-2">{track.title}</h3>
               <p className="text-purple-300/70">{track.description}</p>
             </motion.div>
@@ -500,7 +503,7 @@ const FAQSection = memo(function FAQSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -517,7 +520,7 @@ const FAQSection = memo(function FAQSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportOnceAmount}
           variants={staggerVariants100}
           className="space-y-4"
         >
@@ -558,8 +561,8 @@ const CTASection = memo(function CTASection({ onRegisterClick }: { onRegisterCli
           initial="hidden"
           whileInView="visible"
           variants={ctaVariants}
-          viewport={{ once: true }}
-          style={{ willChange: "transform, opacity" }}
+          viewport={viewportOnce}
+          style={hardwareAccelerationStyle}
         >
           <ElectricBorder color="#8b5cf6">
             <div className="bg-gradient-to-br from-purple-900/60 to-purple-800/40 backdrop-blur-xl p-12 rounded-2xl text-center">
