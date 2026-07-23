@@ -3,6 +3,8 @@ import { useCallback, useMemo, type KeyboardEvent } from "react";
 import { Calendar, MapPin, Clock, Award, Users, Target } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
+const viewportOnceAmount = { once: true, amount: 0.2 } as const;
+
 interface AboutProps {
   onCalendarClick: () => void;
 }
@@ -106,7 +108,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceAmount}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
