@@ -24,6 +24,9 @@ interface LearnMoreProps {
 // ⚡ Bolt Optimization: Extracted inline style object to a module-level constant.
 // This ensures referential equality across renders, reducing garbage collection churn
 // and preventing unnecessary re-renders of components using this style.
+const viewportConfig = { once: true, amount: 0.2 } as const;
+const viewportOnce = { once: true } as const;
+
 const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
 
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
@@ -186,7 +189,7 @@ const ScheduleSection = memo(function ScheduleSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -207,7 +210,7 @@ const ScheduleSection = memo(function ScheduleSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={staggerVariants200}
           className="grid md:grid-cols-3 gap-8"
         >
@@ -318,7 +321,7 @@ const PrizesSection = memo(function PrizesSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -342,7 +345,7 @@ const PrizesSection = memo(function PrizesSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
@@ -417,7 +420,7 @@ const TracksSection = memo(function TracksSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -441,7 +444,7 @@ const TracksSection = memo(function TracksSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={staggerVariants100}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
@@ -500,7 +503,7 @@ const FAQSection = memo(function FAQSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={sectionHeaderVariants}
           style={hardwareAccelerationStyle}
           className="text-center mb-16"
@@ -517,7 +520,7 @@ const FAQSection = memo(function FAQSection() {
           // that occur when tracking many independent elements entering the viewport.
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={viewportConfig}
           variants={staggerVariants100}
           className="space-y-4"
         >
@@ -558,7 +561,7 @@ const CTASection = memo(function CTASection({ onRegisterClick }: { onRegisterCli
           initial="hidden"
           whileInView="visible"
           variants={ctaVariants}
-          viewport={{ once: true }}
+          viewport={viewportOnce}
           style={{ willChange: "transform, opacity" }}
         >
           <ElectricBorder color="#8b5cf6">
