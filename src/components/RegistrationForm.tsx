@@ -67,6 +67,8 @@ const TRACK_OPTIONS = [
   { value: "open", label: "Open Innovation" },
 ];
 
+const hardwareAccelerationStyle = { willChange: "transform, opacity" } as const;
+
 const TEAM_SIZE_OPTIONS = [
   { value: "solo", label: "Solo (Just me)" },
   { value: "has-team", label: "I have a team" },
@@ -321,7 +323,7 @@ export function RegistrationForm({ onBack }: RegistrationFormProps) {
         initial="hidden"
         animate="visible"
         variants={headerVariants}
-        style={{ willChange: "transform, opacity" }}
+        style={hardwareAccelerationStyle}
         className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-purple-500/20"
       >
         <div className="max-w-7xl mx-auto px-4 py-4">
