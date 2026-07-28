@@ -106,3 +106,7 @@
 ## 2024-06-16 - Extracting Animation Objects in Footer Component
 **Learning:** Even in relatively simple components like a `Footer`, defining inline object literals for `framer-motion` properties (like `initial`, `whileInView`, and `transition`) inside the render loop causes React to allocate new objects on every render cycle. While the component itself might not re-render often, doing this consistently across the codebase adds up, increasing garbage collection churn and negating React's shallow equality optimizations.
 **Action:** Always extract static animation objects into module-scoped constants, taking care to extract not just the values, but also properties like `transition` and `viewport` to keep component implementations clean and allocation-free.
+
+## 2024-06-17 - Inline viewport configs on mapped elements
+**Learning:** In components using Framer Motion (like LearnMore, Features, and About), using inline object configurations for the `viewport` prop (e.g., `viewport={{ once: true, amount: 0.2 }}`) directly on `motion.div` elements, especially inside map iterations or repeated elements, forces React to reallocate new objects on every render.
+**Action:** Extract these repeated `viewport` configurations into module-level constants (e.g., `const viewportConfig = { once: true, amount: 0.2 } as const`) to ensure referential equality, reducing memory usage and garbage collection churn.
