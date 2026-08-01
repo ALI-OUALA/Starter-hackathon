@@ -9,6 +9,7 @@ const transformHardwareAcceleration = { willChange: "transform" } as const;
 
 // ⚡ Bolt Optimization: Extracted inline array to a module-level constant.
 const FEATURE_COLORS = ["#8b5cf6", "#ec4899", "#f59e0b", "#06b6d4"];
+const viewportOnceAmount20 = { once: true, amount: 0.2 } as const;
 
 const features = [
   {
@@ -98,7 +99,7 @@ export function Features() {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceAmount20}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative"
     >
