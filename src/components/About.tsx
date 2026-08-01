@@ -41,6 +41,7 @@ const iconHoverState = { rotate: [0, -10, 10, -10, 0], scale: 1.1 } as const;
 const arrowHoverState = { x: 5 } as const;
 const hardwareAccelerationStyle = { willChange: "transform" } as const;
 const iconTransition = { duration: 0.5 } as const;
+const viewportOnceAmount20 = { once: true, amount: 0.2 } as const;
 
 // ⚡ Bolt Optimization: Extracted inline animation variants to module-level constants.
 // This prevents React from creating new object references on every render,
@@ -106,7 +107,7 @@ export function About({ onCalendarClick }: AboutProps) {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceAmount20}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative overflow-hidden"
     >
