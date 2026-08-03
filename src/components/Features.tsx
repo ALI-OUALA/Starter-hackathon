@@ -2,6 +2,10 @@ import { motion } from "motion/react";
 import { Code, Users, Trophy, Zap, Sparkles, Rocket } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
+// ⚡ Bolt Optimization: Extracted inline viewport objects to module-level constants.
+// This ensures referential equality across renders and avoids garbage collection churn.
+const VIEWPORT_CONFIG = { once: true, amount: 0.2 } as const;
+
 // ⚡ Bolt Optimization: Extracted inline styles to module-level constants.
 // This prevents React from creating new object references on every render,
 // reducing garbage collection churn and unnecessary vDOM diffing overhead.
@@ -98,7 +102,7 @@ export function Features() {
     <motion.section
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={VIEWPORT_CONFIG}
       variants={staggerContainerVariants}
       className="py-32 px-4 relative"
     >
