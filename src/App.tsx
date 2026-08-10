@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense, useEffect } from "react";
+import { useState, lazy, Suspense, useEffect, useCallback } from "react";
 import { Hero } from "./components/Hero";
 import { Features } from "./components/Features";
 import { About } from "./components/About";
@@ -34,25 +34,30 @@ export default function App() {
     }
   }, []);
 
-  const handleRegisterClick = () => {
+  // ⚡ Bolt Optimization: Wrapped navigation handlers in useCallback to provide stable references.
+  // This ensures that when passing these handlers as props to memoized child components
+  // (like Hero, About), the child components won't unnecessarily re-render if the App component
+  // re-renders for other reasons. The dependency arrays are empty because they only rely on the stable
+  // state setter `setCurrentView` and the global `window` object.
+  const handleRegisterClick = useCallback(() => {
     setCurrentView("register");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const handleLearnMoreClick = () => {
+  const handleLearnMoreClick = useCallback(() => {
     setCurrentView("learn-more");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const handleCalendarClick = () => {
+  const handleCalendarClick = useCallback(() => {
     setCurrentView("calendar");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
-  const handleBackToHome = () => {
+  const handleBackToHome = useCallback(() => {
     setCurrentView("home");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground relative overflow-x-hidden">

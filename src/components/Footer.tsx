@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { Github, Twitter, Linkedin, Mail, Heart } from "lucide-react";
 
@@ -27,7 +28,9 @@ const bottomTransition = { duration: 0.6, delay: 0.3 } as const;
 const viewportOnce = { once: true } as const;
 const transformHardwareAcceleration = { willChange: "transform" } as const;
 
-export function Footer() {
+// ⚡ Bolt Optimization: Wrapped the component in React.memo to prevent unnecessary re-renders
+// when parent component (App) updates state.
+export const Footer = memo(function Footer() {
   return (
     <footer className="relative py-16 px-4 mt-20">
       {/* Decorative top border */}
@@ -119,4 +122,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+});
