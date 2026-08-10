@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
 import { ArrowRight, Sparkles, Code, Zap } from "lucide-react";
@@ -46,7 +47,9 @@ interface HeroProps {
   onLearnMoreClick: () => void;
 }
 
-export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
+// ⚡ Bolt Optimization: Wrapped the component in React.memo to prevent unnecessary re-renders
+// when parent component (App) updates state. Since it relies on stable props, it avoids vDOM diffing.
+export const Hero = memo(function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
       {/* Floating decorative elements */}
@@ -200,4 +203,4 @@ export function Hero({ onRegisterClick, onLearnMoreClick }: HeroProps) {
       </div>
     </section>
   );
-}
+});

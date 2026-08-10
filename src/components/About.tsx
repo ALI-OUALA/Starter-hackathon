@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useCallback, useMemo, type KeyboardEvent } from "react";
+import { useCallback, useMemo, memo, type KeyboardEvent } from "react";
 import { Calendar, MapPin, Clock, Award, Users, Target } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
 
@@ -59,7 +59,9 @@ const aboutCardVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 } as const;
 
-export function About({ onCalendarClick }: AboutProps) {
+// ⚡ Bolt Optimization: Wrapped the component in React.memo to prevent unnecessary re-renders
+// when parent component (App) updates state. Since it relies on stable props, it avoids vDOM diffing.
+export const About = memo(function About({ onCalendarClick }: AboutProps) {
   const handleCalendarOpen = useCallback(() => {
     onCalendarClick();
   }, [onCalendarClick]);
@@ -258,4 +260,4 @@ export function About({ onCalendarClick }: AboutProps) {
       </div>
     </motion.section>
   );
-}
+});
