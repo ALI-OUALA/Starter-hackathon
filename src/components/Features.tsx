@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "motion/react";
 import { Code, Users, Trophy, Zap, Sparkles, Rocket } from "lucide-react";
 import { ElectricBorder } from "./ElectricBorder";
@@ -97,7 +98,9 @@ const featureInfoVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.8 } }
 } as const;
 
-export function Features() {
+// ⚡ Bolt Optimization: Wrapped the component in React.memo to prevent unnecessary re-renders
+// when parent component (App) updates state, saving processing time on large component trees.
+export const Features = memo(function Features() {
   return (
     <motion.section
       initial="hidden"
@@ -189,4 +192,4 @@ export function Features() {
       </div>
     </motion.section>
   );
-}
+});
