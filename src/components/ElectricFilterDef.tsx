@@ -2,13 +2,16 @@ import { memo } from "react";
 
 export const ELECTRIC_FILTER_ID = "shared-electric-filter";
 
+// ⚡ Bolt Optimization: Extracted inline style object to prevent reallocation on every render.
+const filterSvgStyle = { position: "fixed", pointerEvents: "none" } as const;
+
 // ⚡ Bolt Optimization:
 // Reduced numOctaves from 10 to 3 to significantly improve rendering performance.
 // Deduplicated redundant feTurbulence elements (reusing noise1/noise2 for multiple offsets).
 // This reduces SVG filter complexity by ~70% while maintaining visual fidelity.
 export const ElectricFilterDef = memo(function ElectricFilterDef() {
   return (
-    <svg className="w-0 h-0" style={{ position: "fixed", pointerEvents: "none" }}>
+    <svg className="w-0 h-0" style={filterSvgStyle}>
       <defs>
         <filter
           id={ELECTRIC_FILTER_ID}
