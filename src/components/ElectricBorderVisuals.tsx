@@ -1,6 +1,13 @@
 import { memo } from "react";
 import { ELECTRIC_FILTER_ID } from "./ElectricFilterDef";
 
+// ⚡ Bolt Optimization: Extracted duplicate inline style objects to prevent reallocation on every render.
+const overlayStyle = {
+  transform: 'scale(1.1)',
+  filter: 'blur(16px)',
+  background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
+} as const;
+
 interface ElectricBorderVisualsProps {
   color: string;
   variant: "default" | "minimal";
@@ -53,19 +60,11 @@ export const ElectricBorderVisuals = memo(function ElectricBorderVisuals({
           {/* Overlay effects */}
           <div
             className="absolute inset-0 rounded-2xl opacity-100 mix-blend-overlay pointer-events-none"
-            style={{
-              transform: 'scale(1.1)',
-              filter: 'blur(16px)',
-              background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
-            }}
+            style={overlayStyle}
           />
           <div
             className="absolute inset-0 rounded-2xl opacity-50 mix-blend-overlay pointer-events-none"
-            style={{
-              transform: 'scale(1.1)',
-              filter: 'blur(16px)',
-              background: 'linear-gradient(-30deg, white, transparent 30%, transparent 70%, white)',
-            }}
+            style={overlayStyle}
           />
 
           {/* Background glow */}
